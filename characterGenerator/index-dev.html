@@ -24,10 +24,11 @@
             <h5>Class</h5>
             <select id="character_class_select">
                 <option value="Fighter" selected>Fighter</option>
-                <option value="Mage">Mage</option>
+                <option value="Magic-User">Magic-User</option>
                 <option value="Thief">Thief</option>
                 <option value="Cleric">Cleric</option>
-                <option value="FighterMage" disabled>FighterMage</option>
+                <option value="Fighter/Magic-User">Fighter/Magic-User</option>
+                <option value="Magic-User/Thief">Magic-User/Thief</option>
             </select>
         </div>
         <div class="large-4 medium-4 cell">
@@ -183,8 +184,6 @@
         </div>
         <fieldset class="large-12 medium-12 cell">
             <input type="button" class="button" id="roll_ability_scores" value="Roll Scores" />
-
-            <input type="checkbox" id="switch_primary" style="margin-left: 15px" onclick="toggleSwitchPrimary()"><label for="switch_primary">Switch highest score with Primary attribute.</label>
         </fieldset>
     </div>
 </div>
@@ -324,10 +323,6 @@
                 <tr>
                     <td><strong>Hide:</strong></td>
                     <td><span id="hide">0</span></td>
-                </tr>
-                <tr>
-                    <td><strong>Spectre:</strong></td>
-                    <td><span id="spectre">0</span></td>
                 </tr>
                 <tr>
                     <td><strong>Listen:</strong></td>
