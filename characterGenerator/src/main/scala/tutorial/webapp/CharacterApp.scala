@@ -13,20 +13,11 @@ object CharacterApp {
   }
 
   def setupUI(): Unit = {
-    appendPar(document.body, "Basic Fantasy Character Generator")
 
-//    val name = document.createElement("input")
-//    name.setAttribute("id", "nameTextBox")
-//    name.setAttribute("type", "text")
-//    name.setAttribute("placeholder", "character name")
-//    document.body.appendChild(name)
-
-    val rollButton = document.createElement("button")
-    rollButton.textContent = "roll"
+    val rollButton = document.getElementById("roll_ability_scores").asInstanceOf[html.Button]
     rollButton.addEventListener("click", { (e: dom.MouseEvent) =>
-      addClickedMessage()
+      addRollScores()
     })
-    document.body.appendChild(rollButton)
 
   }
 
@@ -36,11 +27,10 @@ object CharacterApp {
     targetNode.appendChild(parNode)
   }
 
-  @JSExportTopLevel("addClickedMessage")
-  def addClickedMessage(): Unit = {
-    val nameTextBox = document.getElementById("nameTextBox").asInstanceOf[html.Input]
-    val nameText: String  = nameTextBox.value
+  @JSExportTopLevel("addRollHandler")
+  def addRollScores(): Unit = {
+    val str_select = document.getElementById("character_strength_select").asInstanceOf[html.Select]
+    str_select.selectedIndex = 0
 
-    appendPar(document.body, s"name text box: $nameText")
   }
 }
