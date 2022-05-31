@@ -1,6 +1,7 @@
 package fantasy.webapp
 
-import fantasy.Roller.getSixScores
+import fantasy.utilities.Roller.getSixScores
+import fantasy.utilities.BasicFantasy.calcBaseAttackModifier
 import org.scalajs.dom
 import org.scalajs.dom.{document, html}
 
@@ -21,13 +22,29 @@ object CharacterApp {
   val wis_select = document.getElementById("character_wisdom_select").asInstanceOf[html.Select]
   val chr_select = document.getElementById("character_charisma_select").asInstanceOf[html.Select]
 
-  val character_select =  document.getElementById("character_class_select").asInstanceOf[html.Select]
+  val character_class_select = document.getElementById("character_class_select").asInstanceOf[html.Select]
+  val character_level_select = document.getElementById("character_level_select").asInstanceOf[html.Select]
   val rollButton = document.getElementById("roll_ability_scores").asInstanceOf[html.Button]
+  val updateButton = document.getElementById("update_characteristics").asInstanceOf[html.Button]
+
+  val base_attack_bonus = document.getElementById("base_attack_bonus").asInstanceOf[html.Span]
+  val melee_attack_bonus = document.getElementById("melee_attack_bonus").asInstanceOf[html.Span]
+  val range_attack_bonus = document.getElementById("range_attack_bonus").asInstanceOf[html.Span]
 
   def setupUI(): Unit = {
     rollButton.addEventListener("click", { (e: dom.MouseEvent) =>
       getRandomAbilityScores()
+      setBaseAttackBonusHandler()
     })
+
+    character_class_select.addEventListener("change", { (e: dom.MouseEvent) =>
+      setBaseAttackBonusHandler()
+    })
+
+    character_level_select.addEventListener("change", { (e: dom.MouseEvent) =>
+      setBaseAttackBonusHandler()
+    })
+
   }
 
   def appendPar(targetNode: dom.Node, text: String): Unit = {
@@ -40,7 +57,7 @@ object CharacterApp {
   def getRandomAbilityScores(): Unit = {
     val scores = getSixScores()
 
-    val attributes: Seq[html.Select] = character_select.value match {
+    val attributes: Seq[html.Select] = character_class_select.value match {
       case "Cleric" => Seq(wis_select, str_select, con_select, int_select,  chr_select, dex_select)
       case "Fighter" => Seq(str_select, con_select, dex_select, chr_select,  wis_select, int_select)
       case "Thief" =>   Seq(dex_select, chr_select, con_select, str_select,  int_select, wis_select)
@@ -48,7 +65,17 @@ object CharacterApp {
       case "Fighter/Magic-User" =>  Seq(int_select, str_select, con_select, dex_select, wis_select, chr_select)
       case "Magic-User/Thief" => Seq(int_select, dex_select, con_select, wis_select, chr_select, str_select)
     }
-    
+
     (0 to 5).foreach(i => attributes(i).selectedIndex = scores(i))
   }
+
+  @JSExportTopLevel("setBaseAttackBonusHandler")
+  def setBaseAttackBonusHandler(): Unit = {
+
+    val characterClass: String = character_class_select.value
+    val level: Int = character_level_select.value.toInt
+
+    base_attack_bonus.textContent = calcBaseAttackModifier(characterClass, level)
+  }
+
 }

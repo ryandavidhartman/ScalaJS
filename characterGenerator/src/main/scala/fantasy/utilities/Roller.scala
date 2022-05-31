@@ -1,4 +1,4 @@
-package fantasy
+package fantasy.utilities
 
 object Roller {
 
