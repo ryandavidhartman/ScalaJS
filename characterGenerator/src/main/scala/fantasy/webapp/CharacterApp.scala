@@ -1,7 +1,7 @@
 package fantasy.webapp
 
 import fantasy.utilities.Roller.getSixScores
-import fantasy.utilities.BasicFantasy.calcBaseAttackModifier
+import fantasy.utilities.BasicFantasy._
 import org.scalajs.dom
 import org.scalajs.dom.{document, html}
 
@@ -29,22 +29,32 @@ object CharacterApp {
 
   val base_attack_bonus = document.getElementById("base_attack_bonus").asInstanceOf[html.Span]
   val melee_attack_bonus = document.getElementById("melee_attack_bonus").asInstanceOf[html.Span]
-  val range_attack_bonus = document.getElementById("range_attack_bonus").asInstanceOf[html.Span]
+  val ranged_attack_bonus = document.getElementById("ranged_attack_bonus").asInstanceOf[html.Span]
+  val ac_bonus = document.getElementById("ac_bonus").asInstanceOf[html.Span]
+  val hit_points = document.getElementById("hit_points").asInstanceOf[html.Span]
 
   def setupUI(): Unit = {
     rollButton.addEventListener("click", { (e: dom.MouseEvent) =>
       getRandomAbilityScores()
-      setBaseAttackBonusHandler()
+      updateAllModifiers()
     })
 
     character_class_select.addEventListener("change", { (e: dom.MouseEvent) =>
-      setBaseAttackBonusHandler()
+      updateAllModifiers()
     })
 
     character_level_select.addEventListener("change", { (e: dom.MouseEvent) =>
-      setBaseAttackBonusHandler()
+      updateAllModifiers()
     })
 
+  }
+
+  def updateAllModifiers(): Unit = {
+    setBaseAttackBonusHandler()
+    setMeleeAttackBonusHandler()
+    setRangeAttackBonusHandler()
+    setACBonusHandler()
+    setHitPointsHandler()
   }
 
   def appendPar(targetNode: dom.Node, text: String): Unit = {
@@ -76,6 +86,42 @@ object CharacterApp {
     val level: Int = character_level_select.value.toInt
 
     base_attack_bonus.textContent = calcBaseAttackModifier(characterClass, level)
+  }
+
+  @JSExportTopLevel("setMeleeAttackBonusHandler")
+  def setMeleeAttackBonusHandler(): Unit = {
+
+    val strength: Int = str_select.value.toInt
+    val baseAttackBonus: Int = base_attack_bonus.textContent.toInt
+
+    melee_attack_bonus.textContent = calcMeleeAttackModifier(strength, baseAttackBonus)
+  }
+
+  @JSExportTopLevel("setRangeAttackBonusHandler")
+  def setRangeAttackBonusHandler(): Unit = {
+
+    val dexterity: Int = dex_select.value.toInt
+    val baseAttackBonus: Int = base_attack_bonus.textContent.toInt
+
+    ranged_attack_bonus.textContent = calcRangeAttackModifier(dexterity, baseAttackBonus)
+  }
+
+  @JSExportTopLevel("setACBonusHandler")
+  def setACBonusHandler(): Unit = {
+
+    val dexterity: Int = dex_select.value.toInt
+
+    ac_bonus.textContent = calcACModifier(dexterity)
+  }
+
+  @JSExportTopLevel("setHitPointsHandler")
+  def setHitPointsHandler(): Unit = {
+
+    val constitution: Int = con_select.value.toInt
+    val characterClass: String = character_class_select.value
+    val level: Int = character_level_select.value.toInt
+
+    hit_points.textContent = calcHitPoints(characterClass, level, constitution).toString
   }
 
 }

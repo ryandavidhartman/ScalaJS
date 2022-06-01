@@ -3,7 +3,6 @@ package fantasy.utilities
 object BasicFantasy {
 
   def calcBaseAttackModifier(characterClass: String, level: Int): String = {
-
     characterClass match {
       case f if f.contains("Fighter") =>
         if(level == 1)
@@ -59,6 +58,57 @@ object BasicFantasy {
         else
           "+7"
     }
+  }
 
+  def calcMeleeAttackModifier(strength: Int, baseAttackBonus: Int): String = {
+    val num = baseAttackBonus + attributeModifiers(strength)
+    modifierBonusIntToString(num)
+  }
+
+  def calcRangeAttackModifier(dexterity: Int, baseAttackBonus: Int): String = {
+    val num = baseAttackBonus + attributeModifiers(dexterity)
+    modifierBonusIntToString(num)
+  }
+
+  def calcACModifier(dexterity: Int): String = {
+    val num = attributeModifiers(dexterity)
+    modifierBonusIntToString(num)
+  }
+
+  def calcHitPoints(characterClass: String, level: Int, constitution: Int): Int = {
+
+    val mod = attributeModifiers(constitution)
+
+    val truncated_level = Math.min(level, 9)
+
+    val hpForFirst9 = characterClass match {
+      case f if f.contains("Fighter") => Roller.rollHP(truncated_level, 8, mod)
+      case c if c.contains("Cleric") => Roller.rollHP(truncated_level, 6, mod)
+      case s if s.contains("Thief") | s.contains("Magic-User") => Roller.rollHP(truncated_level, 4, mod)
+    }
+
+    val hpFor9AndUp = if(level > 9)
+      (level-9)
+    else
+      0
+
+    hpForFirst9 + hpFor9AndUp
+  }
+
+  def attributeModifiers(attribute: Int): Int = attribute match {
+    case 3 => -3
+    case i if i >= 4 && i <= 5 => -2
+    case i if i >= 6 && i <= 8 => -1
+    case i if i >= 9 && i <= 12 => 0
+    case i if i >= 13 && i <= 15 => 1
+    case i if i >= 16 && i <= 17 => 2
+    case _ => 3
+  }
+
+  def modifierBonusIntToString(mod: Int): String = {
+    if(mod > 0)
+      s"+${mod}"
+    else
+      mod.toString
   }
 }
