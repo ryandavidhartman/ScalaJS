@@ -111,4 +111,11 @@ object BasicFantasy {
     else
       mod.toString
   }
+
+  def checkCharacterClass(race: String, characterClass: String): Boolean = race match {
+    case "Human" => !characterClass.contains("/")
+    case "Elf" => true
+    case "Dwarf" => !characterClass.contains("Magic-User")
+    case "Halfling" => !characterClass.contains("Magic-User")
+  }
 }

@@ -22,6 +22,7 @@ object CharacterApp {
   val wis_select = document.getElementById("character_wisdom_select").asInstanceOf[html.Select]
   val chr_select = document.getElementById("character_charisma_select").asInstanceOf[html.Select]
 
+  val character_race_select = document.getElementById("character_race_select").asInstanceOf[html.Select]
   val character_class_select = document.getElementById("character_class_select").asInstanceOf[html.Select]
   val character_level_select = document.getElementById("character_level_select").asInstanceOf[html.Select]
   val rollButton = document.getElementById("roll_ability_scores").asInstanceOf[html.Button]
@@ -32,6 +33,7 @@ object CharacterApp {
   val ranged_attack_bonus = document.getElementById("ranged_attack_bonus").asInstanceOf[html.Span]
   val ac_bonus = document.getElementById("ac_bonus").asInstanceOf[html.Span]
   val hit_points = document.getElementById("hit_points").asInstanceOf[html.Span]
+  val special_abilities = document.getElementById("special_abilities").asInstanceOf[html.Div]
 
   def setupUI(): Unit = {
     rollButton.addEventListener("click", { (e: dom.MouseEvent) =>
@@ -39,13 +41,20 @@ object CharacterApp {
       updateAllModifiers()
     })
 
+    character_race_select.addEventListener("change", { (e: dom.MouseEvent) =>
+      checkClass()
+      setSpecialAbilities()
+    })
+
     character_class_select.addEventListener("change", { (e: dom.MouseEvent) =>
+      checkClass()
       updateAllModifiers()
     })
 
     character_level_select.addEventListener("change", { (e: dom.MouseEvent) =>
       updateAllModifiers()
     })
+
 
   }
 
@@ -55,6 +64,7 @@ object CharacterApp {
     setRangeAttackBonusHandler()
     setACBonusHandler()
     setHitPointsHandler()
+    setSpecialAbilities()
   }
 
   def appendPar(targetNode: dom.Node, text: String): Unit = {
@@ -122,6 +132,23 @@ object CharacterApp {
     val level: Int = character_level_select.value.toInt
 
     hit_points.textContent = calcHitPoints(characterClass, level, constitution).toString
+  }
+
+  @JSExportTopLevel("setSpecialAbilities")
+  def setSpecialAbilities(): Unit = {
+    val race = character_race_select.value
+
+    special_abilities.append(race)
+  }
+
+  @JSExportTopLevel("checkClass")
+  def checkClass(): Unit = {
+    val race = character_race_select.value
+    val characterClass = character_class_select.value
+
+    if(!checkCharacterClass(race, characterClass))
+      character_class_select.selectedIndex = 0
+
   }
 
 }
