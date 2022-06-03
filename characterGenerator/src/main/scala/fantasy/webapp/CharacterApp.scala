@@ -42,7 +42,7 @@ object CharacterApp {
     })
 
     character_race_select.addEventListener("change", { (e: dom.MouseEvent) =>
-      checkClass()
+      updateAllModifiers()
       setSpecialAbilities()
     })
 
@@ -55,10 +55,39 @@ object CharacterApp {
       updateAllModifiers()
     })
 
+    str_select.addEventListener("change", { (e: dom.MouseEvent) =>
+      checkMaxStr()
+      setMeleeAttackBonusHandler()
+    })
+
+    int_select.addEventListener("change", { (e: dom.MouseEvent) =>
+      checkMaxInt()
+    })
+
+    dex_select.addEventListener("change", { (e: dom.MouseEvent) =>
+      checkMaxDex()
+      setRangeAttackBonusHandler()
+      setACBonusHandler()
+    })
+
+    con_select.addEventListener("change", { (e: dom.MouseEvent) =>
+      checkMaxCon()
+      setHitPointsHandler()
+    })
+
+    chr_select.addEventListener("change", { (e: dom.MouseEvent) =>
+      checkMaxChr()
+    })
 
   }
 
   def updateAllModifiers(): Unit = {
+    checkClass()
+    checkMaxStr()
+    checkMaxDex()
+    checkMaxCon()
+    checkMaxInt()
+    checkMaxChr()
     setBaseAttackBonusHandler()
     setMeleeAttackBonusHandler()
     setRangeAttackBonusHandler()
@@ -87,6 +116,7 @@ object CharacterApp {
     }
 
     (0 to 5).foreach(i => attributes(i).selectedIndex = scores(i))
+    checkMaxStr()
   }
 
   @JSExportTopLevel("setBaseAttackBonusHandler")
@@ -112,8 +142,9 @@ object CharacterApp {
 
     val dexterity: Int = dex_select.value.toInt
     val baseAttackBonus: Int = base_attack_bonus.textContent.toInt
+    val race: String = character_race_select.value
 
-    ranged_attack_bonus.textContent = calcRangeAttackModifier(dexterity, baseAttackBonus)
+    ranged_attack_bonus.textContent = calcRangeAttackModifier(dexterity, baseAttackBonus, race)
   }
 
   @JSExportTopLevel("setACBonusHandler")
@@ -138,7 +169,7 @@ object CharacterApp {
   def setSpecialAbilities(): Unit = {
     val race = character_race_select.value
 
-    special_abilities.append(race)
+    special_abilities.innerHTML= getRacialAbilities(race)
   }
 
   @JSExportTopLevel("checkClass")
@@ -148,7 +179,44 @@ object CharacterApp {
 
     if(!checkCharacterClass(race, characterClass))
       character_class_select.selectedIndex = 0
-
   }
+
+  @JSExportTopLevel("checkMaxStr")
+  def checkMaxStr(): Unit = {
+    val race = character_race_select.value
+    if(race == "Halfling" && str_select.selectedIndex >= 15)
+      str_select.selectedIndex = 14
+  }
+
+  @JSExportTopLevel("checkMaxDex")
+  def checkMaxDex(): Unit = {
+    val race = character_race_select.value
+    if(race == "Halfling" && dex_select.selectedIndex < 6)
+      dex_select.selectedIndex = 6
+  }
+
+  @JSExportTopLevel("checkMaxCon")
+  def checkMaxCon(): Unit = {
+    val race = character_race_select.value
+    if(race == "Elf" && con_select.selectedIndex >= 15)
+      con_select.selectedIndex = 14
+    if(race == "Dwarf" && con_select.selectedIndex < 6)
+      con_select.selectedIndex = 6
+  }
+
+  @JSExportTopLevel("checkMaxInt")
+  def checkMaxInt(): Unit = {
+    val race = character_race_select.value
+    if(race == "Elf" && int_select.selectedIndex < 6)
+      int_select.selectedIndex = 6
+  }
+
+  @JSExportTopLevel("checkChrChr")
+  def checkMaxChr(): Unit = {
+    val race = character_race_select.value
+    if(race == "Dwarf" && chr_select.selectedIndex >= 15)
+      chr_select.selectedIndex = 14
+  }
+
 
 }
