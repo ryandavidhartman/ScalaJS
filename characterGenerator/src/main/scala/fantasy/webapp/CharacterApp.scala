@@ -2,6 +2,8 @@ package fantasy.webapp
 
 import fantasy.utilities.Roller.getSixScores
 import fantasy.utilities.BasicFantasy._
+import fantasy.utilities.NameGenerator
+import fantasy.webapp.CharacterApp.rollButton
 import org.scalajs.dom
 import org.scalajs.dom.{document, html}
 
@@ -15,6 +17,10 @@ object CharacterApp {
   }
 
   // DOM Objects
+  val character_name_input = document.getElementById("character_name_input").asInstanceOf[html.Input]
+  val character_gender_select = document.getElementById("character_gender_select").asInstanceOf[html.Select]
+
+
   val str_select = document.getElementById("character_strength_select").asInstanceOf[html.Select]
   val dex_select = document.getElementById("character_dexterity_select").asInstanceOf[html.Select]
   val con_select = document.getElementById("character_constitution_select").asInstanceOf[html.Select]
@@ -26,7 +32,7 @@ object CharacterApp {
   val character_class_select = document.getElementById("character_class_select").asInstanceOf[html.Select]
   val character_level_select = document.getElementById("character_level_select").asInstanceOf[html.Select]
   val rollButton = document.getElementById("roll_ability_scores").asInstanceOf[html.Button]
-  val updateButton = document.getElementById("update_characteristics").asInstanceOf[html.Button]
+  val rollNameButton = document.getElementById("roll_character_name").asInstanceOf[html.Button]
 
   val base_attack_bonus = document.getElementById("base_attack_bonus").asInstanceOf[html.Span]
   val melee_attack_bonus = document.getElementById("melee_attack_bonus").asInstanceOf[html.Span]
@@ -39,6 +45,10 @@ object CharacterApp {
     rollButton.addEventListener("click", { (e: dom.MouseEvent) =>
       getRandomAbilityScores()
       updateAllModifiers()
+    })
+
+    rollNameButton.addEventListener("click", { (e: dom.MouseEvent) =>
+     rollNameHandler()
     })
 
     character_race_select.addEventListener("change", { (e: dom.MouseEvent) =>
@@ -100,6 +110,15 @@ object CharacterApp {
     val parNode = document.createElement("p")
     parNode.textContent = text
     targetNode.appendChild(parNode)
+  }
+
+  @JSExportTopLevel("rollNameHandler")
+  def rollNameHandler(): Unit = {
+    val race: String = character_race_select.value
+    val gender: String = character_gender_select.value
+
+    val characterName = NameGenerator.getName(race, gender)
+    character_name_input.value = characterName
   }
 
   @JSExportTopLevel("addRollHandler")

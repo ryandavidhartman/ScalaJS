@@ -24,4 +24,6 @@ object Roller {
       .sum
   }
 
+  def randomInt(max: Int): Int = r.nextInt(max)
+
 }
