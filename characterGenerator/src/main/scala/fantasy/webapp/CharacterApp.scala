@@ -2,8 +2,7 @@ package fantasy.webapp
 
 import fantasy.utilities.Roller.getSixScores
 import fantasy.utilities.BasicFantasy._
-import fantasy.utilities.NameGenerator
-import fantasy.webapp.CharacterApp.rollButton
+import fantasy.utilities.{NameGenerator, SavingsThrows}
 import org.scalajs.dom
 import org.scalajs.dom.{document, html}
 
@@ -41,6 +40,13 @@ object CharacterApp {
   val hit_points = document.getElementById("hit_points").asInstanceOf[html.Span]
   val special_abilities = document.getElementById("special_abilities").asInstanceOf[html.Div]
 
+  val deathSavingsThrow = document.getElementById("death").asInstanceOf[html.Span]
+  val wandsSavingsThrow = document.getElementById("wands").asInstanceOf[html.Span]
+  val paralysisSavingsThrow = document.getElementById("paralysis").asInstanceOf[html.Span]
+  val breathSavingsThrow = document.getElementById("breath").asInstanceOf[html.Span]
+  val spellsSavingsThrow = document.getElementById("spells").asInstanceOf[html.Span]
+
+
   def setupUI(): Unit = {
     rollButton.addEventListener("click", { (e: dom.MouseEvent) =>
       getRandomAbilityScores()
@@ -59,10 +65,12 @@ object CharacterApp {
     character_class_select.addEventListener("change", { (e: dom.MouseEvent) =>
       checkClass()
       updateAllModifiers()
+      setSavingsThrows()
     })
 
     character_level_select.addEventListener("change", { (e: dom.MouseEvent) =>
       updateAllModifiers()
+      setSavingsThrows()
     })
 
     str_select.addEventListener("change", { (e: dom.MouseEvent) =>
@@ -104,6 +112,7 @@ object CharacterApp {
     setACBonusHandler()
     setHitPointsHandler()
     setSpecialAbilities()
+    setSavingsThrows()
   }
 
   def appendPar(targetNode: dom.Node, text: String): Unit = {
@@ -235,6 +244,21 @@ object CharacterApp {
     val race = character_race_select.value
     if(race == "Dwarf" && chr_select.selectedIndex >= 15)
       chr_select.selectedIndex = 14
+  }
+
+  @JSExportTopLevel("setSavingsThrows")
+  def setSavingsThrows(): Unit = {
+    val characterClass = character_class_select.value
+    val level: Int = character_level_select.value.toInt
+
+    val saves = SavingsThrows.getSavingsThrows(characterClass, level)
+
+    deathSavingsThrow.textContent = saves._1.toString
+    wandsSavingsThrow.textContent = saves._2.toString
+    paralysisSavingsThrow.textContent = saves._3.toString
+    breathSavingsThrow.textContent = saves._4.toString
+    spellsSavingsThrow.textContent =saves._5.toString
+
   }
 
 
