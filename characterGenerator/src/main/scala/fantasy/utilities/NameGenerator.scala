@@ -13,7 +13,16 @@ object NameGenerator {
         s"$getElvenMaleFirstName $getElvenSurname"
       else
         s"$getElvenFemaleFirstName  $getElvenSurname"
-    case _ => "bob"
+    case _ => "Dwarf"
+      if(gender == "Male")
+        s"$getDwarvenMaleFirstName $getDwarvenSurname"
+      else
+        s"$getDwarvenFemaleFirstName  $getDwarvenSurname"
+    case _ => "Halfling"
+      if(gender == "Male")
+        s"$getHalflingMaleFirstName $getHalflingSurname"
+      else
+        s"$getHalflingFemaleFirstName  $getHalflingSurname"
   }
 
 
@@ -221,6 +230,74 @@ object NameGenerator {
 
     val count = surName.length
     surName(Roller.randomInt(count))
+  }
+
+  def getDwarvenMaleFirstName(): String = {
+
+    val firstName: Seq[String] = Seq("Addanc","Ari","Bhalkyl","Aigror","Dramoli","Dorni","Galvon", "Donar", "Brakan",
+      "Duvur", "Bramdahr", "Colan", "Malgon", "Balthrasir", "Ballin", "Thovan", "Draupin", "Argos", "Thondin", "Brynjolvur",
+      "Drogo", "Bothor", "Dragroli","Firguc", "Gidel", "Bhalmun", "Avion", "Kibil", "Danil", "Calgak", "Givur",
+      "Algir", "Brokk", "Bagnor", "Ruvon", "Hannar","Chirysaor", "Artion","Baglian","Daremrun", "Ebdrus", "Buboth",
+      "Anin", "Brand", "Bovar", "Goliath", "Bharrom", "Dwomnaed", "Dogril", "Onfroi", "Oin", "Davan", "Bargun",
+      "Khubrorlug", "Thortor", "Doulgarlig", "Dondnar", "Huffie", "Fimbul", "Digan", "Bilbur","Glorgil", "Glorgil",
+      "Dravan", "Edmundur", "Malvon", "Gim", "Bamiri", "Anil", "Bramdur", "Thovir", "Azaes", "Sarraem", "Hungraec",
+      "Hurfumlin", "Azotir", "Brudrith", "Rabreak", "Skosdroud", "Loddac", "Jakdrig", "Flintheart", "Dellinger",
+      "Dithin")
+
+    val count = firstName.length
+    firstName(Roller.randomInt(count))
+  }
+
+  def getDwarvenFemaleFirstName(): String = {
+    val firstNames: Seq[String] = Seq("Dothura", "Dila",  "Crystal", "Dunora", "Divira", "Gagon", "Dhara", "Dolana",
+      "Agran", "Aden", "Bhelkam", "Esmeralda", "Calona", "Demeter", "Dradir", "Bes", "Erla", "Admina",
+      "Giva", "Sienna", "Jade", "Chalia", "Dilgli", "Branmand", "Randonne", "Dovana", "Ebgranne", "Dora", "Lazula",
+      "Cosette", "Dugrona", "Calgrima", "Chalona", "Ela", "Amethyst", "Gavil", "Eiki", "Fiden",  "Lana", "Chalia",
+      "Elindur", "Nvari", "Eartha", "Avil", "Reginn", "Rudli", "Montana", "Eilivur", "Sapphire", "Barol", "Calund",
+      "Emorette", "Malvan", "Ula", "Dorola", "Dovla",  "Calgrima", "Afra", "Bjarki", "Narva", "Bavolle", "Rarona",
+      "Bavola", "Thrakhubyrn", "Hofaebelyn", "Strordrouthra", "Bugretalyn"
+    )
+    val count = firstNames.length
+    firstNames(Roller.randomInt(count))
+  }
+
+
+  def getDwarvenSurname(): String = {
+    val surnames: Seq[String] = Seq("Keghood", "Anvilmaster", "Anvilbender", "Runebreaker", "Flintcoat", "Deepgrip",
+      "Minebrow", "Flaskview", "Ironforge", "Oreheart", "Stonejaw", "orcbane", "Cavebreaker", "Warrencloak",
+      "Nightgranite", "Dorgin" , "Morgus" , "Austri" , "Kalady", "Maur", "Dagni" ,"Geirfinnur" , "MaurMaur", "Dagni" ,
+      "Geirfinnur", "Dagni" , "Geirfinnur", "Rikkin" , "Lovisa" , "Gidal" , "Sudri" , "Yatmaen" , "Obara" , "Hjolman",
+      "Runira", "Malgon" , "Sveinur" , "Hazeal" , "Harbet" , "Steinur" , "Hokul","Dorvari", "Myagrun", "Sigvaldur",
+      "Panoptes", "Werazzet", "Skirfar", "Myanra", "Thogrin", "Rervia", "Kecha", "Onin", "Baerdal", "Bifurr", "Melnur",
+      "Sliryn", "Glondil", "Githlia", "Lonvari", "Taleema", "Kelardy", "Salmumin", "Robekur", "Thaggoum", "Dirila",
+      "Goddumir", "Terta", "Myalinden", "Grendel", "Shatterbranch", "Sorkvi", "Hlevari", "Mavia", "Sjurthi", "Hillmane",
+      "Hanarav", "Lirra", "Mireveh", "Hepti", "Henna", "Ruvona", "Galren", "Drargna", "Ragnur", "Regin", "Airgan", "Loa",
+      "Onfroi", "Rugin", "Mirev", "Horkahm", "Lis", "Gindira", "Fundinn", "Balskjald", "Moira", "Linka", "Ragna",
+      "Dulir", "Gadona", "Lonlin", "Mili", "Apophis", "Korbeth", "Recha", "Brana", "Dhotdruk", "Stoneaxe", "Copperbranch",
+      "Flatriver",  "Wyvernheath"
+
+    )
+
+    val count = surnames.length
+    surnames(Roller.randomInt(count))
+  }
+
+  def getHalflingMaleFirstName(): String = {
+    val firstNames: Seq[String] = Seq("bob")
+    val count = firstNames.length
+    firstNames(Roller.randomInt(count))
+  }
+
+  def getHalflingFemaleFirstName(): String = {
+    val firstNames: Seq[String] = Seq("bob")
+    val count = firstNames.length
+    firstNames(Roller.randomInt(count))
+  }
+
+  def getHalflingSurname(): String = {
+    val surnames: Seq[String] = Seq("bob")
+    val count = surnames.length
+    surnames(Roller.randomInt(count))
   }
 
 }
