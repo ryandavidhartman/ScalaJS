@@ -13,12 +13,12 @@ object NameGenerator {
         s"$getElvenMaleFirstName $getElvenSurname"
       else
         s"$getElvenFemaleFirstName  $getElvenSurname"
-    case _ => "Dwarf"
+    case "Dwarf" =>
       if(gender == "Male")
         s"$getDwarvenMaleFirstName $getDwarvenSurname"
       else
         s"$getDwarvenFemaleFirstName  $getDwarvenSurname"
-    case _ => "Halfling"
+    case "Halfling" =>
       if(gender == "Male")
         s"$getHalflingMaleFirstName $getHalflingSurname"
       else
@@ -283,21 +283,46 @@ object NameGenerator {
   }
 
   def getHalflingMaleFirstName(): String = {
-    val firstNames: Seq[String] = Seq("bob")
+    val firstNames: Seq[String] = Seq("Wiltran", "Janfire",  "Pimzor", "Xanvias", "Yenlan", "Ridon", "Danry", "Norpher",
+      "Yarsire", "Osret", "Welkath" ,"Elikis", "Adran", "Amalis", "Bert", "Burrick", "Car", "Caridon", "Cyroen",
+      "Davis", "Davon", "Eld", "Far", "Fel", "Huudus", "Imnard", "Jor", "Julk", "Kevon", "Lenson", "Lius", "Magnes",
+      "Marijn", "Micus", "Norimon" ,"Priand"," Ricus", "Turic", "Urijs", "Waldel", "Samwise", "Ansegar", "Celedor",
+      "Chlodomer", "Lull", "Berchar", "Wala", "Theodoric", "Prospero", "Bauto", "Waltgaud", "Togo", "Evroul", "Brutus",
+      "Sunno", "Otto", "Syagrius", "Audovald", "Bertin", "Reolus", "Rigunth", "Polo", "Dagaric", "Gozolon", "Polo",
+      "Reginard", "Arnor", "Valdemar", "Drogo", "Goisfrid", "Siegfried", "Saradoc", "Hartgard", "Chlodwig", "Jago",
+      "Fastolph", "Bingo", "Reginar", "Reginar", "Godobald",
+    )
     val count = firstNames.length
     firstNames(Roller.randomInt(count))
   }
 
   def getHalflingFemaleFirstName(): String = {
-    val firstNames: Seq[String] = Seq("bob")
+    val firstNames: Seq[String] = Seq("Prufice", "Yomita", "Fenprys", "Fromita", "Uviora", "Verhaly", "Quda",
+      "Therprys" ,"Yoris", "Paesica", "Unaris", "Malwyn", "Zenlienne", "Saeni", "Uviola", "Lidtina", "Wimia",
+    "Lidwyn", "Odivyre", "Adea", "Amonitza", "Arola", "Azasina", "Baita", "Bruderea", "Bruena", "Eloavela", "Elonia",
+      "Elso", "Fioria", "Flonda", "Gista", "Gleta", "Ilitza", "Irmuania", "Jona", "Kitza", "Lavieza", "Marda", "Marora",
+      "Mazisa", "Merina", "Musa", "Nata", "Petza", "Saniami", "Tiza", "Venuelia", "Zamenza")
     val count = firstNames.length
     firstNames(Roller.randomInt(count))
   }
 
   def getHalflingSurname(): String = {
-    val surnames: Seq[String] = Seq("bob")
+    val surnames: Seq[String] = Seq("Truebeam", "Stoutheart", "Shadowbough", "Humblehare", "RidonHillhand", "Sunbarrel",
+      "Freemantle", "Quickcrest", "Wisesun", "Deephare" ,"Stonewater", "Havenfellow", "Bramblemoon", "Keenwind",
+      "Goldseeker", "Greatmeadow", "Fasteye", "Lunardance", "Hogflower", "Shadowshaker", "Slystoat", "Took", "Townsend",
+      "Underbough", "Vlibrusbird", "Goodbody", "Quickhand", "Riverflower", "Truthstride", "Vlibrusbird", "Whitsoar",
+      "Hornblower", "Bophin", "Longriver", "Hedgehopper", "Hopesinger", "Noakesburrow", "Clayhanger", "Whitbottom",
+      "Elvellon" ,"Underhill" ,"Gardner", "Elvellon", "Hayward", "Leafwalker", "Bunce", "Riverhopper", "Lothran",
+      "Burrows", "Sandheaver", "Goldworthy", "Bramblethorn", "Bracegirdle", "Bolger", "Fleetfoot", "Goodwort",
+      "Oakbottom", "Smallburrow" ,"Goodchild" ,"Brownlock" ,"Undertree"
+    )
     val count = surnames.length
     surnames(Roller.randomInt(count))
   }
+
+  /*
+
+
+   */
 
 }
