@@ -2,9 +2,10 @@ package fantasy.webapp
 
 import fantasy.utilities.Roller.getSixScores
 import fantasy.utilities.BasicFantasy._
-import fantasy.utilities.{NameGenerator, SavingsThrows}
+import fantasy.utilities.{HeightWeightGenerator, NameGenerator, SavingsThrows}
 import org.scalajs.dom
 import org.scalajs.dom.{document, html}
+import DOMObjects._
 
 import scala.scalajs.js.annotation.JSExportTopLevel
 
@@ -14,37 +15,6 @@ object CharacterApp {
       setupUI()
     })
   }
-
-  // DOM Objects
-  val character_name_input = document.getElementById("character_name_input").asInstanceOf[html.Input]
-  val character_gender_select = document.getElementById("character_gender_select").asInstanceOf[html.Select]
-
-
-  val str_select = document.getElementById("character_strength_select").asInstanceOf[html.Select]
-  val dex_select = document.getElementById("character_dexterity_select").asInstanceOf[html.Select]
-  val con_select = document.getElementById("character_constitution_select").asInstanceOf[html.Select]
-  val int_select = document.getElementById("character_intelligence_select").asInstanceOf[html.Select]
-  val wis_select = document.getElementById("character_wisdom_select").asInstanceOf[html.Select]
-  val chr_select = document.getElementById("character_charisma_select").asInstanceOf[html.Select]
-
-  val character_race_select = document.getElementById("character_race_select").asInstanceOf[html.Select]
-  val character_class_select = document.getElementById("character_class_select").asInstanceOf[html.Select]
-  val character_level_select = document.getElementById("character_level_select").asInstanceOf[html.Select]
-  val rollButton = document.getElementById("roll_ability_scores").asInstanceOf[html.Button]
-  val rollNameButton = document.getElementById("roll_character_name").asInstanceOf[html.Button]
-
-  val base_attack_bonus = document.getElementById("base_attack_bonus").asInstanceOf[html.Span]
-  val melee_attack_bonus = document.getElementById("melee_attack_bonus").asInstanceOf[html.Span]
-  val ranged_attack_bonus = document.getElementById("ranged_attack_bonus").asInstanceOf[html.Span]
-  val ac_bonus = document.getElementById("ac_bonus").asInstanceOf[html.Span]
-  val hit_points = document.getElementById("hit_points").asInstanceOf[html.Span]
-  val special_abilities = document.getElementById("special_abilities").asInstanceOf[html.Div]
-
-  val deathSavingsThrow = document.getElementById("death").asInstanceOf[html.Span]
-  val wandsSavingsThrow = document.getElementById("wands").asInstanceOf[html.Span]
-  val paralysisSavingsThrow = document.getElementById("paralysis").asInstanceOf[html.Span]
-  val breathSavingsThrow = document.getElementById("breath").asInstanceOf[html.Span]
-  val spellsSavingsThrow = document.getElementById("spells").asInstanceOf[html.Span]
 
 
   def setupUI(): Unit = {
@@ -60,6 +30,11 @@ object CharacterApp {
     character_race_select.addEventListener("change", { (e: dom.MouseEvent) =>
       updateAllModifiers()
       setSpecialAbilities()
+      setHeightWeight()
+    })
+
+    character_gender_select.addEventListener("change", { (e: dom.MouseEvent) =>
+      setHeightWeight()
     })
 
     character_class_select.addEventListener("change", { (e: dom.MouseEvent) =>
@@ -76,6 +51,7 @@ object CharacterApp {
     str_select.addEventListener("change", { (e: dom.MouseEvent) =>
       checkMaxStr()
       setMeleeAttackBonusHandler()
+      setHeightWeight()
     })
 
     int_select.addEventListener("change", { (e: dom.MouseEvent) =>
@@ -113,6 +89,7 @@ object CharacterApp {
     setHitPointsHandler()
     setSpecialAbilities()
     setSavingsThrows()
+    setHeightWeight()
   }
 
   def appendPar(targetNode: dom.Node, text: String): Unit = {
@@ -259,6 +236,18 @@ object CharacterApp {
     breathSavingsThrow.textContent = saves._4.toString
     spellsSavingsThrow.textContent =saves._5.toString
 
+  }
+
+  @JSExportTopLevel("setHeight")
+  def setHeightWeight(): Unit = {
+
+    val race = character_race_select.value
+    val gender = character_gender_select.value
+    val strength = str_select.value.toInt
+
+    val (height, weight) = HeightWeightGenerator.getHeight(race, gender, strength)
+    character_height_input.value = height
+    character_weight_input.value = weight
   }
 
 
