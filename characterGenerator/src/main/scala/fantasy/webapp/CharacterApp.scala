@@ -2,7 +2,7 @@ package fantasy.webapp
 
 import fantasy.utilities.Roller.getSixScores
 import fantasy.utilities.BasicFantasy._
-import fantasy.utilities.{HeightWeightGenerator, NameGenerator, SavingsThrows}
+import fantasy.utilities.{HeightWeightGenerator, NameGenerator, SavingsThrows, TurnUndead}
 import org.scalajs.dom
 import org.scalajs.dom.{document, html}
 import DOMObjects._
@@ -41,11 +41,13 @@ object CharacterApp {
       checkClass()
       updateAllModifiers()
       setSavingsThrows()
+      setTurnUndead()
     })
 
     character_level_select.addEventListener("change", { (e: dom.MouseEvent) =>
       updateAllModifiers()
       setSavingsThrows()
+      setTurnUndead()
     })
 
     str_select.addEventListener("change", { (e: dom.MouseEvent) =>
@@ -90,6 +92,7 @@ object CharacterApp {
     setSpecialAbilities()
     setSavingsThrows()
     setHeightWeight()
+    setTurnUndead()
   }
 
   def appendPar(targetNode: dom.Node, text: String): Unit = {
@@ -249,6 +252,26 @@ object CharacterApp {
     character_height_input.value = height
     character_weight_input.value = weight
   }
+
+
+  @JSExportTopLevel("setTurnUndead")
+  def setTurnUndead(): Unit = {
+    val characterClass =  character_class_select.value
+    val level = if(characterClass == "Cleric") character_level_select.value.toInt else 0
+
+    val turns:Seq[String] = TurnUndead.turns(level)
+
+    turnSkeletonSpan.textContent = turns(0)
+    turnZombieSpan.textContent   = turns(1)
+    turnGhoulSpan.textContent    = turns(2)
+    turnWightSpan.textContent    = turns(3)
+    turnWraithSpan.textContent   = turns(4)
+    turnMummySpan.textContent    = turns(5)
+    turnSpectreSpan.textContent  = turns(6)
+    turnVampireSpan.textContent  = turns(7)
+    turnGhostSpan.textContent    = turns(8)
+  }
+
 
 
 }

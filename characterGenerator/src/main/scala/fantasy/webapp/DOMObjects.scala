@@ -37,4 +37,15 @@ object DOMObjects {
   val breathSavingsThrow = document.getElementById("breath").asInstanceOf[html.Span]
   val spellsSavingsThrow = document.getElementById("spells").asInstanceOf[html.Span]
 
+  // Savings Throws
+  val turnSkeletonSpan = document.getElementById("skeleton").asInstanceOf[html.Span]
+  val turnZombieSpan = document.getElementById("zombie").asInstanceOf[html.Span]
+  val turnGhoulSpan = document.getElementById("ghoul").asInstanceOf[html.Span]
+  val turnWightSpan = document.getElementById("wight").asInstanceOf[html.Span]
+  val turnWraithSpan = document.getElementById("wraith").asInstanceOf[html.Span]
+  val turnMummySpan = document.getElementById("mummy").asInstanceOf[html.Span]
+  val turnSpectreSpan = document.getElementById("spectre").asInstanceOf[html.Span]
+  val turnVampireSpan = document.getElementById("vampire").asInstanceOf[html.Span]
+  val turnGhostSpan = document.getElementById("ghost").asInstanceOf[html.Span]
+
 }

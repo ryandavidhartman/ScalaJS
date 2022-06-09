@@ -9,7 +9,19 @@ object HeightWeightGenerator {
         val hMod = (Roller.randomInt(14)-1) + (Roller.randomInt(14)-1)
         val wMod = (Roller.randomInt(5)-1) + (Roller.randomInt(5)-1)
         (54+hMod, 130 + hMod  + wMod)
-      case _ => (100, 100)
+      case "Elf" =>
+        val hMod = (Roller.randomInt(13)-1) + (Roller.randomInt(13)-1)
+        val wMod = (Roller.randomInt(4)-1) + (Roller.randomInt(4)-1)
+        (52+hMod, 120 + hMod  + wMod)
+      case "Dwarf" =>
+        val hMod = (Roller.randomInt(13)-1) + (Roller.randomInt(13)-1)
+        val wMod = (Roller.randomInt(4)-1) + (Roller.randomInt(4)-1)
+        (40+hMod, 100 + hMod  + wMod)
+      case "Halfling" =>
+        val hMod = (Roller.randomInt(13)-1) + (Roller.randomInt(13)-1)
+        val wMod = (Roller.randomInt(4)-1) + (Roller.randomInt(4)-1)
+        (32+hMod, 35 + hMod  + wMod)
+
     }
 
     val strMod: Double =
