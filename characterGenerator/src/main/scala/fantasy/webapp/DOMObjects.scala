@@ -48,4 +48,13 @@ object DOMObjects {
   val turnVampireSpan = document.getElementById("vampire").asInstanceOf[html.Span]
   val turnGhostSpan = document.getElementById("ghost").asInstanceOf[html.Span]
 
+  // Pick Pockets
+  val openLocksSpan = document.getElementById("openLocks").asInstanceOf[html.Span]
+  val removeTrapsSpan = document.getElementById("removeTraps").asInstanceOf[html.Span]
+  val pickPocketsSpan = document.getElementById("pickPockets").asInstanceOf[html.Span]
+  val moveSilentlySpan = document.getElementById("moveSilently").asInstanceOf[html.Span]
+  val climbWallsSpan = document.getElementById("climbWalls").asInstanceOf[html.Span]
+  val hideSpan = document.getElementById("hide").asInstanceOf[html.Span]
+  val listenSpan = document.getElementById("listen").asInstanceOf[html.Span]
+
 }

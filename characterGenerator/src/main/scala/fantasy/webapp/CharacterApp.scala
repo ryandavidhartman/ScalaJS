@@ -2,7 +2,7 @@ package fantasy.webapp
 
 import fantasy.utilities.Roller.getSixScores
 import fantasy.utilities.BasicFantasy._
-import fantasy.utilities.{HeightWeightGenerator, NameGenerator, SavingsThrows, TurnUndead}
+import fantasy.utilities.{HeightWeightGenerator, NameGenerator, SavingsThrows, ThiefSkills, TurnUndead}
 import org.scalajs.dom
 import org.scalajs.dom.{document, html}
 import DOMObjects._
@@ -42,12 +42,14 @@ object CharacterApp {
       updateAllModifiers()
       setSavingsThrows()
       setTurnUndead()
+      setThiefSkills()
     })
 
     character_level_select.addEventListener("change", { (e: dom.MouseEvent) =>
       updateAllModifiers()
       setSavingsThrows()
       setTurnUndead()
+      setThiefSkills()
     })
 
     str_select.addEventListener("change", { (e: dom.MouseEvent) =>
@@ -93,6 +95,7 @@ object CharacterApp {
     setSavingsThrows()
     setHeightWeight()
     setTurnUndead()
+    setThiefSkills()
   }
 
   def appendPar(targetNode: dom.Node, text: String): Unit = {
@@ -270,6 +273,23 @@ object CharacterApp {
     turnSpectreSpan.textContent  = turns(6)
     turnVampireSpan.textContent  = turns(7)
     turnGhostSpan.textContent    = turns(8)
+  }
+
+  @JSExportTopLevel("setThiefSkills")
+  def setThiefSkills(): Unit = {
+
+    val characterClass =  character_class_select.value
+    val level = if(characterClass.contains("Thief")) character_level_select.value.toInt else 0
+
+    val skills:Seq[String] = ThiefSkills.skills(level)
+
+    openLocksSpan.textContent = skills(0)
+    removeTrapsSpan.textContent = skills(1)
+    pickPocketsSpan.textContent = skills(2)
+    moveSilentlySpan.textContent = skills(3)
+    climbWallsSpan.textContent = skills(4)
+    hideSpan.textContent = skills(5)
+    listenSpan.textContent = skills(6)
   }
 
 
