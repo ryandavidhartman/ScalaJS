@@ -2,7 +2,7 @@ package fantasy.webapp
 
 import fantasy.utilities.Roller.getSixScores
 import fantasy.utilities.BasicFantasy._
-import fantasy.utilities.{HeightWeightGenerator, NameGenerator, SavingsThrows, ThiefSkills, TurnUndead}
+import fantasy.utilities.{AgeGenerator, AlignmentGenerator, HeightWeightGenerator, NameGenerator, SavingsThrows, ThiefSkills, TurnUndead}
 import org.scalajs.dom
 import org.scalajs.dom.{document, html}
 import DOMObjects._
@@ -31,6 +31,7 @@ object CharacterApp {
       updateAllModifiers()
       setSpecialAbilities()
       setHeightWeight()
+      setAge()
     })
 
     character_gender_select.addEventListener("change", { (e: dom.MouseEvent) =>
@@ -50,6 +51,7 @@ object CharacterApp {
       setSavingsThrows()
       setTurnUndead()
       setThiefSkills()
+      setAge()
     })
 
     str_select.addEventListener("change", { (e: dom.MouseEvent) =>
@@ -94,6 +96,8 @@ object CharacterApp {
     setSpecialAbilities()
     setSavingsThrows()
     setHeightWeight()
+    setAge()
+    setAlignment()
     setTurnUndead()
     setThiefSkills()
   }
@@ -256,6 +260,27 @@ object CharacterApp {
     character_weight_input.value = weight
   }
 
+  @JSExportTopLevel("setAge")
+  def setAge(): Unit = {
+
+    val race = character_race_select.value
+    val level = character_level_select.value.toInt
+
+    val age = AgeGenerator.getAge(race, level)
+
+    character_age_input.value = age.toString
+
+  }
+
+  @JSExportTopLevel("setAlignment")
+  def setAlignment(): Unit = {
+    val alignment = AlignmentGenerator.getAlignment()
+    character_alignment_select.value = alignment
+
+  }
+
+
+
 
   @JSExportTopLevel("setTurnUndead")
   def setTurnUndead(): Unit = {
@@ -291,6 +316,8 @@ object CharacterApp {
     hideSpan.textContent = skills(5)
     listenSpan.textContent = skills(6)
   }
+
+
 
 
 

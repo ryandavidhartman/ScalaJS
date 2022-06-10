@@ -9,7 +9,8 @@ object DOMObjects {
   val character_gender_select = document.getElementById("character_gender_select").asInstanceOf[html.Select]
   val character_height_input =  document.getElementById("character_height_input").asInstanceOf[html.Input]
   val character_weight_input =  document.getElementById("character_weight_input").asInstanceOf[html.Input]
-
+  val character_age_input =  document.getElementById("character_age_input").asInstanceOf[html.Input]
+  val character_alignment_select =  document.getElementById("character_alignment_select").asInstanceOf[html.Select]
 
   val str_select = document.getElementById("character_strength_select").asInstanceOf[html.Select]
   val dex_select = document.getElementById("character_dexterity_select").asInstanceOf[html.Select]
