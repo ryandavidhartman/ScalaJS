@@ -2,9 +2,13 @@ package fantasy.utilities
 
 object AlignmentGenerator {
 
-  def getAlignment(): String = {
+  def getAlignment(characterClass: String): String = {
 
-    val random = Roller.randomInt(max = 100)
+    val random =
+      if(characterClass.contains("Thief"))
+        Roller.randomInt(max = 50) + 50
+      else
+        Roller.randomInt(max = 100)
 
     if(random < 50)
       "Lawful"

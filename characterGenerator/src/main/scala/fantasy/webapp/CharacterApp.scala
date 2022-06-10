@@ -44,6 +44,7 @@ object CharacterApp {
       setSavingsThrows()
       setTurnUndead()
       setThiefSkills()
+      setAlignment()
     })
 
     character_level_select.addEventListener("change", { (e: dom.MouseEvent) =>
@@ -274,7 +275,8 @@ object CharacterApp {
 
   @JSExportTopLevel("setAlignment")
   def setAlignment(): Unit = {
-    val alignment = AlignmentGenerator.getAlignment()
+    val characterClass = character_class_select.value
+    val alignment = AlignmentGenerator.getAlignment( characterClass)
     character_alignment_select.value = alignment
 
   }
