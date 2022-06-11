@@ -2,7 +2,7 @@ package fantasy.webapp
 
 import fantasy.utilities.Roller.getSixScores
 import fantasy.utilities.BasicFantasy._
-import fantasy.utilities.{AgeGenerator, AlignmentGenerator, BackgroundGenerator, HeightWeightGenerator, NameGenerator, SavingsThrows, ThiefSkills, TurnUndead}
+import fantasy.utilities.{AgeGenerator, AlignmentGenerator, BackgroundGenerator, HeightWeightGenerator, NameGenerator, SavingsThrows, Spells, ThiefSkills, TurnUndead}
 import org.scalajs.dom
 import org.scalajs.dom.{document, html}
 import DOMObjects._
@@ -42,6 +42,7 @@ object CharacterApp {
       checkClass()
       updateAllModifiers()
       setSavingsThrows()
+      setSpells()
       setTurnUndead()
       setThiefSkills()
       setAlignment()
@@ -50,6 +51,7 @@ object CharacterApp {
     character_level_select.addEventListener("change", { (e: dom.MouseEvent) =>
       updateAllModifiers()
       setSavingsThrows()
+      setSpells()
       setTurnUndead()
       setThiefSkills()
       setAge()
@@ -96,6 +98,7 @@ object CharacterApp {
     setHitPointsHandler()
     setSpecialAbilities()
     setSavingsThrows()
+    setSpells()
     setHeightWeight()
     setAge()
     setAlignment()
@@ -248,6 +251,21 @@ object CharacterApp {
     breathSavingsThrow.textContent = saves._4.toString
     spellsSavingsThrow.textContent =saves._5.toString
 
+  }
+
+  @JSExportTopLevel("setSpells")
+  def setSpells(): Unit = {
+
+    val characterClass = character_class_select.value
+    val level: Int = character_level_select.value.toInt
+    val spells: Seq[Int] = Spells.getSpells(characterClass, level)
+
+    firstLvlSpellsSpan.textContent = spells(0).toString
+    secondLvlSpellsSpan.textContent = spells(1).toString
+    thirdLvlSpellsSpan.textContent = spells(2).toString
+    fourthLvlSpellsSpan.textContent = spells(3).toString
+    fifthLvlSpellsSpan.textContent = spells(4).toString
+    sixthLvlSpellsSpan.textContent = spells(5).toString
   }
 
   @JSExportTopLevel("setHeight")

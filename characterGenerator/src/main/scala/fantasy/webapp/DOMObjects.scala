@@ -50,6 +50,14 @@ object DOMObjects {
   val turnVampireSpan = document.getElementById("vampire").asInstanceOf[html.Span]
   val turnGhostSpan = document.getElementById("ghost").asInstanceOf[html.Span]
 
+  // Spells
+  val firstLvlSpellsSpan = document.getElementById("first_level").asInstanceOf[html.Span]
+  val secondLvlSpellsSpan = document.getElementById("second_level").asInstanceOf[html.Span]
+  val thirdLvlSpellsSpan = document.getElementById("third_level").asInstanceOf[html.Span]
+  val fourthLvlSpellsSpan = document.getElementById("fourth_level").asInstanceOf[html.Span]
+  val fifthLvlSpellsSpan = document.getElementById("fifth_level").asInstanceOf[html.Span]
+  val sixthLvlSpellsSpan = document.getElementById("sixth_level").asInstanceOf[html.Span]
+
   // Pick Pockets
   val openLocksSpan = document.getElementById("openLocks").asInstanceOf[html.Span]
   val removeTrapsSpan = document.getElementById("removeTraps").asInstanceOf[html.Span]
