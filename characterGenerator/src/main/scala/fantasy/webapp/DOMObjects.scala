@@ -11,6 +11,7 @@ object DOMObjects {
   val character_weight_input =  document.getElementById("character_weight_input").asInstanceOf[html.Input]
   val character_age_input =  document.getElementById("character_age_input").asInstanceOf[html.Input]
   val character_alignment_select =  document.getElementById("character_alignment_select").asInstanceOf[html.Select]
+  val character_background_input = document.getElementById("character_background_input").asInstanceOf[html.Input]
 
   val str_select = document.getElementById("character_strength_select").asInstanceOf[html.Select]
   val dex_select = document.getElementById("character_dexterity_select").asInstanceOf[html.Select]
@@ -57,5 +58,10 @@ object DOMObjects {
   val climbWallsSpan = document.getElementById("climbWalls").asInstanceOf[html.Span]
   val hideSpan = document.getElementById("hide").asInstanceOf[html.Span]
   val listenSpan = document.getElementById("listen").asInstanceOf[html.Span]
+
+  // Back Ground
+  val socialClassSpan = document.getElementById("socialClass").asInstanceOf[html.Span]
+  val familyWealthSpan = document.getElementById("familyWealth").asInstanceOf[html.Span]
+  val backgroundSkillsSpan = document.getElementById("backgroundSkills").asInstanceOf[html.Span]
 
 }
