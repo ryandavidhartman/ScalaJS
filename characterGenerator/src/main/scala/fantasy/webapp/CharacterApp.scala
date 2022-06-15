@@ -296,7 +296,7 @@ object CharacterApp {
   def setAlignment(): Unit = {
     val characterClass = character_class_select.value
     val alignment = AlignmentGenerator.getAlignment( characterClass)
-    character_alignment_select.value = alignment
+    character_alignment_select.value = alignment.toString
 
   }
 
