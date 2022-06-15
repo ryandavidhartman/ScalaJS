@@ -344,7 +344,4 @@ object CharacterApp {
     backgroundSkillsSpan.textContent = background.backgroundSkills.reverse.mkString(",")
   }
 
-
-
-
 }
