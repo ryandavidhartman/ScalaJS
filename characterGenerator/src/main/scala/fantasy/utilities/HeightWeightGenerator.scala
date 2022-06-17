@@ -6,21 +6,21 @@ object HeightWeightGenerator {
 
     val (baseHeight, baseWeight) = race match {
       case "Human" =>
-        val hMod = (Roller.randomInt(14)-1) + (Roller.randomInt(14)-1)
-        val wMod = (Roller.randomInt(5)-1) + (Roller.randomInt(5)-1)
-        (54+hMod, 130 + hMod  + wMod)
+        val hMod = (Roller.randomInt(10)+1) + (Roller.randomInt(10)+1)
+        val wMod = ((Roller.randomInt(4)+1) + (Roller.randomInt(4)+1))*hMod
+        (56+hMod, 110 + wMod)
       case "Elf" =>
-        val hMod = (Roller.randomInt(13)-1) + (Roller.randomInt(13)-1)
-        val wMod = (Roller.randomInt(4)-1) + (Roller.randomInt(4)-1)
-        (52+hMod, 120 + hMod  + wMod)
+        val hMod = (Roller.randomInt(10)+1) + (Roller.randomInt(10)+1)
+        val wMod = (Roller.randomInt(4)+1)*hMod
+        (54+hMod, 90 + wMod)
       case "Dwarf" =>
-        val hMod = (Roller.randomInt(13)-1) + (Roller.randomInt(13)-1)
-        val wMod = (Roller.randomInt(4)-1) + (Roller.randomInt(4)-1)
-        (40+hMod, 100 + hMod  + wMod)
+        val hMod = (Roller.randomInt(4)+1) + (Roller.randomInt(4)+1)
+        val wMod = (Roller.randomInt(6)+1)*hMod + (Roller.randomInt(6)+1)*hMod
+        (46+hMod, 115 + wMod)
       case "Halfling" =>
-        val hMod = (Roller.randomInt(13)-1) + (Roller.randomInt(13)-1)
-        val wMod = (Roller.randomInt(4)-1) + (Roller.randomInt(4)-1)
-        (32+hMod, 35 + hMod  + wMod)
+        val hMod = (Roller.randomInt(4)+1) + (Roller.randomInt(4)+1)
+        val wMod = (Roller.randomInt(4)+1)*hMod + (Roller.randomInt(4)+1)*hMod
+        (31+hMod, 35 + wMod)
 
     }
 
@@ -38,9 +38,9 @@ object HeightWeightGenerator {
 
     val (height, weight) =
       if(gender == "Female")
-      (baseHeight-6, (baseWeight * strMod).toInt)
+      (baseHeight-5, (baseWeight.toDouble * strMod * 0.85).toInt)
     else
-      (baseHeight, (1.1* baseWeight * strMod).toInt)
+      (baseHeight, (baseWeight.toDouble * strMod).toInt)
 
 
     (inchesToString(height), weight.toString)

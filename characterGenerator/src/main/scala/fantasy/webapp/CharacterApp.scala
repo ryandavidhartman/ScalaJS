@@ -6,6 +6,7 @@ import fantasy.utilities.{AgeGenerator, AlignmentGenerator, BackgroundGenerator,
 import org.scalajs.dom
 import org.scalajs.dom.{document, html}
 import DOMObjects._
+import fantasy.utilities.PersonalityGenerator.getPersonality
 
 import scala.scalajs.js.annotation.JSExportTopLevel
 
@@ -103,6 +104,7 @@ object CharacterApp {
     setAge()
     setAlignment()
     setBackground()
+    setPersonality()
     setTurnUndead()
     setThiefSkills()
   }
@@ -338,10 +340,14 @@ object CharacterApp {
   @JSExportTopLevel("setBackground")
   def setBackground(): Unit = {
     val background = BackgroundGenerator()
-    character_background_input.value = background.backgroundSkills.last
     socialClassSpan.textContent =  background.socialClass
     familyWealthSpan.textContent = background.familyWealth
     backgroundSkillsSpan.textContent = background.backgroundSkills.reverse.mkString(",")
+  }
+
+  @JSExportTopLevel("setPersonality")
+  def setPersonality(): Unit = {
+    character_personality_input.value = getPersonality()
   }
 
 }

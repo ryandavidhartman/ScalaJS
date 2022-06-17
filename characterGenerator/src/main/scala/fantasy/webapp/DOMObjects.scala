@@ -11,7 +11,7 @@ object DOMObjects {
   val character_weight_input =  document.getElementById("character_weight_input").asInstanceOf[html.Input]
   val character_age_input =  document.getElementById("character_age_input").asInstanceOf[html.Input]
   val character_alignment_select =  document.getElementById("character_alignment_select").asInstanceOf[html.Select]
-  val character_background_input = document.getElementById("character_background_input").asInstanceOf[html.Input]
+  val character_personality_input = document.getElementById("character_personality_input").asInstanceOf[html.Input]
 
   val str_select = document.getElementById("character_strength_select").asInstanceOf[html.Select]
   val dex_select = document.getElementById("character_dexterity_select").asInstanceOf[html.Select]
