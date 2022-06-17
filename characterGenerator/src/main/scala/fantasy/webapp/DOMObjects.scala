@@ -68,8 +68,9 @@ object DOMObjects {
   val listenSpan = document.getElementById("listen").asInstanceOf[html.Span]
 
   // Back Ground
+  val nationalitySpan = document.getElementById("nationality").asInstanceOf[html.Span]
   val socialClassSpan = document.getElementById("socialClass").asInstanceOf[html.Span]
   val familyWealthSpan = document.getElementById("familyWealth").asInstanceOf[html.Span]
-  val backgroundSkillsSpan = document.getElementById("backgroundSkills").asInstanceOf[html.Span]
+  val parentOccupationSpan = document.getElementById("parentOccupation").asInstanceOf[html.Span]
 
 }

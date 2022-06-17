@@ -2,7 +2,7 @@ package fantasy.webapp
 
 import fantasy.utilities.Roller.getSixScores
 import fantasy.utilities.BasicFantasy._
-import fantasy.utilities.{AgeGenerator, AlignmentGenerator, BackgroundGenerator, HeightWeightGenerator, NameGenerator, SavingsThrows, Spells, ThiefSkills, TurnUndead}
+import fantasy.utilities.{AgeGenerator, AlignmentGenerator, BackgroundGenerator, HeightWeightGenerator, NameGenerator, Races, SavingsThrows, Spells, ThiefSkills, TurnUndead}
 import org.scalajs.dom
 import org.scalajs.dom.{document, html}
 import DOMObjects._
@@ -339,10 +339,13 @@ object CharacterApp {
 
   @JSExportTopLevel("setBackground")
   def setBackground(): Unit = {
-    val background = BackgroundGenerator()
-    socialClassSpan.textContent =  background.socialClass
-    familyWealthSpan.textContent = background.familyWealth
-    backgroundSkillsSpan.textContent = background.backgroundSkills.reverse.mkString(",")
+
+    val race = Races.stringToRace(character_race_select.value)
+    val background = BackgroundGenerator.getBackground(race)
+    nationalitySpan.textContent = background.nationality(race).niceString
+    socialClassSpan.textContent =  background.niceString()
+    familyWealthSpan.textContent = background.familyWealth.niceString()
+    parentOccupationSpan.textContent = background.occupation()
   }
 
   @JSExportTopLevel("setPersonality")
