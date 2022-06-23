@@ -407,9 +407,7 @@ button:focus {
 }
 
 @media print {
-  .no-print, .no-print * {
-    display: none !important;
-  }
+  .noprint {display:none !important;}
 }
 
 #last_p {
