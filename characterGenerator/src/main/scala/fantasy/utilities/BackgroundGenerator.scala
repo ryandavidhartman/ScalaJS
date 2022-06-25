@@ -69,7 +69,7 @@ sealed trait Background {
     val random = Roller.randomInt(100)
 
     race match {
-      case _:Human =>
+      case Human =>
         if(random < 15)
           Karameikos()
         else if(random < 20)
@@ -104,7 +104,7 @@ sealed trait Background {
           Thyatis()
         else
           Wildlands()
-      case _:Elf =>
+      case Elf =>
         if(random < 2)
           Karameikos()
         else if(random < 4)
@@ -139,7 +139,7 @@ sealed trait Background {
           Thyatis()
         else
           Wildlands()
-      case _:Dwarf =>
+      case Dwarf =>
         if(random < 2)
           Karameikos()
         else if(random < 4)
@@ -174,7 +174,7 @@ sealed trait Background {
           Thyatis()
         else
           Wildlands()
-      case _:Halfling => Darokin()
+      case Halfling => Darokin()
         if(random < 2)
           Karameikos()
         else if(random < 4)
@@ -209,7 +209,7 @@ sealed trait Background {
           Thyatis()
         else
           Wildlands()
-      case _:HalfElf =>
+      case HalfElf =>
         if(random < 10)
           Karameikos()
         else if(random < 15)
@@ -245,7 +245,7 @@ sealed trait Background {
         else
           Wildlands()
 
-      case _:HalfOrc =>
+      case HalfOrc =>
         if(random < 5)
           Karameikos()
         else if(random < 10)

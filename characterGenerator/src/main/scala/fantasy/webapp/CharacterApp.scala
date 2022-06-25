@@ -288,7 +288,7 @@ object CharacterApp {
     val race = character_race_select.value
     val level = character_level_select.value.toInt
 
-    val age = AgeGenerator.getAge(race, level)
+    val age = AgeGenerator.getAge(Races.stringToRace(race), level)
 
     character_age_input.value = age.toString
 
