@@ -1,533 +1,450 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
-    <head>
-        <title>Basic Fantasy Character Generator</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/foundation.min.css">
-        <link rel="stylesheet" href="css/app.css">
-    </head>
-    <body>
-        <div class="grid-container">
-            <h2>Basic Fantasy Character Generator</h2>
-            <div class="large-12 medium-12 callout"at>
-                <div class="grid-x grid-padding-x">
-                    <div class="large-4 medium-4 cell">
-                        <h5>Race</h5>
-                        <select id="character_race_select">
-                            <option value="Human" selected>Human</option>
-                            <option value="Elf">Elf</option>
-                            <option value="Dwarf">Dwarf</option>
-                            <option value="Halfling">Halfling</option>
-                        </select>
-                    </div>
-                    <div class="large-4 medium-4 cell">
-                        <h5>Class</h5>
-                        <select id="character_class_select">
-                            <option value="Fighter" selected>Fighter</option>
-                            <option value="Mage">Mage</option>
-                            <option value="Thief">Thief</option>
-                            <option value="Cleric">Cleric</option>
-                            <option value="FighterMage" disabled>FighterMage</option>
-                        </select>
-                    </div>
-                    <div class="large-4 medium-4 cell">
-                        <h5>Level</h5>
-                        <select id="character_level_select">
-                            <option value="1" selected>1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                        </select>
-                    </div>
-                    <div class="large-2 medium-4 cell">
-                        Strength
-                            <select id="character_strength_select">
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10" selected>10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                        </select>
-                    </div>
-                    <div class="large-2 medium-4 cell">
-                        Dexterity
-                            <select id="character_dexterity_select">
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10" selected>10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                        </select>
-                    </div>
-                    <div class="large-2 medium-4 cell">
-                        Constitution
-                            <select id="character_constitution_select">
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10" selected>10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                        </select>
-                    </div>
-                    <div class="large-2 medium-4 cell">
-                        Intelligence
-                            <select id="character_intelligence_select">
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10" selected>10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                        </select>
-                    </div>
-                    <div class="large-2 medium-4 cell">
-                        Wisdom
-                            <select id="character_wisdom_select">
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10" selected>10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                        </select>
-                    </div>
-                    <div class="large-2 medium-4 cell">
-                        Charisma
-                            <select id="character_charisma_select">
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10" selected>10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                        </select>
-                    </div>
-                    <fieldset class="large-12 medium-12 cell">
-                        <input type="button" class="button" id="roll_ability_scores" value="Roll Scores" />
-                        
-                        <input type="checkbox" id="switch_primary" style="margin-left: 15px" onclick="toggleSwitchPrimary()"><label for="switch_primary">Switch highest score with Primary attribute.</label>
-                    </fieldset>
-                </div>   
-            </div>
-            
-            <div class="grid-x grid-padding-x">
-                <div class="large-4 medium-4 cell">
-                    <h5>Combat</h5>
-                    <div class="callout" id="combat_stats">
-                        <table class="unstriped">
-                            <tr>
-                                <td><strong>Attack Bonus:</strong></td> 
-                                <td><span id="base_attack_bonus">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Melee Bonus:</strong></td> 
-                                <td><span id="melee_attack_bonus">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Ranged Bonus:</strong></td> 
-                                <td><span id="ranged_attack_bonus">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>AC Bonus:</strong></td> 
-                                <td><span id="ac_bonus">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Hit Points:</strong></td> 
-                                <td><span id="hit_points">0</span></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="large-4 medium-4 cell">
-                    <h5>Saving Throws</h5>
-                    <div class="callout" id="saving_throws">
-                        <table class="unstriped">
-                            <tr>
-                                <td><strong>Death:</strong></td> 
-                                <td><span id="death">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Wands:</strong></td> 
-                                <td><span id="wands">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Paralysis:</strong></td> 
-                                <td><span id="paralysis">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Breath Weapon:</strong></td> 
-                                <td><span id="breath">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Spells:</strong></td> 
-                                <td><span id="spells">0</span></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="large-4 medium-4 cell">
-                    <h5>Spells per Level</h5>
-                    <div class="callout" id="spells_list">
-                        <span id="spells_per_level">None</span>
-                    </div>
-                </div>
-
-                <div class="large-4 medium-4 cell">
-                    <h5>Turning Undead</h5>
-                    <div class="callout" id="turning">
-                        <table class="unstriped">
-                            <tr>
-                                <td><strong>Skeletons:</strong></td> 
-                                <td><span id="skeleton">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Zombie:</strong></td> 
-                                <td><span id="zombie">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Ghoul:</strong></td> 
-                                <td><span id="ghoul">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Wight:</strong></td> 
-                                <td><span id="wight">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Wraith:</strong></td> 
-                                <td><span id="wraith">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Mummy:</strong></td> 
-                                <td><span id="mummy">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Spectre:</strong></td> 
-                                <td><span id="spectre">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Vampire:</strong></td> 
-                                <td><span id="vampire">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Ghost:</strong></td> 
-                                <td><span id="ghost">0</span></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="large-4 medium-4 cell">
-                    <h5>Thief Skills</h5>
-                    <div class="callout" id="thief_skills">
-                        <table class="unstriped">
-                            <tr>
-                                <td><strong>Open Locks:</strong></td> 
-                                <td><span id="openLocks">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Remove Traps:</strong></td> 
-                                <td><span id="removeTraps">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Pick Pockets:</strong></td> 
-                                <td><span id="pickPockets">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Move Silently:</strong></td> 
-                                <td><span id="moveSilently">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Climb Walls:</strong></td> 
-                                <td><span id="climbWalls">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Hide:</strong></td> 
-                                <td><span id="hide">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Spectre:</strong></td> 
-                                <td><span id="spectre">0</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Listen:</strong></td> 
-                                <td><span id="listen">0</span></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="large-4 medium-4 cell">
-                    <h5>Special Abilities</h5>
-                    <div class="callout" id="special_abilities">
-                    </div>
-                </div>
-            </div>
-
-        <p>Questions or problems can be emailed to <a href="mailto:andrew@andrewcooperonline.com">Andrew Cooper</a></p>
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Fantasy Character Generator</title>
+    <link rel="icon" type="image/ico" href="img/favicon.ico">
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<h2 class="noprint">Basic Fantasy Character Generator</h2>
+<div class="large-12 medium-12 callout">
+    <table>
+        <tr>
+            <td align="Right">
+                <h5>Name:</h5>
+            </td>
+            <td>
+                <input type="text" id="character_name_input" name="character_name_input" />
+            </td>
+            <td>
+                <input type="button" class="button noprint" id="roll_character_name" value="Roll Name" />
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="large-12 medium-12 callout">
+    <div class="grid-x grid-padding-x">
+        <div class="large-4 medium-4 cell">
+            <h5>Race</h5>
+            <select id="character_race_select">
+                <option value="Human" selected>Human</option>
+                <option value="Elf">Elf</option>
+                <option value="Dwarf">Dwarf</option>
+                <option value="Halfling">Halfling</option>
+            </select>
         </div>
-        
+        <div class="large-4 medium-4 cell">
+            <h5>Class</h5>
+            <select id="character_class_select">
+                <option value="Fighter" selected>Fighter</option>
+                <option value="Magic-User">Magic-User</option>
+                <option value="Thief">Thief</option>
+                <option value="Cleric">Cleric</option>
+                <option value="Fighter/Magic-User">Fighter/Magic-User</option>
+                <option value="Magic-User/Thief">Magic-User/Thief</option>
+            </select>
+        </div>
+        <div class="large-4 medium-4 cell">
+            <h5>Level</h5>
+            <select id="character_level_select">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+        <div class="large-2 medium-4 cell">
+            Gender
+            <select id="character_gender_select">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+        <div class="large-2 medium-4 cell">
+            Height
+            <input type="text" id="character_height_input" name="character_height_input">
+        </div>
+        <div class="large-2 medium-4 cell">
+            Weight
+            <input type="text" id="character_weight_input" name="character_weight_input">
+        </div>
+        <div class="large-2 medium-4 cell">
+            Age
+            <input type="text" id="character_age_input" name="character_age_input">
+        </div>
+        <div class="large-2 medium-4 cell">
+            Alignment
+            <select id="character_alignment_select">
+                <option value="Lawful">Lawful</option>
+                <option value="Neutral">Neutral</option>
+                <option value="Chaotic">Chaotic</option>
+            </select>
+        </div>
+        <div class="large-2 medium-4 cell">
+            Personality
+            <input type="text" id="character_personality_input" name="character_personality_input">
+        </div>
+        <div class="large-2 medium-4 cell">
+            Strength
+            <select id="character_strength_select">
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10" selected>10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+            </select>
+        </div>
+        <div class="large-2 medium-4 cell">
+            Dexterity
+            <select id="character_dexterity_select">
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10" selected>10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+            </select>
+        </div>
+        <div class="large-2 medium-4 cell">
+            Constitution
+            <select id="character_constitution_select">
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10" selected>10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+            </select>
+        </div>
+        <div class="large-2 medium-4 cell">
+            Intelligence
+            <select id="character_intelligence_select">
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10" selected>10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+            </select>
+        </div>
+        <div class="large-2 medium-4 cell">
+            Wisdom
+            <select id="character_wisdom_select">
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10" selected>10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+            </select>
+        </div>
+        <div class="large-2 medium-4 cell">
+            Charisma
+            <select id="character_charisma_select">
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10" selected>10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+            </select>
+        </div>
+        <fieldset class="large-12 medium-12 cell">
+            <input type="button" class="button noprint" id="roll_ability_scores" value="Roll Scores" />
+        </fieldset>
+    </div>
+</div>
 
-        <script src="js/vendor/jquery.js"></script>
-        <script src="js/vendor/what-input.js"></script>
-        <script src="js/vendor/foundation.js"></script>
-        <script src="js/app.js"></script>
-        <script src="js/BasicFantasyCharGenerator.js"></script>
-        <script>
-            var cg = new BasicFantasyCharGenerator();
-            
-            function capitalizeFirstLetter(value) {
-                return value.charAt(0).toUpperCase() + value.slice(1);
-            }
-            
-            function setSpecialAbilities() {
-                var tag = $("#special_abilities");
-                tag.html("");
-                for (x = 0; x < cg.specialAbilities.length; x++) {
-                    tag.append("* " + cg.specialAbilities[x] + "<br>");
-                }
-            }
-            
-            function updateSheet() {
-                reloadClassSelect();
-                reloadRaceSelect();
-                reloadAbilitySelects();
-                $("#base_attack_bonus").html(cg.baseAttackBonus);
-                $("#melee_attack_bonus").html(cg.getMeleeAttackBonus());
-                $("#ranged_attack_bonus").html(cg.getRangedAttackBonus());
-                $("#ac_bonus").html(cg.attributes.Dexterity.bonus);
-                $("#hit_points").html(cg.getTotalHP());
-                $("#spells_per_level").html(cg.spells);
-                $("#death").html(cg.getDeathRaySave());
-                $("#wands").html(cg.getMagicWandsSave());
-                $("#paralysis").html(cg.getParalysisSave());
-                $("#breath").html(cg.getDragonBreathSave());
-                $("#spells").html(cg.getSpellsSave());
-                $("#skeleton").html(cg.turnUndead.skeleton);
-                $("#zombie").html(cg.turnUndead.zombie);
-                $("#ghoul").html(cg.turnUndead.ghoul);
-                $("#wight").html(cg.turnUndead.wight);
-                $("#wraith").html(cg.turnUndead.wraith);
-                $("#mummy").html(cg.turnUndead.mummy);
-                $("#spectre").html(cg.turnUndead.spectre);
-                $("#vampire").html(cg.turnUndead.vampire);
-                $("#ghost").html(cg.turnUndead.ghost);
-                $("#openLocks").html(cg.thiefSkills.openLocks);
-                $("#removeTraps").html(cg.thiefSkills.removeTraps);
-                $("#pickPockets").html(cg.thiefSkills.pickPockets);
-                $("#moveSilently").html(cg.thiefSkills.moveSilently);
-                $("#climbWalls").html(cg.thiefSkills.climbWalls);
-                $("#hide").html(cg.thiefSkills.hide);
-                $("#listen").html(cg.thiefSkills.listen);
-                setSpecialAbilities();
-            }
-            
-            function reloadRaceSelect() {
-                $("#character_race_select option").each(function() {
-                    if (cg.races[$(this).val()].allowedClasses.indexOf(cg.class.name) === -1) {
-                        $(this).prop("disabled", true);
-                    } else {
-                        $(this).prop("disabled", false);
-                    }
-                });
-            }
-            
-            function reloadClassSelect() {
-                $("#character_class_select option").each(function() {
-                    if ((cg.classAllowed($(this).val()) === false && !cg.switchPrimary)
-                        || (cg.classAllowed($(this).val()) === false && $(this).val() == "FighterMage")) {
-                        $(this).prop("disabled", true);
-                    } else {
-                        $(this).prop("disabled", false);
-                    }
-                });
-            }
-            
-            function reloadAbilitySelects() {
-                var abilities = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"];
-                
-                abilities.forEach(function(item) {
-                    var attr = item;
-                    $("#character_" + attr + "_select option").each(function() {
-                        if (cg.abilityAllowed(capitalizeFirstLetter(attr), $(this).val()) === false) {
-                            $(this).prop("disabled", true);
-                        } else {
-                            $(this).prop("disabled", false);
-                        }
-                        //if (cg.attributes[capitalizeFirstLetter(attr)].score == $(this).val()) 
-                    });
-                });
-            }
+<div class="grid-x grid-padding-x">
+    <div class="large-4 medium-4 cell">
+        <h5>Combat</h5>
+        <div class="callout" id="combat_stats">
+            <table class="unstriped">
+                <tr>
+                    <td><strong>Attack Bonus:</strong></td>
+                    <td><span id="base_attack_bonus">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Melee Bonus:</strong></td>
+                    <td><span id="melee_attack_bonus">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Ranged Bonus:</strong></td>
+                    <td><span id="ranged_attack_bonus">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>AC Bonus:</strong></td>
+                    <td><span id="ac_bonus">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>AC:</strong></td>
+                    <td><span id="ac">10</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Hit Points:</strong></td>
+                    <td><span id="hit_points">0</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
 
-            function toggleSwitchPrimary() {
-                cg.setSwitchPrimary($("#switch_primary").prop("checked"));
-                setAttributes();
-            }
+    <div class="large-4 medium-4 cell">
+        <h5>Saving Throws</h5>
+        <div class="callout" id="saving_throws">
+            <table class="unstriped">
+                <tr>
+                    <td><strong>Death Ray or Poison:</strong></td>
+                    <td><span id="death">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Magic Wands:</strong></td>
+                    <td><span id="wands">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Paralysis or Petrify:</strong></td>
+                    <td><span id="paralysis">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Breath Weapons:</strong></td>
+                    <td><span id="breath">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Spells:</strong></td>
+                    <td><span id="spells">0</span></td>
+                </tr>
+                <tr>
+                    <td><small>Poison use Con mod, Illusion use Int mod, Charm use Wis mod</small></td>
+                </tr>
+            </table>
+        </div>
+    </div>
 
-            function setAttributes() {
-                $("#character_strength_select").val(cg.attributes.Strength.score).change();
-                $("#character_dexterity_select").val(cg.attributes.Dexterity.score);
-                $("#character_constitution_select").val(cg.attributes.Constitution.score);
-                $("#character_intelligence_select").val(cg.attributes.Intelligence.score);
-                $("#character_wisdom_select").val(cg.attributes.Wisdom.score);
-                $("#character_charisma_select").val(cg.attributes.Charisma.score);
-            }
-            
-            $(document).ready(function() {
-                
-                cg.setRace("Human");
-                cg.setClass("Fighter");
-                cg.setLevel(1);
-                cg.setAttribute("Strength", 10);
-                cg.setAttribute("Dexterity", 10);
-                cg.setAttribute("Constitution", 10);
-                cg.setAttribute("Intelligence", 10);
-                cg.setAttribute("Wisdom", 10);
-                cg.setAttribute("Charisma", 10);
-                
-                updateSheet();
-                
-                $("#roll_ability_scores").click(function() {
-                    cg.generateScores();
-                    if (cg.switchPrimary) cg.switchPrimaryAttribute();
-                    setAttributes();
-                    updateSheet();
-                });
-                
-                $("#character_class_select").change(function() {
-                    cg.setClass($("#character_class_select").val());
-                    if (cg.switchPrimary) cg.switchPrimaryAttribute();
-                    setAttributes();
-                    updateSheet();
-                });
-                
-                $("#character_level_select").change(function() {
-                    cg.setLevel($("#character_level_select").val());
-                    updateSheet();
-                });
-                
-                $("#character_race_select").change(function() {
-                    cg.setRace($("#character_race_select").val());
-                    
-                    updateSheet();
-                });
-                
-                $("#character_strength_select").change(function() {
-                    cg.setAttribute("Strength", $("#character_strength_select").val());
-                    updateSheet();
-                });
-                
-                $("#character_dexterity_select").change(function() {
-                    cg.setAttribute("Dexterity", $("#character_dexterity_select").val());
-                    updateSheet();
-                });
-                
-                $("#character_constitution_select").change(function() {
-                    cg.setAttribute("Constitution", $("#character_constitution_select").val());
-                    updateSheet();
-                });
-                
-                $("#character_wisdom_select").change(function() {
-                    cg.setAttribute("Wisdom", $("#character_wisdom_select").val());
-                    updateSheet();
-                });
-                
-                $("#character_intelligence_select").change(function() {
-                    cg.setAttribute("Intelligence", $("#character_intelligence_select").val());
-                    updateSheet();
-                });
-                
-                $("#character_charisma_select").change(function() {
-                    cg.setAttribute("Charisma", $("#character_charisma_select").val());
-                    updateSheet();
-                });
-            });
-        </script>
-    </body>
+    <div class="large-4 medium-4 cell">
+        <h5>Spells per Level</h5>
+        <div class="callout" id="spells_list">
+            <table class="unstriped">
+                <tr>
+                    <td><strong>First Level:</strong></td>
+                    <td><span id="first_level">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Second Level:</strong></td>
+                    <td><span id="second_level">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Third Level:</strong></td>
+                    <td><span id="third_level">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Fourth Level:</strong></td>
+                    <td><span id="fourth_level">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Fifth Level:</strong></td>
+                    <td><span id="fifth_level">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Sixth Level:</strong></td>
+                    <td><span id="sixth_level">0</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="large-4 medium-4 cell">
+        <h5>Turning Undead</h5>
+        <div class="callout" id="turning">
+            <table class="unstriped">
+                <tr>
+                    <td><strong>Skeletons:</strong></td>
+                    <td><span id="skeleton">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Zombie:</strong></td>
+                    <td><span id="zombie">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Ghoul:</strong></td>
+                    <td><span id="ghoul">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Wight:</strong></td>
+                    <td><span id="wight">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Wraith:</strong></td>
+                    <td><span id="wraith">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Mummy:</strong></td>
+                    <td><span id="mummy">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Spectre:</strong></td>
+                    <td><span id="spectre">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Vampire:</strong></td>
+                    <td><span id="vampire">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Ghost:</strong></td>
+                    <td><span id="ghost">0</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="large-4 medium-4 cell">
+        <h5>Thief Skills</h5>
+        <div class="callout" id="thief_skills">
+            <table class="unstriped">
+                <tr>
+                    <td><strong>Open Locks:</strong></td>
+                    <td><span id="openLocks">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Remove Traps:</strong></td>
+                    <td><span id="removeTraps">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Pick Pockets:</strong></td>
+                    <td><span id="pickPockets">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Move Silently:</strong></td>
+                    <td><span id="moveSilently">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Climb Walls:</strong></td>
+                    <td><span id="climbWalls">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Hide:</strong></td>
+                    <td><span id="hide">0</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Listen:</strong></td>
+                    <td><span id="listen">0</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="large-4 medium-4 cell">
+        <h5>Special Abilities</h5>
+        <div class="callout" id="special_abilities">
+        </div>
+    </div>
+</div>
+
+<div class="grid-x grid-padding-x">
+    <div class="large-4 medium-4 cell">
+        <h5>Background</h5>
+        <table class="unstriped">
+            <tr>
+                <td><strong>From:</strong></td>
+                <td><span id="nationality">0</span></td>
+            </tr>
+            <tr>
+                <td><strong>Social Class:</strong></td>
+                <td><span id="socialClass">0</span></td>
+            </tr>
+            <tr>
+                <td><strong>Family Wealth:</strong></td>
+                <td><span id="familyWealth">0</span></td>
+            </tr>
+            <tr>
+                <td><strong>Parent's Occupation:</strong></td>
+                <td><span id="parentOccupation">0</span></td>
+            </tr>
+        </table>
+    </div>
+    <div class="large-4 medium-4 cell">
+        <h5>Equipment</h5>
+    </div>
+</div>
+
+<!-- Include Scala.js compiled code -->
+<script type="text/javascript" src="./target/scala-2.13/basic-fantasy-character-generator-fastopt/main.js"></script>
+</body>
 </html>
