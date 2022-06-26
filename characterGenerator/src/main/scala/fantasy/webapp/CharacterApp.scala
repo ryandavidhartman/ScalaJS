@@ -2,10 +2,11 @@ package fantasy.webapp
 
 import fantasy.utilities.Roller.getSixScores
 import fantasy.utilities.BasicFantasy._
-import fantasy.utilities.{AgeGenerator, AlignmentGenerator, BackgroundGenerator, HeightWeightGenerator, NameGenerator, Races, SavingsThrows, Spells, ThiefSkills, TurnUndead}
+import fantasy.utilities._
 import org.scalajs.dom
 import org.scalajs.dom.{document, html}
 import DOMObjects._
+import fantasy.utilities.CharacterClasses.stringToCharacterClass
 import fantasy.utilities.PersonalityGenerator.getPersonality
 
 import scala.scalajs.js.annotation.JSExportTopLevel
@@ -297,7 +298,7 @@ object CharacterApp {
   @JSExportTopLevel("setAlignment")
   def setAlignment(): Unit = {
     val characterClass = character_class_select.value
-    val alignment = AlignmentGenerator.getAlignment( characterClass)
+    val alignment = AlignmentGenerator.getAlignment(stringToCharacterClass(characterClass))
     character_alignment_select.value = alignment.toString
 
   }

@@ -1,5 +1,7 @@
 package fantasy.utilities
 
+import fantasy.utilities.CharacterClasses.CharacterClass
+
 sealed trait Alignment
 case object Lawful extends Alignment
 case object Neutral extends Alignment
@@ -7,10 +9,10 @@ case object Chaotic extends Alignment
 
 object AlignmentGenerator {
 
-  def getAlignment(characterClass: String): Alignment = {
+  def getAlignment(characterClass: CharacterClass): Alignment = {
 
     val random =
-      if(characterClass.contains("Thief"))
+      if(characterClass.isThief)
         Roller.randomInt(max = 50) + 50
       else
         Roller.randomInt(max = 100)

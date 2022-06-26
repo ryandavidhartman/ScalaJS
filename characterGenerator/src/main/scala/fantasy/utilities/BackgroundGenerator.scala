@@ -33,16 +33,16 @@ sealed trait FamilyWealth {
 }
 case class Poor() extends FamilyWealth
 case class BelowAverage() extends FamilyWealth {
-  override def toString() = "Below Average"
+  override def toString = "Below Average"
 }
 case class Average() extends FamilyWealth
 case class WellToDo() extends FamilyWealth
 {
-  override def toString() = "Well To Do"
+  override def toString = "Well To Do"
 }
 case class Wealthy() extends FamilyWealth
 case class VeryWealthy() extends FamilyWealth {
-  override def toString() = "Very Wealthy"
+  override def toString= "Very Wealthy"
 }
 
 
@@ -447,16 +447,16 @@ case class Merchant() extends Freeman {
     val random = Roller.randomInt(100)
     if (random < 10)
       "Apprentice"
-    else if (random < 10)
+    else if (random < 30)
       "Peddler"
     else if (random < 50)
       "Trader"
     else if (random < 70)
       "Dealer"
     else if (random < 90)
-      "Magnate"
-    else if (random < 98)
       "Senior Merchant"
+    else if (random < 98)
+      "Magnate"
     else
       "Merchant Price"
   }

@@ -2,14 +2,33 @@ package fantasy.utilities
 
 object CharacterClasses {
 
-  sealed trait CharacterClass
+  sealed trait CharacterClass {
+    val isCleric = false
+    val isFighter = false
+    val isMagicUser = false
+    val isThief = false
+  }
 
-  case object Cleric extends CharacterClass
-  case object Fighter extends CharacterClass
-  case object FighterMagicUser extends CharacterClass
-  case object MagicUser extends CharacterClass
-  case object MagicUserThief extends CharacterClass
-  case object Thief extends CharacterClass
+  case object Cleric extends CharacterClass {
+    override val isCleric = true
+  }
+  case object Fighter extends CharacterClass {
+    override val isFighter = true
+  }
+  case object FighterMagicUser extends CharacterClass {
+    override val isFighter = true
+    override val isMagicUser = true
+  }
+  case object MagicUser extends CharacterClass {
+    override val isMagicUser = true
+  }
+  case object MagicUserThief extends CharacterClass {
+    override val isThief = true
+    override val isMagicUser = true
+  }
+  case object Thief extends CharacterClass {
+    override val isThief = true
+  }
 
   case class InvalidCharacterClassException(msg: String) extends Exception(msg)
 
