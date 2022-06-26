@@ -118,10 +118,9 @@ object CharacterApp {
 
   @JSExportTopLevel("rollNameHandler")
   def rollNameHandler(): Unit = {
-    val race: String = character_race_select.value
     val gender: String = character_gender_select.value
 
-    val characterName = NameGenerator.getName(race, gender)
+    val characterName = NameGenerator.getName(getRace(), gender)
     character_name_input.value = characterName
   }
 
@@ -145,10 +144,9 @@ object CharacterApp {
   @JSExportTopLevel("setBaseAttackBonusHandler")
   def setBaseAttackBonusHandler(): Unit = {
 
-    val characterClass: String = character_class_select.value
     val level: Int = character_level_select.value.toInt
 
-    base_attack_bonus.textContent = calcBaseAttackModifier(characterClass, level)
+    base_attack_bonus.textContent = calcBaseAttackModifier(getCharacterClass(), level)
   }
 
   @JSExportTopLevel("setMeleeAttackBonusHandler")
@@ -182,10 +180,9 @@ object CharacterApp {
   def setHitPointsHandler(): Unit = {
 
     val constitution: Int = con_select.value.toInt
-    val characterClass: String = character_class_select.value
     val level: Int = character_level_select.value.toInt
 
-    hit_points.textContent = calcHitPoints(characterClass, level, constitution).toString
+    hit_points.textContent = calcHitPoints(getCharacterClass(), getRace(), level, constitution).toString
   }
 
   @JSExportTopLevel("setSpecialAbilities")
@@ -197,10 +194,8 @@ object CharacterApp {
 
   @JSExportTopLevel("checkClass")
   def checkClass(): Unit = {
-    val race = character_race_select.value
-    val characterClass = character_class_select.value
 
-    if(!checkCharacterClass(race, characterClass))
+    if(!checkCharacterClass(getRace(), getCharacterClass()))
       character_class_select.selectedIndex = 0
   }
 
@@ -274,11 +269,10 @@ object CharacterApp {
   @JSExportTopLevel("setHeight")
   def setHeightWeight(): Unit = {
 
-    val race = character_race_select.value
     val gender = character_gender_select.value
     val strength = str_select.value.toInt
 
-    val (height, weight) = HeightWeightGenerator.getHeight(race, gender, strength)
+    val (height, weight) = HeightWeightGenerator.getHeight(getRace(), gender, strength)
     character_height_input.value = height
     character_weight_input.value = weight
   }
@@ -286,10 +280,9 @@ object CharacterApp {
   @JSExportTopLevel("setAge")
   def setAge(): Unit = {
 
-    val race = character_race_select.value
     val level = character_level_select.value.toInt
 
-    val age = AgeGenerator.getAge(Races.stringToRace(race), level)
+    val age = AgeGenerator.getAge(getRace(), level)
 
     character_age_input.value = age.toString
 
@@ -340,10 +333,8 @@ object CharacterApp {
 
   @JSExportTopLevel("setBackground")
   def setBackground(): Unit = {
-
-    val race = Races.stringToRace(character_race_select.value)
-    val background = BackgroundGenerator.getBackground(race)
-    nationalitySpan.textContent = background.nationality(race).niceString
+    val background = BackgroundGenerator.getBackground(getRace)
+    nationalitySpan.textContent = background.nationality.niceString
     socialClassSpan.textContent =  background.niceString()
     familyWealthSpan.textContent = background.familyWealth.niceString()
     parentOccupationSpan.textContent = background.occupation()

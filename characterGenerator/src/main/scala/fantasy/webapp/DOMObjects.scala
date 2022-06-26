@@ -1,5 +1,8 @@
 package fantasy.webapp
 
+import fantasy.utilities.CharacterClasses.CharacterClass
+import fantasy.utilities.{CharacterClasses, Races}
+import fantasy.utilities.Races.Race
 import org.scalajs.dom.{document, html}
 
 object DOMObjects {
@@ -72,5 +75,10 @@ object DOMObjects {
   val socialClassSpan = document.getElementById("socialClass").asInstanceOf[html.Span]
   val familyWealthSpan = document.getElementById("familyWealth").asInstanceOf[html.Span]
   val parentOccupationSpan = document.getElementById("parentOccupation").asInstanceOf[html.Span]
+
+
+  def getRace(): Race = Races.stringToRace(character_race_select.value)
+
+  def getCharacterClass(): CharacterClass = CharacterClasses.stringToCharacterClass(character_class_select.value)
 
 }

@@ -1,27 +1,36 @@
 package fantasy.utilities
 
+import fantasy.utilities.Races._
+
 object HeightWeightGenerator {
 
-  def getHeight(race: String, gender: String, strength: Int): (String, String) = {
+  def getHeight(race: Race, gender: String, strength: Int): (String, String) = {
 
     val (baseHeight, baseWeight) = race match {
-      case "Human" =>
+      case Human =>
         val hMod = (Roller.randomInt(10)+1) + (Roller.randomInt(10)+1)
         val wMod = ((Roller.randomInt(4)+1) + (Roller.randomInt(4)+1))*hMod
         (56+hMod, 110 + wMod)
-      case "Elf" =>
+      case Elf =>
         val hMod = (Roller.randomInt(10)+1) + (Roller.randomInt(10)+1)
         val wMod = (Roller.randomInt(4)+1)*hMod
         (54+hMod, 90 + wMod)
-      case "Dwarf" =>
+      case HalfElf =>
+        val hMod = (Roller.randomInt(10)+1) + (Roller.randomInt(10)+1)
+        val wMod = (Roller.randomInt(4)+1)*hMod
+        (55+hMod, 100 + wMod)
+      case HalfOrc =>
+        val hMod = (Roller.randomInt(10)+1) + (Roller.randomInt(10)+1)
+        val wMod = ((Roller.randomInt(4)+1) + (Roller.randomInt(4)+1))*hMod
+        (57+hMod, 120 + wMod)
+      case Dwarf =>
         val hMod = (Roller.randomInt(4)+1) + (Roller.randomInt(4)+1)
         val wMod = (Roller.randomInt(6)+1)*hMod + (Roller.randomInt(6)+1)*hMod
         (46+hMod, 115 + wMod)
-      case "Halfling" =>
+      case Halfling =>
         val hMod = (Roller.randomInt(4)+1) + (Roller.randomInt(4)+1)
         val wMod = (Roller.randomInt(4)+1)*hMod + (Roller.randomInt(4)+1)*hMod
         (31+hMod, 35 + wMod)
-
     }
 
     val strMod: Double =

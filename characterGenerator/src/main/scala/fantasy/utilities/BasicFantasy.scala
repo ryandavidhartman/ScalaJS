@@ -1,10 +1,13 @@
 package fantasy.utilities
 
+import fantasy.utilities.CharacterClasses._
+import fantasy.utilities.Races._
+
 object BasicFantasy {
 
-  def calcBaseAttackModifier(characterClass: String, level: Int): String = {
+  def calcBaseAttackModifier(characterClass: CharacterClass, level: Int): String = {
     characterClass match {
-      case f if f.contains("Fighter") =>
+      case f if f.isFighter =>
         if(level == 1)
           "+1"
         else if(level <= 3)
@@ -25,7 +28,7 @@ object BasicFantasy {
           "+9"
         else
           "+10"
-      case s if s.contains("Thief") | s.contains("Cleric")=>
+      case s if s.isThief || s.isCleric =>
         if(level <= 2)
           "+1"
         else if(level == 4)
@@ -42,7 +45,7 @@ object BasicFantasy {
           "+7"
         else
           "+8"
-      case "Magic-User" =>
+      case MagicUser =>
         if(level <= 3)
           "+1"
         else if(level <= 5)
@@ -78,22 +81,26 @@ object BasicFantasy {
     modifierBonusIntToString(num)
   }
 
-  def calcHitPoints(characterClass: String, level: Int, constitution: Int): Int = {
-
+  def calcHitPoints(characterClass: CharacterClass, race: Race, level: Int, constitution: Int): Int = {
     val mod = attributeModifiers(constitution)
+    val cutOffLevel = 9
 
-    val truncated_level = Math.min(level, 9)
-
-    val hpForFirst9 = characterClass match {
-      case f if f.contains("Fighter") => Roller.rollHP(truncated_level, 8, mod)
-      case c if c.contains("Cleric") => Roller.rollHP(truncated_level, 6, mod)
-      case s if s.contains("Thief") | s.contains("Magic-User") => Roller.rollHP(truncated_level, 4, mod)
+    val truncated_level = Math.min(level, cutOffLevel)
+    val hitDice:Int = characterClass match {
+      case f if f.isFighter => 8
+      case c if c.isCleric => 6
+      case s if s.isThief || s.isMagicUser => 4
     }
 
-    val hpFor9AndUp = if(level > 9)
-      (level-9)
-    else
-      0
+    val modHitDice: Int = race match {
+      case Elf => if(hitDice > 6) 6 else hitDice
+      case Halfling => if(hitDice > 6) 6 else hitDice
+      case _ => hitDice
+    }
+
+    val hpForFirst9 = Roller.rollHP(truncated_level, modHitDice, mod)
+
+    val hpFor9AndUp = if(level > cutOffLevel) level-cutOffLevel else 0
 
     hpForFirst9 + hpFor9AndUp
   }
@@ -115,11 +122,18 @@ object BasicFantasy {
       mod.toString
   }
 
-  def checkCharacterClass(race: String, characterClass: String): Boolean = race match {
-    case "Human" => !characterClass.contains("/")
-    case "Elf" => true
-    case "Dwarf" => !characterClass.contains("Magic-User")
-    case "Halfling" => !characterClass.contains("Magic-User")
+  def checkCharacterClass(race: Race, characterClass: CharacterClass): Boolean = {
+    val isFighterClericThief: Boolean =
+      (characterClass.isFighter || characterClass.isThief || characterClass.isCleric) && !characterClass.isMultiClass
+
+    race match {
+      case Human => !characterClass.isMultiClass
+      case Elf => true
+      case Dwarf =>  isFighterClericThief
+      case Halfling =>  isFighterClericThief
+      case HalfElf => true
+      case HalfOrc => isFighterClericThief
+    }
   }
 
   def getRacialAbilities(race: String): String= race match {

@@ -1,30 +1,28 @@
 package fantasy.utilities
 import fantasy.utilities.Races._
 
-
-
 sealed trait Nationality {
   def niceString(): String = {
     this.toString.replace("()", "")
   }
 }
-case class Karameikos() extends Nationality
-case class Ylaruam() extends Nationality
-case class Glantri() extends Nationality
-case class Ierendi() extends Nationality
-case class Alfheim() extends Nationality
-case class Rockhome() extends Nationality
-case class NorthernReaches() extends Nationality
-case class FiveShires() extends Nationality
-case class Minrothad() extends Nationality
-case class Thar() extends Nationality
-case class Darokin() extends Nationality
-case class Ethengar() extends Nationality
-case class ShadowLands() extends Nationality
-case class Altruaghin() extends Nationality
-case class Alphatia() extends Nationality
-case class Thyatis() extends Nationality
-case class Wildlands() extends Nationality
+case object Karameikos extends Nationality
+case object Ylaruam extends Nationality
+case object Glantri extends Nationality
+case object Ierendi extends Nationality
+case object Alfheim extends Nationality
+case object Rockhome extends Nationality
+case object NorthernReaches extends Nationality
+case object FiveShires extends Nationality
+case object Minrothad extends Nationality
+case object Thar extends Nationality
+case object Darokin extends Nationality
+case object Ethengar extends Nationality
+case object ShadowLands extends Nationality
+case object Altruaghin extends Nationality
+case object Alphatia extends Nationality
+case object Thyatis extends Nationality
+case object Wildlands extends Nationality
 
 sealed trait FamilyWealth {
   def niceString(): String = {
@@ -47,9 +45,9 @@ case class VeryWealthy() extends FamilyWealth {
 
 
 
-sealed trait Background {
+sealed abstract class Background(race: Race) {
   val wealthModifier: Int = 0
-  def familyWealth: FamilyWealth = {
+  val familyWealth: FamilyWealth = {
     val random = Roller.randomInt(100) + wealthModifier
 
     if(random < 20)
@@ -65,221 +63,221 @@ sealed trait Background {
     else
       VeryWealthy()
   }
-  def nationality(race: Race): Nationality = {
+  val nationality: Nationality = {
     val random = Roller.randomInt(100)
 
     race match {
       case Human =>
         if(random < 15)
-          Karameikos()
+          Karameikos
         else if(random < 20)
-          Ylaruam()
+          Ylaruam
         else if(random < 30)
-          Glantri()
+          Glantri
         else if(random < 35)
-          Ierendi()
+          Ierendi
         else if(random < 36)
-          Alfheim()
+          Alfheim
         else if(random < 37)
-          Rockhome()
+          Rockhome
         else if(random < 43)
-          NorthernReaches()
+          NorthernReaches
         else if(random < 44)
-          FiveShires()
+          FiveShires
         else if(random < 49)
-          Minrothad()
+          Minrothad
         else if(random < 50)
-          Thar()
+          Thar
         else if(random < 65)
-          Darokin()
+          Darokin
         else if(random < 70)
-          Ethengar()
+          Ethengar
         else if(random < 71)
-          ShadowLands()
+          ShadowLands
         else if(random < 76)
-          Altruaghin()
+          Altruaghin
         else if(random < 85)
-          Alphatia()
+          Alphatia
         else if(random < 95)
-          Thyatis()
+          Thyatis
         else
-          Wildlands()
+          Wildlands
       case Elf =>
         if(random < 2)
-          Karameikos()
+          Karameikos
         else if(random < 4)
-          Ylaruam()
+          Ylaruam
         else if(random < 14)
-          Glantri()
+          Glantri
         else if(random < 15)
-          Ierendi()
+          Ierendi
         else if(random < 65)
-          Alfheim()
+          Alfheim
         else if(random < 66)
-          Rockhome()
+          Rockhome
         else if(random < 67)
-          NorthernReaches()
+          NorthernReaches
         else if(random < 68)
-          FiveShires()
+          FiveShires
         else if(random < 69)
-          Minrothad()
+          Minrothad
         else if(random < 70)
-          Thar()
+          Thar
         else if(random < 75)
-          Darokin()
+          Darokin
         else if(random < 71)
-          Ethengar()
+          Ethengar
         else if(random < 80)
-          ShadowLands()
+          ShadowLands
         else if(random < 81)
-          Altruaghin()
+          Altruaghin
         else if(random < 84)
-          Alphatia()
+          Alphatia
         else if(random < 90)
-          Thyatis()
+          Thyatis
         else
-          Wildlands()
+          Wildlands
       case Dwarf =>
         if(random < 2)
-          Karameikos()
+          Karameikos
         else if(random < 4)
-          Ylaruam()
+          Ylaruam
         else if(random < 5)
-          Glantri()
+          Glantri
         else if(random < 15)
-          Ierendi()
+          Ierendi
         else if(random < 16)
-          Alfheim()
+          Alfheim
         else if(random < 66)
-          Rockhome()
+          Rockhome
         else if(random < 67)
-          NorthernReaches()
+          NorthernReaches
         else if(random < 68)
-          FiveShires()
+          FiveShires
         else if(random < 69)
-          Minrothad()
+          Minrothad
         else if(random < 70)
-          Thar()
+          Thar
         else if(random < 75)
-          Darokin()
+          Darokin
         else if(random < 71)
-          Ethengar()
+          Ethengar
         else if(random < 80)
-          ShadowLands()
+          ShadowLands
         else if(random < 81)
-          Altruaghin()
+          Altruaghin
         else if(random < 84)
-          Alphatia()
+          Alphatia
         else if(random < 90)
-          Thyatis()
+          Thyatis
         else
-          Wildlands()
-      case Halfling => Darokin()
+          Wildlands
+      case Halfling => Darokin
         if(random < 2)
-          Karameikos()
+          Karameikos
         else if(random < 4)
-          Ylaruam()
+          Ylaruam
         else if(random < 5)
-          Glantri()
+          Glantri
         else if(random < 15)
-          Ierendi()
+          Ierendi
         else if(random < 16)
-          Alfheim()
+          Alfheim
         else if(random < 17)
-          Rockhome()
+          Rockhome
         else if(random < 18)
-          NorthernReaches()
+          NorthernReaches
         else if(random < 68)
-          FiveShires()
+          FiveShires
         else if(random < 69)
-          Minrothad()
+          Minrothad
         else if(random < 70)
-          Thar()
+          Thar
         else if(random < 75)
-          Darokin()
+          Darokin
         else if(random < 71)
-          Ethengar()
+          Ethengar
         else if(random < 80)
-          ShadowLands()
+          ShadowLands
         else if(random < 81)
-          Altruaghin()
+          Altruaghin
         else if(random < 84)
-          Alphatia()
+          Alphatia
         else if(random < 90)
-          Thyatis()
+          Thyatis
         else
-          Wildlands()
+          Wildlands
       case HalfElf =>
         if(random < 10)
-          Karameikos()
+          Karameikos
         else if(random < 15)
-          Ylaruam()
+          Ylaruam
         else if(random < 30)
-          Glantri()
+          Glantri
         else if(random < 35)
-          Ierendi()
+          Ierendi
         else if(random < 55)
-          Alfheim()
+          Alfheim
         else if(random < 56)
-          Rockhome()
+          Rockhome
         else if(random < 60)
-          NorthernReaches()
+          NorthernReaches
         else if(random < 61)
-          FiveShires()
+          FiveShires
         else if(random < 65)
-          Minrothad()
+          Minrothad
         else if(random < 66)
-          Thar()
+          Thar
         else if(random < 75)
-          Darokin()
+          Darokin
         else if(random < 80)
-          Ethengar()
+          Ethengar
         else if(random < 90)
-          ShadowLands()
+          ShadowLands
         else if(random < 91)
-          Altruaghin()
+          Altruaghin
         else if(random < 93)
-          Alphatia()
+          Alphatia
         else if(random < 98)
-          Thyatis()
+          Thyatis
         else
-          Wildlands()
+          Wildlands
 
       case HalfOrc =>
         if(random < 5)
-          Karameikos()
+          Karameikos
         else if(random < 10)
-          Ylaruam()
+          Ylaruam
         else if(random < 15)
-          Glantri()
+          Glantri
         else if(random < 20)
-          Ierendi()
+          Ierendi
         else if(random < 21)
-          Alfheim()
+          Alfheim
         else if(random < 22)
-          Rockhome()
+          Rockhome
         else if(random < 27)
-          NorthernReaches()
+          NorthernReaches
         else if(random < 28)
-          FiveShires()
+          FiveShires
         else if(random < 33)
-          Minrothad()
+          Minrothad
         else if(random < 60)
-          Thar()
+          Thar
         else if(random < 65)
-          Darokin()
+          Darokin
         else if(random < 70)
-          Ethengar()
+          Ethengar
         else if(random < 71)
-          ShadowLands()
+          ShadowLands
         else if(random < 76)
-          Altruaghin()
+          Altruaghin
         else if(random < 81)
-          Alphatia()
+          Alphatia
         else if(random < 86)
-          Thyatis()
+          Thyatis
         else
-          Wildlands()
+          Wildlands
     }
   }
   def occupation(): String = {
@@ -332,7 +330,7 @@ sealed trait Background {
   }
 }
 
-sealed abstract class Commoner extends Background {
+sealed abstract class Commoner(race: Race) extends Background(race) {
   override def occupation(): String = {
     val random = Roller.randomInt(100)
     if (random < 10)
@@ -356,35 +354,35 @@ sealed abstract class Commoner extends Background {
   }
   override def toString: String = "Commoner"
 }
-sealed abstract class Freeman extends Background {
+sealed abstract class Freeman(race: Race) extends Background(race) {
   override def toString: String = "Freeman"
 }
-sealed abstract class Clergy extends Background {
+sealed abstract class Clergy(race: Race) extends Background(race) {
   override def toString: String = "Clergy"
   override def occupation(): String = {
     "Clergy"
   }
 }
-sealed abstract class Genteel extends Background {
+sealed abstract class Genteel(race: Race) extends Background(race) {
   override def toString: String = "Genteel"
 }
-sealed abstract class Nobel extends Background {
+sealed abstract class Nobel(race: Race) extends Background(race) {
   override def toString: String = "Nobel"
 }
-sealed abstract class Royalty extends Background {
+sealed abstract class Royalty(race: Race) extends Background(race) {
   override def toString: String = "Royality"
 }
 
-case class Serf() extends Commoner {
+case class Serf(race: Race) extends Commoner(race) {
   override val wealthModifier: Int = -60
   override def toString: String = "Commoner/Serf"
 }
-case class Peasant() extends Commoner {
+case class Peasant(race: Race) extends Commoner(race) {
   override val wealthModifier: Int = -40
   override def toString: String = "Commoner/Peasant"
 }
 
-case class Farmer() extends Freeman {
+case class Farmer(race: Race) extends Freeman(race) {
   override val wealthModifier: Int = -10
   override def occupation(): String = {
     "Farmer"
@@ -393,7 +391,7 @@ case class Farmer() extends Freeman {
 }
 
 
-case class Craftsman() extends Freeman {
+case class Craftsman(race: Race) extends Freeman(race) {
   override val wealthModifier: Int = -5
   override def occupation(): String = {
     val random = Roller.randomInt(100)
@@ -442,7 +440,7 @@ case class Craftsman() extends Freeman {
 }
 
 
-case class Merchant() extends Freeman {
+case class Merchant(race: Race) extends Freeman(race) {
   override def occupation(): String = {
     val random = Roller.randomInt(100)
     if (random < 10)
@@ -463,70 +461,70 @@ case class Merchant() extends Freeman {
   override def toString: String = "Freeman"
 }
 
-case class Priest() extends Clergy {
+case class Priest(race: Race) extends Clergy(race) {
   override def toString: String = "Priest"
 }
-case class Curate() extends Clergy  {
+case class Curate(race: Race) extends Clergy(race)  {
   override def toString: String = "Curate"
 }
-case class Canon() extends Clergy {
+case class Canon(race: Race) extends Clergy(race) {
   override val wealthModifier: Int = 10
   override def toString: String = "Canon"
 }
-case class Patriarch() extends Clergy {
+case class Patriarch(race: Race) extends Clergy(race) {
   override val wealthModifier: Int = 20
   override def toString: String = "Patriarch"
 }
-case class HighPriest() extends Clergy {
+case class HighPriest(race: Race) extends Clergy(race) {
   override val wealthModifier: Int = 30
   override def toString: String = "High Priest"
 }
 
-case class Vassal() extends Genteel {
-  override def toString: String = "Genteel"
+case class Vassal(race: Race) extends Genteel(race) {
+  override def toString: String = "(race: Race)Genteel"
 }
-case class Knight() extends Genteel {
+case class Knight(race: Race) extends Genteel(race) {
   override val wealthModifier: Int = 10
   override def toString: String = "Genteel"
 }
-case class MerchantPrince() extends Genteel {
+case class MerchantPrince(race: Race) extends Genteel(race) {
   override def toString: String = "Genteel"
   override val wealthModifier: Int = 40
 }
 
-case class Baron() extends Nobel {
+case class Baron(race: Race) extends Nobel(race) {
   override def toString: String = "Nobel/Baron"
   override val wealthModifier: Int = 10
 }
-case class Count() extends Nobel {
+case class Count(race: Race) extends Nobel(race) {
   override def toString: String = "Nobel/Cont"
   override val wealthModifier: Int = 20
 }
-case class Marquis() extends Nobel {
+case class Marquis(race: Race) extends Nobel(race) {
   override def toString: String = "Nobel/Marquis"
   override val wealthModifier: Int = 30
 }
-case class Duke() extends Nobel {
+case class Duke(race: Race) extends Nobel(race) {
   override def toString: String = "Nobel/Duke"
   override val wealthModifier: Int = 40
 }
 
-case class DistantRelation() extends Royalty {
+case class DistantRelation(race: Race) extends Royalty(race) {
   override def toString: String = "Royalty/ Distant Relation"
   override val wealthModifier: Int = 20
 }
 
-case class ThirdCousin() extends Royalty {
+case class ThirdCousin(race: Race) extends Royalty(race) {
   override def toString: String = "Royalty/3rd Cousin"
   override val wealthModifier: Int = 30
 }
 
-case class SecondCousin() extends Royalty {
+case class SecondCousin(race: Race) extends Royalty(race) {
   override def toString: String = "Royalty/2nd Cousin"
   override val wealthModifier: Int = 40
 }
 
-case class Cousin() extends Royalty {
+case class Cousin(race: Race) extends Royalty(race) {
   override def toString: String = "Royalty/Cousin"
   override val wealthModifier: Int = 50
 }
@@ -541,55 +539,55 @@ object BackgroundGenerator {
     val background = if (random1 < 400) {
       //Commoner
       if (random2 < 30)
-        Serf()
+        Serf(race)
       else
-        Peasant()
+        Peasant(race)
     } else if (random1 < 800) {
       //Freeman
       if (random2 < 33)
-        Farmer()
+        Farmer(race)
       else if (random2 < 66)
-        Craftsman()
+        Craftsman(race)
       else
-        Merchant()
+        Merchant(race)
     } else if (random1 < 900) {
       //Clergy
       if (random2 < 25)
-        Priest()
+        Priest(race)
       else if (random2 < 75)
-        Curate()
+        Curate(race)
       else if(random2 < 90)
-        Canon()
+        Canon(race)
       else if(random2 < 98)
-        Patriarch()
+        Patriarch(race)
       else
-        HighPriest()
+        HighPriest(race)
     } else if (random1 < 990) {
       //Genteel
       if (random2 < 50)
-        Vassal()
+        Vassal(race)
       else
-        Knight()
+        Knight(race)
     } else if (random1 < 998) {
       //Nobel
       if (random2 < 50)
-        Baron()
+        Baron(race)
       else if (random2 < 90)
-        Count()
+        Count(race)
       else if(random2 < 98)
-        Marquis()
+        Marquis(race)
       else
-        Duke()
+        Duke(race)
     } else {
       //Royalty
       if (random2 < 50)
-        DistantRelation()
+        DistantRelation(race)
       else if (random2 < 75)
-        ThirdCousin()
+        ThirdCousin(race)
       else if (random2 < 98)
-        SecondCousin()
+        SecondCousin(race)
       else
-        Cousin()
+        Cousin(race)
     }
 
     background

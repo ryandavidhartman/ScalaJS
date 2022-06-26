@@ -7,6 +7,7 @@ object CharacterClasses {
     val isFighter = false
     val isMagicUser = false
     val isThief = false
+    val isMultiClass = false
   }
 
   case object Cleric extends CharacterClass {
@@ -18,6 +19,7 @@ object CharacterClasses {
   case object FighterMagicUser extends CharacterClass {
     override val isFighter = true
     override val isMagicUser = true
+    override val isMultiClass = true
   }
   case object MagicUser extends CharacterClass {
     override val isMagicUser = true
@@ -25,6 +27,7 @@ object CharacterClasses {
   case object MagicUserThief extends CharacterClass {
     override val isThief = true
     override val isMagicUser = true
+    override val isMultiClass = true
   }
   case object Thief extends CharacterClass {
     override val isThief = true
