@@ -186,11 +186,8 @@ object CharacterApp {
   }
 
   @JSExportTopLevel("setSpecialAbilities")
-  def setSpecialAbilities(): Unit = {
-    val race = character_race_select.value
+  def setSpecialAbilities(): Unit = special_abilities.innerHTML= getRacialAbilities(getRace())
 
-    special_abilities.innerHTML= getRacialAbilities(race)
-  }
 
   @JSExportTopLevel("checkClass")
   def checkClass(): Unit = {

@@ -136,65 +136,10 @@ object BasicFantasy {
     }
   }
 
-  def getRacialAbilities(race: String): String= race match {
-    case "Human" =>
-      """
-        |<table class="unstriped">
-        |  <tr>
-        |    <td>+10% Bonus on Earned XP</td>
-        |  </tr>
-        |</table>
-        |""".stripMargin
-    case "Elf" =>
-      """
-        |<table class="unstriped">
-        |  <tr>
-        |    <td>Darkvision with a 60' range</td>
-        |  </tr>
-        |  <tr>
-        |    <td>Find secret door 1-2 on d6 when searching</td>
-        |  </tr>
-        |  <tr>
-        |    <td>Find secret door 1 on d6 with a cursory look</td>
-        |  </tr>
-        |  <tr>
-        |    <td>Immune to paralyzing attacks of Ghouls</td>
-        |  </tr>
-        |  <tr>
-        |    <td>Only surprised on 1 on d6</td>
-        |  </tr>
-        |</table>
-        |""".stripMargin
-    case "Dwarf" =>
-      """
-        |<table class="unstriped">
-        |  <tr>
-        |    <td>Darkvision with a 60' range</td>
-        |  </tr>
-        |  <tr>
-        |    <td>Detect slanting passages, traps, shifting walls, and new construction on 1-2 on d6 when searching</td>
-        |  </tr>
-        |</table>
-        |""".stripMargin
-    case "Halfling" =>
-      """
-        |<table class="unstriped">
-        |  <tr>
-        |    <td>+2 to AC against melee attacks from large opponents</td>
-        |  </tr>
-        |  <tr>
-        |    <td>+1 to initiative rolls</td>
-        |  </tr>
-        |  <tr>
-        |    <td>Find secret door 1 on d6 with a cursory look</td>
-        |  </tr>
-        |  <tr>
-        |    <td>90% to hide in forest terrain</td>
-        |  </tr>
-        |  <tr>
-        |    <td>70% chance to hide in other terrains</td>
-        |  </tr>
-        |</table>
-        |""".stripMargin
+  def getRacialAbilities(race: Race): String = {
+    val abilities = race.weapons ++ race.getAbilities
+
+   abilities.map(a => s"<tr><td>$a</td>")
+      .mkString("<table class=\"unstriped\">", "", "</table>")
   }
 }
