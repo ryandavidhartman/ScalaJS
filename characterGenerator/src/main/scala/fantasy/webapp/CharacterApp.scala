@@ -6,8 +6,9 @@ import fantasy.utilities._
 import org.scalajs.dom
 import org.scalajs.dom.{document, html}
 import DOMObjects._
-import fantasy.utilities.CharacterClasses.stringToCharacterClass
+import fantasy.utilities.CharacterClasses._
 import fantasy.utilities.PersonalityGenerator.getPersonality
+import fantasy.utilities.Races._
 
 import scala.scalajs.js.annotation.JSExportTopLevel
 
@@ -128,13 +129,13 @@ object CharacterApp {
   def getRandomAbilityScores(): Unit = {
     val scores = getSixScores()
 
-    val attributes: Seq[html.Select] = character_class_select.value match {
-      case "Cleric" => Seq(wis_select, str_select, con_select, int_select,  chr_select, dex_select)
-      case "Fighter" => Seq(str_select, con_select, dex_select, chr_select,  wis_select, int_select)
-      case "Thief" =>   Seq(dex_select, chr_select, con_select, str_select,  int_select, wis_select)
-      case "Magic-User" => Seq(int_select, dex_select, con_select, wis_select, chr_select, str_select)
-      case "Fighter/Magic-User" =>  Seq(int_select, str_select, con_select, dex_select, wis_select, chr_select)
-      case "Magic-User/Thief" => Seq(int_select, dex_select, con_select, wis_select, chr_select, str_select)
+    val attributes: Seq[html.Select] = getCharacterClass() match {
+      case Cleric => Seq(wis_select, str_select, con_select, int_select,  chr_select, dex_select)
+      case Fighter => Seq(str_select, con_select, dex_select, chr_select,  wis_select, int_select)
+      case Thief =>   Seq(dex_select, chr_select, con_select, str_select,  int_select, wis_select)
+      case MagicUser => Seq(int_select, dex_select, con_select, wis_select, chr_select, str_select)
+      case FighterMagicUser =>  Seq(int_select, str_select, con_select, dex_select, wis_select, chr_select)
+      case MagicUserThief => Seq(int_select, dex_select, con_select, wis_select, chr_select, str_select)
     }
 
     (0 to 5).foreach(i => attributes(i).selectedIndex = scores(i))
@@ -163,9 +164,8 @@ object CharacterApp {
 
     val dexterity: Int = dex_select.value.toInt
     val baseAttackBonus: Int = base_attack_bonus.textContent.toInt
-    val race: String = character_race_select.value
 
-    ranged_attack_bonus.textContent = calcRangeAttackModifier(dexterity, baseAttackBonus, race)
+    ranged_attack_bonus.textContent = calcRangeAttackModifier(dexterity, baseAttackBonus, getRace())
   }
 
   @JSExportTopLevel("setACBonusHandler")
@@ -212,18 +212,28 @@ object CharacterApp {
 
   @JSExportTopLevel("checkMaxCon")
   def checkMaxCon(): Unit = {
-    val race = character_race_select.value
-    if(race == "Elf" && con_select.selectedIndex >= 15)
+    val race = getRace()
+    if(race == Elf && con_select.selectedIndex >= 15)
       con_select.selectedIndex = 14
-    if(race == "Dwarf" && con_select.selectedIndex < 6)
+    if(race == HalfElf && con_select.selectedIndex >= 15)
+      con_select.selectedIndex = 14
+    if(race == Dwarf && con_select.selectedIndex < 6)
+      con_select.selectedIndex = 6
+    if(race == HalfOrc && con_select.selectedIndex < 6)
       con_select.selectedIndex = 6
   }
 
   @JSExportTopLevel("checkMaxInt")
   def checkMaxInt(): Unit = {
-    val race = character_race_select.value
-    if(race == "Elf" && int_select.selectedIndex < 6)
+    val race = getRace()
+    if(race == Elf && int_select.selectedIndex < 6)
       int_select.selectedIndex = 6
+
+    if(race == HalfElf && int_select.selectedIndex < 6)
+      int_select.selectedIndex = 6
+
+    if(race == HalfOrc && con_select.selectedIndex >= 15)
+      con_select.selectedIndex = 14
   }
 
   @JSExportTopLevel("checkChrChr")
@@ -235,17 +245,15 @@ object CharacterApp {
 
   @JSExportTopLevel("setSavingsThrows")
   def setSavingsThrows(): Unit = {
-    val characterClass = character_class_select.value
     val level: Int = character_level_select.value.toInt
 
-    val saves = SavingsThrows.getSavingsThrows(characterClass, level)
+    val saves = SavingsThrows.getSavingsThrows(getCharacterClass(), getRace(), level)
 
-    deathSavingsThrow.textContent = saves._1.toString
-    wandsSavingsThrow.textContent = saves._2.toString
-    paralysisSavingsThrow.textContent = saves._3.toString
-    breathSavingsThrow.textContent = saves._4.toString
-    spellsSavingsThrow.textContent =saves._5.toString
-
+    deathSavingsThrow.textContent = saves.deathRayOrPoison.toString
+    wandsSavingsThrow.textContent = saves.magicWands.toString
+    paralysisSavingsThrow.textContent = saves.paralysisOrPetrify.toString
+    breathSavingsThrow.textContent = saves.breathWeapons.toString
+    spellsSavingsThrow.textContent = saves.spells.toString
   }
 
   @JSExportTopLevel("setSpells")

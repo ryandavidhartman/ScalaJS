@@ -43,9 +43,9 @@ object NameGenerator {
 
   def getOrcishName(gender: String): String = {
     if(gender == "Male")
-      getOrcishMaleName()
+      getOrcishMaleName
     else
-      getOrcishFemaleName()
+      getOrcishFemaleName
   }
 
   def getOrcishMaleName(): String = {

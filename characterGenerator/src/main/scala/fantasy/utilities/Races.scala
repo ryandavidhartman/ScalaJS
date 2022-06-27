@@ -1,13 +1,31 @@
 package fantasy.utilities
 
 object Races {
+
+  /*
+   • +4 vs. Death Ray or Poison
+• +4 vs. Magic Wands
+• +4 vs. Paralysis or Petrify
+• +3 vs. Dragon Breath
+• +4 vs. Spells
+
+   */
+
+  case class SavingsThrowBonuses(deathRayOrPoison: Int,
+                               magicWands: Int,
+                               paralysisOrPetrify: Int,
+                               breathWeapons: Int,
+                               spells: Int)
+
   sealed trait Race {
     val weapons: Seq[String] = Seq("Large weapons require two hands")
     val getAbilities: Seq[String]
+    val savingsThrowBonuses: SavingsThrowBonuses = SavingsThrowBonuses(0,0,0,0,0)
   }
   case object Human extends Race {
     override val getAbilities: Seq[String] = Seq("+10% Bonus on Earned XP")
   }
+
   case object Elf extends Race {
     override val getAbilities: Seq[String] = Seq(
       "Darkvision with a 60' range",
@@ -16,6 +34,7 @@ object Races {
       "Immune to paralyzing attacks of Ghouls",
       "Only surprised on 1 on d6"
     )
+    override  val savingsThrowBonuses: SavingsThrowBonuses = SavingsThrowBonuses(0,2,1,0,2)
   }
   case object Dwarf extends Race {
     override val weapons = Seq(
@@ -27,6 +46,8 @@ object Races {
       "Darkvision 60'",
       "Detect new construction, shifting walls slanting passages, traps w/ 1-2 on d6 when searching"
     )
+
+    override  val savingsThrowBonuses: SavingsThrowBonuses = SavingsThrowBonuses(4,4,4,3,4)
   }
 
   case object Halfling extends Race {
@@ -34,12 +55,15 @@ object Races {
       "Must use medium weapons in two hands",
       "Cannot use large weapons"
     )
+
     override val getAbilities: Seq[String] = Seq(
-      "+1 attack bonus on ranged weapons (bonus added)",
+      "+1 attack bonus on ranged weapons (bonus added already)",
       "+2 bonus to AC when attacked in melee by creatures larger than man-sized",
       "+1 to initiative die rolls",
       "Hide (10% chance to be detected outdoors, 30% chance to be detected indoors)"
     )
+
+    override  val savingsThrowBonuses: SavingsThrowBonuses = SavingsThrowBonuses(4,4,4,3,4)
   }
   case object HalfElf extends Race {
     override val getAbilities: Seq[String] = Seq(
@@ -47,6 +71,8 @@ object Races {
       "Able to find secret doors on a 1-2 on 1d6, when searching",
       "+5% on all earned experience, except for multiclass."
     )
+
+    override  val savingsThrowBonuses: SavingsThrowBonuses = SavingsThrowBonuses(0,1,0,0,1)
   }
   case object HalfOrc extends Race {
     override val getAbilities: Seq[String] = Seq(
@@ -54,6 +80,8 @@ object Races {
       "Darkvision with a 60' range",
       "When dealing with humanoids of Human-size or smaller, a Half-Orc gains an additional +1 on any reaction"
     )
+
+    override  val savingsThrowBonuses: SavingsThrowBonuses = SavingsThrowBonuses(1,0,0,0,0)
   }
 
   def stringToRace(race: String): Race = race match {

@@ -68,8 +68,8 @@ object BasicFantasy {
     modifierBonusIntToString(num)
   }
 
-  def calcRangeAttackModifier(dexterity: Int, baseAttackBonus: Int, race: String): String = {
-    val num = if(race == "Halfling")
+  def calcRangeAttackModifier(dexterity: Int, baseAttackBonus: Int, race: Race): String = {
+    val num = if(race == Halfling)
       baseAttackBonus + attributeModifiers(dexterity) + 1
     else
       baseAttackBonus + attributeModifiers(dexterity)
@@ -117,7 +117,7 @@ object BasicFantasy {
 
   def modifierBonusIntToString(mod: Int): String = {
     if(mod > 0)
-      s"+${mod}"
+      s"+$mod"
     else
       mod.toString
   }
