@@ -1,25 +1,59 @@
 package fantasy.utilities
 
+import fantasy.utilities.Races._
+
 object BackgroundGenerator2 {
 
+  case class Background2(
+    parentsNationality: Nationality,
+    parentsOccupation: String,
+    birthOrder: String,
+    childHoodEvents: Set[String],
+    adolescentEvents: Set[String]
+  )
+
+  def getBackground(race: Race): Background2= {
+    val numChildhoodEvents = Roller.randomInt(4)
+    val numAdolescentEvents = Roller.randomInt(4)
+
+    val childHoodEvents: Set[String] = (0 to numChildhoodEvents).map(_ => getChildhoodEvents()).toSet
+    val adolescentEvents: Set[String] = (0 to numAdolescentEvents).map(_ => getYoungAdultEvents).toSet
+
+    Background2(getNationality(race),
+      getOccupation(),
+      getBirthOrder(),
+      childHoodEvents,
+      adolescentEvents
+    )
+  }
+
   def getRandomData(data: Map[Int, String]): String = {
-    val random = Roller.randomInt(data.size)+1
-    data(random)
+    try {
+      val random = Roller.randomInt(data.size)+1
+      data(random)
+    } catch {
+      case e: Throwable => println(e.getMessage); e.getMessage
+    }
+
   }
 
   //Chart 1. Birth Order
   def getBirthOrder(): String = {
     val birthOrders: Map[Int, String] = Map(
       1 -> "First born",
-      2 -> "Second child",
-      3 -> "Second child",
-      4 -> "Third child",
-      5 -> "Third child",
-      6 -> "Fourth",
-      7 -> "Fifth",
-      8 -> "Sixth",
-      9 -> "Seventh",
-      10 -> "Eighth or more"
+      2 -> "First born",
+      3 -> "First born",
+      4 -> "Second child",
+      5 -> "Second child",
+      6 -> "Second child",
+      7 -> "Second child",
+      8 -> "Third child",
+      9 -> "Third child",
+      10 -> "Fourth child",
+      11 -> "Fifth child",
+      12 -> "Sixth child",
+      13 -> "Seventh child",
+      14 -> "Eighth or more"
     )
 
     getRandomData(birthOrders)
@@ -49,13 +83,19 @@ object BackgroundGenerator2 {
       18 -> "Scribe",
       19 -> "Slaver",
       20 -> "Adventurer",
-      21 -> "Actor/Bard/Courtesan",
-      22 -> getGovernmentJob(),
-      23 -> getMerchantJob(),
-      24 -> getMerchantJob(),
-      25 -> getClergyJob(),
-      26 -> "Genteel",
-      27 -> getNobility()
+      21 -> "Actor",
+      22 -> "Bard",
+      23 -> "Courtesan",
+      24 -> getGovernmentJob(),
+      25 -> getMerchantJob(),
+      26 -> getMerchantJob(),
+      27 -> getClergyJob(),
+      28 -> "Genteel",
+      29 -> getNobility(),
+      30 -> getCrafts(),
+      31 -> getCrafts(),
+      32 -> getCrafts(),
+      33 -> getCrafts(),
     )
     getRandomData(occupations)
   }
@@ -126,9 +166,12 @@ object BackgroundGenerator2 {
       1 -> "Parish Priest (mainstream religion)",
       2 -> "Parish Priest (mainstream religion)",
       3 -> "Upper clergy (mainstream religion)",
-      4 -> "Clergy (heretic religion)",
-      5 -> "Druid",
-      6 -> "Priest of an Elder god"
+      4 -> "Priest (heretic religion)",
+      5 -> "Acolyte (heretic religion)",
+      6 -> "Acolyte (mainstream  religion)",
+      7 -> "Druid",
+      8 -> "Priest of an Elder god",
+      9 -> "Shaman"
     )
     getRandomData(clergyJobs)
   }
@@ -162,33 +205,32 @@ object BackgroundGenerator2 {
   }
 
   //Chart 3: Significant Events in Childhood and Adolescence
-  def getChildhoodEvents: String = {
+  def getChildhoodEvents(): String = {
     val events: Map[Int, String] = Map(
       1 -> "Loved by parents",
       2 -> "Protected by parents",
       3 -> "Unloved by parents",
       4 -> "Spurned by parents",
-      5 -> getGuardians(), //Adopted
-      6 -> getGuardians(), //Adopted
-      7 -> s"Family Member killed by ${getOther()}",
-      8 -> s"Caused the death of ${getRelative()}",
-      9 -> s"Caused the death of ${getOther()}",
-      10 -> s"Illegitimate raised by ${getGuardians()}",
-      11 -> "Apprenticed in parent's occupation",
-      12 -> s"Apprenticed in ${getOccupation}",
-      13 -> "Parent killed by Relative",
-      14 -> s"Parent outlawed for ${getCrime()}",
-      15 -> s"Religious experience: ${getReligiousExperience()}",
-      16 -> "Jealous sibling",
-      17 -> "Sibling rivalry",
-      18 -> "Lived a nomadic life",
-      19 -> "Moved to the big city",
-      20 -> "Moved to the borderlands",
-      21 -> "Moved to the wilderness",
-      22 -> "Run away from home",
-      23 -> "Learned to use a weapon",
-      24 -> s"Magical occurrence ${getMagicalOccurrence()}",
-      25 ->  s"Committed a crime ${getCrime()}",
+      5 -> "Jealous sibling",
+      6 -> "Sibling rivalry",
+      7 -> "Lived a nomadic life",
+      8 -> "Moved to the big city",
+      9 -> "Moved to the borderlands",
+      10 -> "Moved to the wilderness",
+      11 -> "Run away from home",
+      12 -> "Learned to use a weapon",
+      13 -> s"${getGuardians()}", //Adopted
+      14 -> s"Family Member killed by ${getOther()}",
+      15 -> s"Caused the death of: ${getRelative()}",
+      16 -> s"Caused the death of: ${getOther()}",
+      17 -> s"Illegitimate: ${getGuardians()}",
+      18 -> "Apprenticed in parent's occupation",
+      19 -> s"Apprenticed in: ${getOccupation()}",
+      20 -> "Parent killed by a relative",
+      21 -> s"Parent outlawed for: ${getCrime()}",
+      22 -> s"Religious experience: ${getReligiousExperience()}",
+      23 -> s"Magical occurrence: ${getMagicalOccurrence()}",
+      24 ->  s"Committed a crime: ${getCrime()}",
     )
     getRandomData(events)
   }
@@ -202,23 +244,29 @@ object BackgroundGenerator2 {
       4 -> "Raised by a cruel step-mother",
       5 -> "Raised by a hedge Wizard",
       6 -> "Raised in a monastery or convent",
-      7 -> s"Raised by ${getCrafts()}",
-      8 -> s"Raised by ${getRelative()}",
+      7 -> s"Raised by: ${getCrafts()}",
+      8 -> s"Raised by: ${getRelative()}",
       9 -> "Sold into slavery",
       10 -> "Raised by orcs",
       11 -> "Raised by an Adventurer",
-      12 -> "Raised by dwarven indentured servants",
-      13 -> "Mysterious red-robed /“elven/” guardians",
-      14 -> "Centaurs/Hobgoblins/Deep Ones/ other monsters",
+      12 -> "Raised by Dwarven indentured servants",
+      13 -> "Raised by mysterious red-robed monks",
+      14 -> "Raised by centaurs",
       15 -> "Raised by mercenaries",
-      16 -> "Bandits/pirates",
-      17 -> "Nomads/cossacks/barbarians",
-      18 -> s"Adopted by ${getMerchantJob()}",
-      19 -> s"Adopted by ${getClergyJob()}",
-      20 -> s"Adopted by a ${getNobility()}",
+      16 -> "Raised by Bandits",
+      17 -> "Adopted by Nomads",
+      18 -> s"Adopted by: ${getMerchantJob()}",
+      19 -> s"Adopted by: ${getClergyJob()}",
+      20 -> s"Adopted by: ${getNobility()}",
       21 -> "Lived on the streets/no guardian",
       22 -> "Lived on the streets/no guardian",
       23 -> "Lived on the streets/no guardian",
+      24 -> "Raised by Cultists",
+      25 -> "Raised by Hobgoblins",
+      26 -> "Raised by Deep Ones",
+      27 -> "Raised by Elves",
+      28 -> "Raised by Pirates",
+      29 -> "Raised by barbarians",
     )
     getRandomData(guardians)
   }
@@ -244,28 +292,27 @@ object BackgroundGenerator2 {
   //Chart 3C: Others
   def getOther(): String = {
     val others: Map[Int, String] = Map(
-      1 -> getGovernmentJob(),
-      2 -> "Friend",
-      3 -> "Thief",
-      4 -> "Wizard",
-      5 -> "Mentor",
-      6 -> getNobility(),
-      7 -> "Raider",
-      8 -> "Orcs",
-      9 -> "Demon",
-      10 -> "Lover",
-      11 -> getCrafts(),
-      12 -> "Highwayman",
-      13 -> "Adventurer",
-      14 -> "Comrade",
-      15 -> "Wild animal",
-      16 -> "Nomad",
-      17 -> "Religious sect member/leader",
-      18 -> "Mysterious stranger",
-      19 -> s"${getOther()} and ${getOther()}",
-      20 -> "Invader",
-      21 -> "Bandit",
-      22 -> "Pirate",
+      1 -> "Friend",
+      2 -> "Thief",
+      3 -> "Wizard",
+      4 -> "Mentor",
+      5 -> "Raider",
+      6 -> "Orcs",
+      7 -> "Demon",
+      8 -> "Lover",
+      9 -> "Highwayman",
+      10 -> "Adventurer",
+      11 -> "Comrade",
+      12 -> "Wild animal",
+      13 -> "Nomad",
+      14 -> "Religious sect member/leader",
+      15 -> "Mysterious stranger",
+      16 -> "Invader",
+      17 -> "Bandit",
+      18 -> "Pirate",
+      19 -> s"${getGovernmentJob()}",
+      20 -> s"${getCrafts()}",
+      21 -> s"${getNobility()}",
     )
     getRandomData(others)
   }
@@ -296,31 +343,31 @@ object BackgroundGenerator2 {
   }
 
   //Chart 4: Significant Events in Young Adulthood
-  def getYoungAdultEvents: String = {
+  def getYoungAdultEvents(): String = {
     val events: Map[Int, String] = Map(
-      1 -> s"Religious experience: ${getReligiousExperience()}",
-      2 -> s"Magical occurrence ${getMagicalOccurrence()}",
-      3 -> s"Caused the death of ${getRelative()}",
-      4 -> s"Developed virtues ${getVirtue()}",
-      5 -> s"Developed vice ${getVice()}",
-      6 -> s"Conscripted for military service: ${getMilitaryService()}",
-      7 -> s"Volunteered for military service: ${getMilitaryService()}",
-      8 -> { if(Roller.randomInt(100) > 75)  "Romantic affair" else "Has Child" },
-      9 -> s"Learned occupation ${getOccupation()}",
-      10 -> "Traveled abroad",
-      11 -> "Survived plague",
-      12 -> "Moved to big city",
-      13 -> "Moved to borderlands",
-      14 ->  "Moved to Wilderness",
-      15 -> "Sold into slavery (escaped)",
-      16 ->  s"Committed a crime ${getCrime()}",
-      17 -> s"Home village/town wiped out by ${getOther()}",
-      18 -> "Encountered monster",
-      19 -> "Served wealthy patron",
-      20 -> "Served Noble court",
-      21 -> s"Saved life of ${getRelative()}",
-      22 -> s"Saved life of ${getOther()}",
-      23 -> s"Apprenticed to ${getCrafts()}"
+      1 -> "Survived plague",
+      2 -> "Moved to big city",
+      3 -> "Moved to borderlands",
+      4 ->  "Moved to Wilderness",
+      5 -> "Sold into slavery (escaped)",
+      6 -> "Encountered monster",
+      7 -> "Served wealthy patron",
+      8 -> "Served Noble court",
+      9 -> "Traveled abroad",
+      10 -> s"Religious experience: ${getReligiousExperience()}",
+      11 -> s"Magical occurrence: ${getMagicalOccurrence()}",
+      12 -> s"Caused the death of: ${getRelative()}",
+      13 -> s"Developed virtues: ${getVirtue()}",
+      14 -> s"Developed vice: ${getVice()}",
+      15 -> s"Conscripted for military service: ${getMilitaryService()}",
+      16 -> s"Volunteered for military service: ${getMilitaryService()}",
+      17 -> { if(Roller.randomInt(100) > 75)  "Romantic affair" else "Has Child" },
+      18 -> s"Learned occupation: ${getOccupation()}",
+      19 -> s"Committed a crime: ${getCrime()}",
+      20 -> s"Home village/town wiped out by: ${getOther()}",
+      21 -> s"Saved life of: ${getRelative()}",
+      22 -> s"Saved life of: ${getOther()}",
+      23 -> s"Apprenticed to: ${getCrafts()}"
     )
     getRandomData(events)
   }
@@ -359,7 +406,8 @@ object BackgroundGenerator2 {
       1 -> "Palace guard",
       2 -> "City guard/watch",
       3 -> "Temple guard",
-      4 -> "Border militia/rangers",
+      4 -> "Local militia",
+      5 -> "Rangers",
       6 -> "Private bodyguard",
       7 -> "Engineer",
       8 -> "Sapper",
@@ -382,7 +430,7 @@ object BackgroundGenerator2 {
        4 -> "Friendly",
        5 -> "Teetotaler",
        6 -> "Pious",
-       7 -> "Sincere/earnes",
+       7 -> "Sincere/earnest",
        8 -> "Quiet/good listener",
        9 -> "Honest",
        10 -> "Defender of the oppressed",
@@ -475,5 +523,252 @@ object BackgroundGenerator2 {
 
     getRandomData(magicalOccurrences)
   }
+
+  //Chart 5: Nationality
+  def getNationality(race: Race):  Nationality = {
+    val random = Roller.randomInt(100)
+
+    race match {
+      case Human =>
+        if(random < 15)
+          Karameikos
+        else if(random < 20)
+          Ylaruam
+        else if(random < 30)
+          Glantri
+        else if(random < 35)
+          Ierendi
+        else if(random < 36)
+          Alfheim
+        else if(random < 37)
+          Rockhome
+        else if(random < 43)
+          NorthernReaches
+        else if(random < 44)
+          FiveShires
+        else if(random < 49)
+          Minrothad
+        else if(random < 50)
+          Thar
+        else if(random < 65)
+          Darokin
+        else if(random < 70)
+          Ethengar
+        else if(random < 71)
+          ShadowLands
+        else if(random < 76)
+          Altruaghin
+        else if(random < 85)
+          Alphatia
+        else if(random < 95)
+          Thyatis
+        else
+          Wildlands
+      case Elf =>
+        if(random < 2)
+          Karameikos
+        else if(random < 4)
+          Ylaruam
+        else if(random < 14)
+          Glantri
+        else if(random < 15)
+          Ierendi
+        else if(random < 65)
+          Alfheim
+        else if(random < 66)
+          Rockhome
+        else if(random < 67)
+          NorthernReaches
+        else if(random < 68)
+          FiveShires
+        else if(random < 69)
+          Minrothad
+        else if(random < 70)
+          Thar
+        else if(random < 75)
+          Darokin
+        else if(random < 71)
+          Ethengar
+        else if(random < 80)
+          ShadowLands
+        else if(random < 81)
+          Altruaghin
+        else if(random < 84)
+          Alphatia
+        else if(random < 90)
+          Thyatis
+        else
+          Wildlands
+      case Dwarf =>
+        if(random < 2)
+          Karameikos
+        else if(random < 4)
+          Ylaruam
+        else if(random < 5)
+          Glantri
+        else if(random < 15)
+          Ierendi
+        else if(random < 16)
+          Alfheim
+        else if(random < 66)
+          Rockhome
+        else if(random < 67)
+          NorthernReaches
+        else if(random < 68)
+          FiveShires
+        else if(random < 69)
+          Minrothad
+        else if(random < 70)
+          Thar
+        else if(random < 75)
+          Darokin
+        else if(random < 71)
+          Ethengar
+        else if(random < 80)
+          ShadowLands
+        else if(random < 81)
+          Altruaghin
+        else if(random < 84)
+          Alphatia
+        else if(random < 90)
+          Thyatis
+        else
+          Wildlands
+      case Halfling => Darokin
+        if(random < 2)
+          Karameikos
+        else if(random < 4)
+          Ylaruam
+        else if(random < 5)
+          Glantri
+        else if(random < 15)
+          Ierendi
+        else if(random < 16)
+          Alfheim
+        else if(random < 17)
+          Rockhome
+        else if(random < 18)
+          NorthernReaches
+        else if(random < 68)
+          FiveShires
+        else if(random < 69)
+          Minrothad
+        else if(random < 70)
+          Thar
+        else if(random < 75)
+          Darokin
+        else if(random < 71)
+          Ethengar
+        else if(random < 80)
+          ShadowLands
+        else if(random < 81)
+          Altruaghin
+        else if(random < 84)
+          Alphatia
+        else if(random < 90)
+          Thyatis
+        else
+          Wildlands
+      case HalfElf =>
+        if(random < 10)
+          Karameikos
+        else if(random < 15)
+          Ylaruam
+        else if(random < 30)
+          Glantri
+        else if(random < 35)
+          Ierendi
+        else if(random < 55)
+          Alfheim
+        else if(random < 56)
+          Rockhome
+        else if(random < 60)
+          NorthernReaches
+        else if(random < 61)
+          FiveShires
+        else if(random < 65)
+          Minrothad
+        else if(random < 66)
+          Thar
+        else if(random < 75)
+          Darokin
+        else if(random < 80)
+          Ethengar
+        else if(random < 90)
+          ShadowLands
+        else if(random < 91)
+          Altruaghin
+        else if(random < 93)
+          Alphatia
+        else if(random < 98)
+          Thyatis
+        else
+          Wildlands
+
+      case HalfOrc =>
+        if(random < 5)
+          Karameikos
+        else if(random < 10)
+          Ylaruam
+        else if(random < 15)
+          Glantri
+        else if(random < 20)
+          Ierendi
+        else if(random < 21)
+          Alfheim
+        else if(random < 22)
+          Rockhome
+        else if(random < 27)
+          NorthernReaches
+        else if(random < 28)
+          FiveShires
+        else if(random < 33)
+          Minrothad
+        else if(random < 60)
+          Thar
+        else if(random < 65)
+          Darokin
+        else if(random < 70)
+          Ethengar
+        else if(random < 71)
+          ShadowLands
+        else if(random < 76)
+          Altruaghin
+        else if(random < 81)
+          Alphatia
+        else if(random < 86)
+          Thyatis
+        else
+          Wildlands
+    }
+  }
+  sealed trait Nationality {
+    def niceString(): String = {
+      this.toString.replace("()", "")
+    }
+  }
+  case object Karameikos extends Nationality
+  case object Ylaruam extends Nationality
+  case object Glantri extends Nationality
+  case object Ierendi extends Nationality
+  case object Alfheim extends Nationality
+  case object Rockhome extends Nationality
+  case object NorthernReaches extends Nationality {
+    override def toString: String = "Northern Reaches"
+  }
+  case object FiveShires extends Nationality {
+    override def toString: String = "The Five Shires"
+  }
+  case object Minrothad extends Nationality
+  case object Thar extends Nationality
+  case object Darokin extends Nationality
+  case object Ethengar extends Nationality
+  case object ShadowLands extends Nationality {
+    override def toString: String = "Shadow Lands"
+  }
+  case object Altruaghin extends Nationality
+  case object Alphatia extends Nationality
+  case object Thyatis extends Nationality
+  case object Wildlands extends Nationality
 
 }

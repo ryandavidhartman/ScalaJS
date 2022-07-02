@@ -338,11 +338,16 @@ object CharacterApp {
 
   @JSExportTopLevel("setBackground")
   def setBackground(): Unit = {
-    val background = BackgroundGenerator.getBackground(getRace)
-    nationalitySpan.textContent = background.nationality.niceString
-    socialClassSpan.textContent =  background.niceString()
-    familyWealthSpan.textContent = background.familyWealth.niceString()
-    parentOccupationSpan.textContent = background.occupation()
+    val background = BackgroundGenerator2.getBackground(getRace)
+
+    nationalitySpan.textContent = background.parentsNationality.toString
+    parentOccupationSpan.textContent = background.parentsOccupation
+    birthOrderSpan.textContent = background.birthOrder
+    childhoodEventsDiv.innerHTML = background.childHoodEvents.map(a => s"<tr><td>$a</td>")
+      .mkString("<table class=\"unstriped\">", "", "</table>")
+    adolescentEventsDiv.innerHTML = background.adolescentEvents.map(a => s"<tr><td>$a</td>")
+      .mkString("<table class=\"unstriped\">", "", "</table>")
+
   }
 
   @JSExportTopLevel("setPersonality")

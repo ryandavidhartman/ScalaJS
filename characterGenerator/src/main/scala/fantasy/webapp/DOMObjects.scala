@@ -72,10 +72,10 @@ object DOMObjects {
 
   // Back Ground
   val nationalitySpan = document.getElementById("nationality").asInstanceOf[html.Span]
-  val socialClassSpan = document.getElementById("socialClass").asInstanceOf[html.Span]
-  val familyWealthSpan = document.getElementById("familyWealth").asInstanceOf[html.Span]
   val parentOccupationSpan = document.getElementById("parentOccupation").asInstanceOf[html.Span]
-
+  val birthOrderSpan = document.getElementById("birthOrder").asInstanceOf[html.Span]
+  val childhoodEventsDiv = document.getElementById("childhoodEvents").asInstanceOf[html.Div]
+  val adolescentEventsDiv = document.getElementById("adolescentEvents").asInstanceOf[html.Div]
 
   def getRace(): Race = Races.stringToRace(character_race_select.value)
 
