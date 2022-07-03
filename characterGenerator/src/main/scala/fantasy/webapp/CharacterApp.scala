@@ -338,7 +338,7 @@ object CharacterApp {
 
   @JSExportTopLevel("setBackground")
   def setBackground(): Unit = {
-    val background = BackgroundGenerator2.getBackground(getRace)
+    val background = BackgroundGenerator.getBackground(getRace)
 
     nationalitySpan.textContent = background.parentsNationality.toString
     parentOccupationSpan.textContent = background.parentsOccupation
