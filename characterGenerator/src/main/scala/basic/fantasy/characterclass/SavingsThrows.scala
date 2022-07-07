@@ -1,9 +1,7 @@
-package fantasy.utilities
+package basic.fantasy.characterclass
 
-import fantasy.utilities.CharacterClasses._
-import fantasy.utilities.Races._
-
-import Math.min
+import basic.fantasy.backgrounds.Races._
+import basic.fantasy.characterclass.CharacterClasses._
 
 case class SavingsThrows(deathRayOrPoison: Int,
                         magicWands: Int,

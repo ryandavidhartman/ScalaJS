@@ -1,14 +1,15 @@
-package fantasy.webapp
+package basic.webapp
 
-import fantasy.utilities.Roller.getSixScores
-import fantasy.utilities.BasicFantasy._
-import fantasy.utilities._
+import basic.fantasy.Roller.getSixScores
+import basic.fantasy.backgrounds.PersonalityGenerator.getPersonality
+import basic.fantasy.backgrounds.Races._
+import basic.fantasy.backgrounds._
+import basic.fantasy.characterclass.CharacterClasses._
+import basic.fantasy.characterclass.{SavingsThrows, SpellsPerLevel, ThiefSkills, TurnUndead}
+import basic.fantasy.rules.BasicFantasy._
+import basic.webapp.DOMObjects._
 import org.scalajs.dom
 import org.scalajs.dom.{document, html}
-import DOMObjects._
-import fantasy.utilities.CharacterClasses._
-import fantasy.utilities.PersonalityGenerator.getPersonality
-import fantasy.utilities.Races._
 
 import scala.scalajs.js.annotation.JSExportTopLevel
 
@@ -261,7 +262,7 @@ object CharacterApp {
 
     val characterClass = character_class_select.value
     val level: Int = character_level_select.value.toInt
-    val spells: Seq[Int] = Spells.getSpells(characterClass, level)
+    val spells: Seq[Int] = SpellsPerLevel.getSpells(characterClass, level)
 
     firstLvlSpellsSpan.textContent = spells(0).toString
     secondLvlSpellsSpan.textContent = spells(1).toString

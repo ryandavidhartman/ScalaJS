@@ -1,62 +1,63 @@
-package fantasy.utilities
+package basic.fantasy.rules
 
-import fantasy.utilities.CharacterClasses._
-import fantasy.utilities.Races._
+import basic.fantasy.Roller
+import basic.fantasy.backgrounds.Races._
+import basic.fantasy.characterclass.CharacterClasses.{CharacterClass, MagicUser}
 
 object BasicFantasy {
 
   def calcBaseAttackModifier(characterClass: CharacterClass, level: Int): String = {
     characterClass match {
       case f if f.isFighter =>
-        if(level == 1)
+        if (level == 1)
           "+1"
-        else if(level <= 3)
+        else if (level <= 3)
           "+2"
-        else if(level == 4)
+        else if (level == 4)
           "+3"
-        else if(level <= 6)
+        else if (level <= 6)
           "+4"
-        else if(level == 7)
+        else if (level == 7)
           "+5"
-        else if(level <= 10)
-        "+6"
-        else if(level <= 12)
+        else if (level <= 10)
+          "+6"
+        else if (level <= 12)
           "+7"
-        else if(level <= 15)
+        else if (level <= 15)
           "+8"
-        else if(level <= 17)
+        else if (level <= 17)
           "+9"
         else
           "+10"
       case s if s.isThief || s.isCleric =>
-        if(level <= 2)
+        if (level <= 2)
           "+1"
-        else if(level == 4)
+        else if (level == 4)
           "+2"
-        else if(level <= 6)
+        else if (level <= 6)
           "+3"
-        else if(level <= 8)
+        else if (level <= 8)
           "+4"
-        else if(level <= 11)
+        else if (level <= 11)
           "+5"
-        else if(level <= 14)
+        else if (level <= 14)
           "+6"
-        else if(level <= 17)
+        else if (level <= 17)
           "+7"
         else
           "+8"
       case MagicUser =>
-        if(level <= 3)
+        if (level <= 3)
           "+1"
-        else if(level <= 5)
+        else if (level <= 5)
           "+2"
-        else if(level <= 8)
+        else if (level <= 8)
           "+3"
-        else if(level <= 12)
+        else if (level <= 12)
           "+4"
-        else if(level <= 15)
+        else if (level <= 15)
           "+5"
-        else if(level <= 18)
+        else if (level <= 18)
           "+6"
         else
           "+7"
@@ -69,7 +70,7 @@ object BasicFantasy {
   }
 
   def calcRangeAttackModifier(dexterity: Int, baseAttackBonus: Int, race: Race): String = {
-    val num = if(race == Halfling)
+    val num = if (race == Halfling)
       baseAttackBonus + attributeModifiers(dexterity) + 1
     else
       baseAttackBonus + attributeModifiers(dexterity)
@@ -86,21 +87,21 @@ object BasicFantasy {
     val cutOffLevel = 9
 
     val truncated_level = Math.min(level, cutOffLevel)
-    val hitDice:Int = characterClass match {
+    val hitDice: Int = characterClass match {
       case f if f.isFighter => 8
       case c if c.isCleric => 6
       case s if s.isThief || s.isMagicUser => 4
     }
 
     val modHitDice: Int = race match {
-      case Elf => if(hitDice > 6) 6 else hitDice
-      case Halfling => if(hitDice > 6) 6 else hitDice
+      case Elf => if (hitDice > 6) 6 else hitDice
+      case Halfling => if (hitDice > 6) 6 else hitDice
       case _ => hitDice
     }
 
     val hpForFirst9 = Roller.rollHP(truncated_level, modHitDice, mod)
 
-    val hpFor9AndUp = if(level > cutOffLevel) level-cutOffLevel else 0
+    val hpFor9AndUp = if (level > cutOffLevel) level - cutOffLevel else 0
 
     hpForFirst9 + hpFor9AndUp
   }
@@ -116,7 +117,7 @@ object BasicFantasy {
   }
 
   def modifierBonusIntToString(mod: Int): String = {
-    if(mod > 0)
+    if (mod > 0)
       s"+$mod"
     else
       mod.toString
@@ -129,8 +130,8 @@ object BasicFantasy {
     race match {
       case Human => !characterClass.isMultiClass
       case Elf => true
-      case Dwarf =>  isFighterClericThief
-      case Halfling =>  isFighterClericThief
+      case Dwarf => isFighterClericThief
+      case Halfling => isFighterClericThief
       case HalfElf => true
       case HalfOrc => isFighterClericThief
     }
@@ -139,7 +140,7 @@ object BasicFantasy {
   def getRacialAbilities(race: Race): String = {
     val abilities = race.weapons ++ race.getAbilities
 
-   abilities.map(a => s"<tr><td>$a</td>")
+    abilities.map(a => s"<tr><td>$a</td>")
       .mkString("<table class=\"unstriped\">", "", "</table>")
   }
 }

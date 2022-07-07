@@ -1,4 +1,4 @@
-package fantasy.utilities
+package basic.fantasy
 
 import utest.{TestSuite, Tests, test}
 

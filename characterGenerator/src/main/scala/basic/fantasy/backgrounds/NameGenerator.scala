@@ -1,6 +1,7 @@
-package fantasy.utilities
+package basic.fantasy.backgrounds
 
-import fantasy.utilities.Races._
+import Races._
+import basic.fantasy.Roller
 
 object NameGenerator {
 
@@ -9,40 +10,40 @@ object NameGenerator {
     case Elf => getElvenName(gender)
     case Dwarf => getDwarvenName(gender)
     case Halfling => getHalflingName(gender)
-    case HalfElf => if(Roller.coinFLip()) getElvenName(gender) else getHumanName(gender)
-    case HalfOrc => if(Roller.coinFLip()) getOrcishName(gender) else getHumanName(gender)
+    case HalfElf => if (Roller.coinFLip()) getElvenName(gender) else getHumanName(gender)
+    case HalfOrc => if (Roller.coinFLip()) getOrcishName(gender) else getHumanName(gender)
   }
 
   def getHumanName(gender: String): String = {
-    if(gender == "Male")
+    if (gender == "Male")
       s"$getHumanMaleFirstName $getHumanSurname"
     else
       s"$getHumanFemaleFirstName() $getHumanSurname"
   }
 
   def getElvenName(gender: String): String = {
-    if(gender == "Male")
+    if (gender == "Male")
       s"$getElvenMaleFirstName $getElvenSurname"
     else
       s"$getElvenFemaleFirstName $getElvenSurname"
   }
 
   def getDwarvenName(gender: String): String = {
-    if(gender == "Male")
+    if (gender == "Male")
       s"$getDwarvenMaleFirstName $getDwarvenSurname"
     else
       s"$getDwarvenFemaleFirstName $getDwarvenSurname"
   }
 
   def getHalflingName(gender: String): String = {
-    if(gender == "Male")
+    if (gender == "Male")
       s"$getHalflingMaleFirstName $getHalflingSurname"
     else
       s"$getHalflingFemaleFirstName $getHalflingSurname"
   }
 
   def getOrcishName(gender: String): String = {
-    if(gender == "Male")
+    if (gender == "Male")
       getOrcishMaleName
     else
       getOrcishFemaleName
@@ -68,12 +69,12 @@ object NameGenerator {
 
     val surNames: Seq[String] = Seq("Hill", "Morton", "Hutchinson", "Hutchinson", "Brooks", "Montgomery", "Jensen",
       "Rogers", "Mccarthy", "O'Quinn", "Gardner", "Booth", "Pham", "Austin", "Jackson", "Day", "Ayala", "Page",
-      "Vazquez", "Zang", "Rice", "Wolf", "Abbott", "Mcguire", "Aguilar", "Mckinney", "Henry","Baker", "Ross", "Lowe",
-      "Cole", "Arnold", "Pratt", "Rowe", "Cummings", "Frank", "Clark", "Clayton", "Wilson","Hammond", "Byrne",
+      "Vazquez", "Zang", "Rice", "Wolf", "Abbott", "Mcguire", "Aguilar", "Mckinney", "Henry", "Baker", "Ross", "Lowe",
+      "Cole", "Arnold", "Pratt", "Rowe", "Cummings", "Frank", "Clark", "Clayton", "Wilson", "Hammond", "Byrne",
       "Sweeney", "Porter", "Aguirre", "Robles", "Beck", "Harvey", "Alvarez", "Medina", "Benson", "Franklin",
       "Bass", "Lloyd", "Allen", "Hughes", "Lyons", "Howell", "Flores", "Harris", "Brady", "Dominguez", "Young",
       "Tate", "Rivera", "Luna", "Rios", "Bird", "Becker", "Grant", "Jennings", "Bell", "Miller", "Stevens", "Mccoy",
-      "English","Williamson", "Lynch", "Gough", "Waters", "Newman", "Ingram", "Vaughn", "Williams", "Estrada",
+      "English", "Williamson", "Lynch", "Gough", "Waters", "Newman", "Ingram", "Vaughn", "Williams", "Estrada",
       "Edwards", "Scott", "Griffiths", "Mack", "Solis", "Price", "Lambert", "Roberts", "Munoz", "Graham", "Garza",
       "Poole", "Dunn", "Wallace", "Peterson", "Pham", "Hawkins", "Finch", "Strickland", "Barrett", "Mohamed",
       "Cunningham", "Bailey", "Myers", "Spencer", "Romero", "Armstrong", "Austin", "O'Connor", "Peters", "Thomas",
@@ -95,12 +96,12 @@ object NameGenerator {
     val firstName: Seq[String] = Seq("Arkandor", "Aeryk", "Aubir", "Birker", "Coro", "Charn", "Dunni", "Dhenor",
       "Enlo", "Ferdirk", "Golian", "Ghörn", "Hold", "Ivor", "Jarum", "Kolm", "Kherano", "Laef", "Mannur", "Nixor",
       "O'mar", "Paulu", "Phork", "Quoro", "Redgar", "Särk", "Shönn", "Skold", "Thonas", "Thudgar", "Ulfvaer", "Villo",
-      "Wilham", "Xärn", "Ymor", "Ziermo","Årukr", "Äleks", "Öykir", "Alsar", "Aenir", "Asur", "Boris", "Birt", "Collun",
-      "Dunhir", "Sighard" , "Dharko", "Alric", "Fontur", "Fufnir", "Elkar", "Leiks", "Mervan", "Irminric", "Coenred",
+      "Wilham", "Xärn", "Ymor", "Ziermo", "Årukr", "Äleks", "Öykir", "Alsar", "Aenir", "Asur", "Boris", "Birt", "Collun",
+      "Dunhir", "Sighard", "Dharko", "Alric", "Fontur", "Fufnir", "Elkar", "Leiks", "Mervan", "Irminric", "Coenred",
       "Paetr", "Phlick", "Quaggi", "Rory", "Ronder", "Ruddar", "Caelin", "Saren", "Sturv", "Hislir", "Issolur",
-      "Ulrekk", "Vigor", "Thorold", "Wulfer","Xeron", "Yarlo", "Zorn", "Ilfarulv", "Jonnus", "Merlot", "Mimur",
+      "Ulrekk", "Vigor", "Thorold", "Wulfer", "Xeron", "Yarlo", "Zorn", "Ilfarulv", "Jonnus", "Merlot", "Mimur",
       "Neolo", "Borker", "Oerkur", "Parus", "Pertus", "Rialter", "Raulfur", "Thul", "Tirul", "Timbul", "Sturv", "Särkor",
-      "Sturmnir", "Solan", "Svert", "Ernoldus", "Albinus",  "Ailmar",     "Gredlan" ,"Gaufridus", "Turbert")
+      "Sturmnir", "Solan", "Svert", "Ernoldus", "Albinus", "Ailmar", "Gredlan", "Gaufridus", "Turbert")
 
     val count = firstName.length
     firstName(Roller.randomInt(count))
@@ -161,7 +162,7 @@ object NameGenerator {
       "Mirthal", "Mlartlar", "Mlossae", "Molonym", "Molostroi", "Montagor", "Morgan", "Morthil", "Mothrys", "Mourn",
       "Myrddin", "Myriil", "Myrin", "Myronthilar", "Mythanthar", "Naertho", "Naeryndam", "Naeryndam", "Napraeleon",
       "Narbeth", "Nardual", "Nelaeryn", "Nelaeryn", "Neldor", "Neldor", "Nesterin", "Nevarth", "Nhamashal", "Nieven",
-      "Nindrol", "Ninthalor", "Nlossae", "Nopos", "Norlorn", "Nremyn", "Nuvian","Nyaalsir", "Nylian", "Nym", "Nyvorlas",
+      "Nindrol", "Ninthalor", "Nlossae", "Nopos", "Norlorn", "Nremyn", "Nuvian", "Nyaalsir", "Nylian", "Nym", "Nyvorlas",
       "Oacenth", "Oenel", "Ohmbryn", "Olaurae", "Olinsivver", "Olithir", "Onas", "Oncith", "Ondabrar", "Ondroth",
       "Onvyr", "Orist", "Orlpar", "Orndacil", "Ornthalas", "Ornthalas", "Ortauré", "Orym", "Oslarelar", "Otaehryn",
       "Otaerhyn", "Othorion", "Paeral", "Paeris", "Passilorris", "Paulorin", "Phaendar", "Pharom", "Phraan", "Pirphal",
@@ -272,12 +273,12 @@ object NameGenerator {
 
   def getDwarvenMaleFirstName(): String = {
 
-    val firstName: Seq[String] = Seq("Addanc","Ari","Bhalkyl","Aigror","Dramoli","Dorni","Galvon", "Donar", "Brakan",
+    val firstName: Seq[String] = Seq("Addanc", "Ari", "Bhalkyl", "Aigror", "Dramoli", "Dorni", "Galvon", "Donar", "Brakan",
       "Duvur", "Bramdahr", "Colan", "Malgon", "Balthrasir", "Ballin", "Thovan", "Draupin", "Argos", "Thondin", "Brynjolvur",
-      "Drogo", "Bothor", "Dragroli","Firguc", "Gidel", "Bhalmun", "Avion", "Kibil", "Danil", "Calgak", "Givur",
-      "Algir", "Brokk", "Bagnor", "Ruvon", "Hannar","Chirysaor", "Artion","Baglian","Daremrun", "Ebdrus", "Buboth",
+      "Drogo", "Bothor", "Dragroli", "Firguc", "Gidel", "Bhalmun", "Avion", "Kibil", "Danil", "Calgak", "Givur",
+      "Algir", "Brokk", "Bagnor", "Ruvon", "Hannar", "Chirysaor", "Artion", "Baglian", "Daremrun", "Ebdrus", "Buboth",
       "Anin", "Brand", "Bovar", "Goliath", "Bharrom", "Dwomnaed", "Dogril", "Onfroi", "Oin", "Davan", "Bargun",
-      "Khubrorlug", "Thortor", "Doulgarlig", "Dondnar", "Huffie", "Fimbul", "Digan", "Bilbur","Glorgil", "Glorgil",
+      "Khubrorlug", "Thortor", "Doulgarlig", "Dondnar", "Huffie", "Fimbul", "Digan", "Bilbur", "Glorgil", "Glorgil",
       "Dravan", "Edmundur", "Malvon", "Gim", "Bamiri", "Anil", "Bramdur", "Thovir", "Azaes", "Sarraem", "Hungraec",
       "Hurfumlin", "Azotir", "Brudrith", "Rabreak", "Skosdroud", "Loddac", "Jakdrig", "Flintheart", "Dellinger",
       "Dithin")
@@ -287,12 +288,12 @@ object NameGenerator {
   }
 
   def getDwarvenFemaleFirstName(): String = {
-    val firstNames: Seq[String] = Seq("Dothura", "Dila",  "Crystal", "Dunora", "Divira", "Gagon", "Dhara", "Dolana",
+    val firstNames: Seq[String] = Seq("Dothura", "Dila", "Crystal", "Dunora", "Divira", "Gagon", "Dhara", "Dolana",
       "Agran", "Aden", "Bhelkam", "Esmeralda", "Calona", "Demeter", "Dradir", "Bes", "Erla", "Admina",
       "Giva", "Sienna", "Jade", "Chalia", "Dilgli", "Branmand", "Randonne", "Dovana", "Ebgranne", "Dora", "Lazula",
-      "Cosette", "Dugrona", "Calgrima", "Chalona", "Ela", "Amethyst", "Gavil", "Eiki", "Fiden",  "Lana", "Chalia",
+      "Cosette", "Dugrona", "Calgrima", "Chalona", "Ela", "Amethyst", "Gavil", "Eiki", "Fiden", "Lana", "Chalia",
       "Elindur", "Nvari", "Eartha", "Avil", "Reginn", "Rudli", "Montana", "Eilivur", "Sapphire", "Barol", "Calund",
-      "Emorette", "Malvan", "Ula", "Dorola", "Dovla",  "Calgrima", "Afra", "Bjarki", "Narva", "Bavolle", "Rarona",
+      "Emorette", "Malvan", "Ula", "Dorola", "Dovla", "Calgrima", "Afra", "Bjarki", "Narva", "Bavolle", "Rarona",
       "Bavola", "Thrakhubyrn", "Hofaebelyn", "Strordrouthra", "Bugretalyn"
     )
     val count = firstNames.length
@@ -303,16 +304,16 @@ object NameGenerator {
   def getDwarvenSurname(): String = {
     val surnames: Seq[String] = Seq("Keghood", "Anvilmaster", "Anvilbender", "Runebreaker", "Flintcoat", "Deepgrip",
       "Minebrow", "Flaskview", "Ironforge", "Oreheart", "Stonejaw", "orcbane", "Cavebreaker", "Warrencloak",
-      "Nightgranite", "Dorgin" , "Morgus" , "Austri" , "Kalady", "Maur", "Dagni" ,"Geirfinnur" , "MaurMaur", "Dagni" ,
-      "Geirfinnur", "Dagni" , "Geirfinnur", "Rikkin" , "Lovisa" , "Gidal" , "Sudri" , "Yatmaen" , "Obara" , "Hjolman",
-      "Runira", "Malgon" , "Sveinur" , "Hazeal" , "Harbet" , "Steinur" , "Hokul","Dorvari", "Myagrun", "Sigvaldur",
+      "Nightgranite", "Dorgin", "Morgus", "Austri", "Kalady", "Maur", "Dagni", "Geirfinnur", "MaurMaur", "Dagni",
+      "Geirfinnur", "Dagni", "Geirfinnur", "Rikkin", "Lovisa", "Gidal", "Sudri", "Yatmaen", "Obara", "Hjolman",
+      "Runira", "Malgon", "Sveinur", "Hazeal", "Harbet", "Steinur", "Hokul", "Dorvari", "Myagrun", "Sigvaldur",
       "Panoptes", "Werazzet", "Skirfar", "Myanra", "Thogrin", "Rervia", "Kecha", "Onin", "Baerdal", "Bifurr", "Melnur",
       "Sliryn", "Glondil", "Githlia", "Lonvari", "Taleema", "Kelardy", "Salmumin", "Robekur", "Thaggoum", "Dirila",
       "Goddumir", "Terta", "Myalinden", "Grendel", "Shatterbranch", "Sorkvi", "Hlevari", "Mavia", "Sjurthi", "Hillmane",
       "Hanarav", "Lirra", "Mireveh", "Hepti", "Henna", "Ruvona", "Galren", "Drargna", "Ragnur", "Regin", "Airgan", "Loa",
       "Onfroi", "Rugin", "Mirev", "Horkahm", "Lis", "Gindira", "Fundinn", "Balskjald", "Moira", "Linka", "Ragna",
       "Dulir", "Gadona", "Lonlin", "Mili", "Apophis", "Korbeth", "Recha", "Brana", "Dhotdruk", "Stoneaxe", "Copperbranch",
-      "Flatriver",  "Wyvernheath"
+      "Flatriver", "Wyvernheath"
 
     )
 
@@ -321,10 +322,10 @@ object NameGenerator {
   }
 
   def getHalflingMaleFirstName(): String = {
-    val firstNames: Seq[String] = Seq("Wiltran", "Janfire",  "Pimzor", "Xanvias", "Yenlan", "Ridon", "Danry", "Norpher",
-      "Yarsire", "Osret", "Welkath" ,"Elikis", "Adran", "Amalis", "Bert", "Burrick", "Car", "Caridon", "Cyroen",
+    val firstNames: Seq[String] = Seq("Wiltran", "Janfire", "Pimzor", "Xanvias", "Yenlan", "Ridon", "Danry", "Norpher",
+      "Yarsire", "Osret", "Welkath", "Elikis", "Adran", "Amalis", "Bert", "Burrick", "Car", "Caridon", "Cyroen",
       "Davis", "Davon", "Eld", "Far", "Fel", "Huudus", "Imnard", "Jor", "Julk", "Kevon", "Lenson", "Lius", "Magnes",
-      "Marijn", "Micus", "Norimon" ,"Priand"," Ricus", "Turic", "Urijs", "Waldel", "Samwise", "Ansegar", "Celedor",
+      "Marijn", "Micus", "Norimon", "Priand", " Ricus", "Turic", "Urijs", "Waldel", "Samwise", "Ansegar", "Celedor",
       "Chlodomer", "Lull", "Berchar", "Wala", "Theodoric", "Prospero", "Bauto", "Waltgaud", "Togo", "Evroul", "Brutus",
       "Sunno", "Otto", "Syagrius", "Audovald", "Bertin", "Reolus", "Rigunth", "Polo", "Dagaric", "Gozolon", "Polo",
       "Reginard", "Arnor", "Valdemar", "Drogo", "Goisfrid", "Siegfried", "Saradoc", "Hartgard", "Chlodwig", "Jago",
@@ -336,8 +337,8 @@ object NameGenerator {
 
   def getHalflingFemaleFirstName: String = {
     val firstNames: Seq[String] = Seq("Prufice", "Yomita", "Fenprys", "Fromita", "Uviora", "Verhaly", "Quda",
-      "Therprys" ,"Yoris", "Paesica", "Unaris", "Malwyn", "Zenlienne", "Saeni", "Uviola", "Lidtina", "Wimia",
-    "Lidwyn", "Odivyre", "Adea", "Amonitza", "Arola", "Azasina", "Baita", "Bruderea", "Bruena", "Eloavela", "Elonia",
+      "Therprys", "Yoris", "Paesica", "Unaris", "Malwyn", "Zenlienne", "Saeni", "Uviola", "Lidtina", "Wimia",
+      "Lidwyn", "Odivyre", "Adea", "Amonitza", "Arola", "Azasina", "Baita", "Bruderea", "Bruena", "Eloavela", "Elonia",
       "Elso", "Fioria", "Flonda", "Gista", "Gleta", "Ilitza", "Irmuania", "Jona", "Kitza", "Lavieza", "Marda", "Marora",
       "Mazisa", "Merina", "Musa", "Nata", "Petza", "Saniami", "Tiza", "Venuelia", "Zamenza")
     val count = firstNames.length
@@ -346,13 +347,13 @@ object NameGenerator {
 
   def getHalflingSurname: String = {
     val surnames: Seq[String] = Seq("Truebeam", "Stoutheart", "Shadowbough", "Humblehare", "RidonHillhand", "Sunbarrel",
-      "Freemantle", "Quickcrest", "Wisesun", "Deephare" ,"Stonewater", "Havenfellow", "Bramblemoon", "Keenwind",
+      "Freemantle", "Quickcrest", "Wisesun", "Deephare", "Stonewater", "Havenfellow", "Bramblemoon", "Keenwind",
       "Goldseeker", "Greatmeadow", "Fasteye", "Lunardance", "Hogflower", "Shadowshaker", "Slystoat", "Took", "Townsend",
       "Underbough", "Vlibrusbird", "Goodbody", "Quickhand", "Riverflower", "Truthstride", "Vlibrusbird", "Whitsoar",
       "Hornblower", "Bophin", "Longriver", "Hedgehopper", "Hopesinger", "Noakesburrow", "Clayhanger", "Whitbottom",
-      "Elvellon" ,"Underhill" ,"Gardner", "Elvellon", "Hayward", "Leafwalker", "Bunce", "Riverhopper", "Lothran",
+      "Elvellon", "Underhill", "Gardner", "Elvellon", "Hayward", "Leafwalker", "Bunce", "Riverhopper", "Lothran",
       "Burrows", "Sandheaver", "Goldworthy", "Bramblethorn", "Bracegirdle", "Bolger", "Fleetfoot", "Goodwort",
-      "Oakbottom", "Smallburrow" ,"Goodchild" ,"Brownlock" ,"Undertree"
+      "Oakbottom", "Smallburrow", "Goodchild", "Brownlock", "Undertree"
     )
     val count = surnames.length
     surnames(Roller.randomInt(count))

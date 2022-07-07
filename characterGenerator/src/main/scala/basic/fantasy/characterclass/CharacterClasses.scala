@@ -1,4 +1,4 @@
-package fantasy.utilities
+package basic.fantasy.characterclass
 
 object CharacterClasses {
 
@@ -13,22 +13,27 @@ object CharacterClasses {
   case object Cleric extends CharacterClass {
     override val isCleric = true
   }
+
   case object Fighter extends CharacterClass {
     override val isFighter = true
   }
+
   case object FighterMagicUser extends CharacterClass {
     override val isFighter = true
     override val isMagicUser = true
     override val isMultiClass = true
   }
+
   case object MagicUser extends CharacterClass {
     override val isMagicUser = true
   }
+
   case object MagicUserThief extends CharacterClass {
     override val isThief = true
     override val isMagicUser = true
     override val isMultiClass = true
   }
+
   case object Thief extends CharacterClass {
     override val isThief = true
   }
@@ -36,7 +41,7 @@ object CharacterClasses {
   case class InvalidCharacterClassException(msg: String) extends Exception(msg)
 
   def stringToCharacterClass(characterClass: String): CharacterClass = characterClass match {
-    case "Fighter" =>  Fighter
+    case "Fighter" => Fighter
     case "Magic-User" => MagicUser
     case "Thief" => Thief
     case "Cleric" => Cleric
@@ -46,5 +51,3 @@ object CharacterClasses {
   }
 
 }
-
-

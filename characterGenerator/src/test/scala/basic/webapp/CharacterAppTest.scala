@@ -1,4 +1,4 @@
-package fantasy.webapp
+package basic.webapp
 
 import org.scalajs.dom
 import utest._

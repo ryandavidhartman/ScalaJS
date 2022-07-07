@@ -1,18 +1,19 @@
-package fantasy.utilities
+package basic.fantasy.backgrounds
 
-import fantasy.utilities.Races._
+import Races._
+import basic.fantasy.Roller
 
 object BackgroundGenerator {
 
   case class Background(
-    parentsNationality: Nationality,
-    parentsOccupation: String,
-    birthOrder: String,
-    childHoodEvents: Set[String],
-    adolescentEvents: Set[String]
-  )
+                         parentsNationality: Nationality,
+                         parentsOccupation: String,
+                         birthOrder: String,
+                         childHoodEvents: Set[String],
+                         adolescentEvents: Set[String]
+                       )
 
-  def getBackground(race: Race): Background= {
+  def getBackground(race: Race): Background = {
     val numChildhoodEvents = Roller.randomInt(4)
     val numAdolescentEvents = Roller.randomInt(4)
 
@@ -29,7 +30,7 @@ object BackgroundGenerator {
 
   def getRandomData(data: Map[Int, String]): String = {
     try {
-      val random = Roller.randomInt(data.size)+1
+      val random = Roller.randomInt(data.size) + 1
       data(random)
     } catch {
       case e: Throwable => println(e.getMessage); e.getMessage
@@ -124,13 +125,13 @@ object BackgroundGenerator {
       1 -> "Tailor",
       2 -> "Fletcher",
       3 -> "Bowyer",
-      4  -> "Glass Blower",
-      5  -> "Carpenter",
-      6  -> "Animal trainer",
+      4 -> "Glass Blower",
+      5 -> "Carpenter",
+      6 -> "Animal trainer",
       7 -> "Beast master",
-      7  -> "Cartographer",
-      8  -> "Smith",
-      9  -> "Cobbler",
+      7 -> "Cartographer",
+      8 -> "Smith",
+      9 -> "Cobbler",
       10 -> "Weaver",
       11 -> "Armorer",
       12 -> "Brewer",
@@ -387,7 +388,9 @@ object BackgroundGenerator {
       14 -> s"Developed vice: ${getVice()}",
       15 -> s"Conscripted for military service: ${getMilitaryService()}",
       16 -> s"Volunteered for military service: ${getMilitaryService()}",
-      17 -> { if(Roller.randomInt(100) > 75)  "Romantic affair" else "Had a Child" },
+      17 -> {
+        if (Roller.randomInt(100) > 75) "Romantic affair" else "Had a Child"
+      },
       18 -> s"Learned occupation: ${getOccupation()}",
       19 -> s"Suspected of crime: ${getCrime()}",
       20 -> s"Home village/town wiped out by: ${getOther()}",
@@ -449,28 +452,28 @@ object BackgroundGenerator {
 
   //Chart 4C: Virtues
   def getVirtue(): String = {
-     val virtues: Map[Int, String] = Map(
-       1 -> "Cleanliness",
-       2 -> "Benefactor for the poor",
-       3 -> "Well-mannered",
-       4 -> "Friendly",
-       5 -> "Teetotaler",
-       6 -> "Pious",
-       7 -> "Sincere/earnest",
-       8 -> "Quiet/good listener",
-       9 -> "Honest",
-       10 -> "Defender of the oppressed",
-       11 -> "Loving",
-       12 -> "Tolerant of all faiths",
-       13 -> "Self-confident",
-       14 -> "Hard-working",
-       15 -> "Humble",
-       16 -> "Good negotiator",
-       17 -> "diplomatic",
-       18 -> "Hard bargainer",
-       19 -> "Punctual",
-       20 -> "Sensitive/tender",
-       21 -> "Gregarious"
+    val virtues: Map[Int, String] = Map(
+      1 -> "Cleanliness",
+      2 -> "Benefactor for the poor",
+      3 -> "Well-mannered",
+      4 -> "Friendly",
+      5 -> "Teetotaler",
+      6 -> "Pious",
+      7 -> "Sincere/earnest",
+      8 -> "Quiet/good listener",
+      9 -> "Honest",
+      10 -> "Defender of the oppressed",
+      11 -> "Loving",
+      12 -> "Tolerant of all faiths",
+      13 -> "Self-confident",
+      14 -> "Hard-working",
+      15 -> "Humble",
+      16 -> "Good negotiator",
+      17 -> "diplomatic",
+      18 -> "Hard bargainer",
+      19 -> "Punctual",
+      20 -> "Sensitive/tender",
+      21 -> "Gregarious"
     )
 
     getRandomData(virtues)
@@ -479,7 +482,7 @@ object BackgroundGenerator {
 
   //Chart 4D: Vices
   def getVice(): String = {
-    val vices: Map[Int,String] = Map(
+    val vices: Map[Int, String] = Map(
       1 -> "Heavy drinker",
       2 -> "Drug problem",
       3 -> "Gambler",
@@ -552,250 +555,268 @@ object BackgroundGenerator {
   }
 
   //Chart 5: Nationality
-  def getNationality(race: Race):  Nationality = {
+  def getNationality(race: Race): Nationality = {
     val random = Roller.randomInt(100)
 
     race match {
       case Human =>
-        if(random < 15)
+        if (random < 15)
           Karameikos
-        else if(random < 20)
+        else if (random < 20)
           Ylaruam
-        else if(random < 30)
+        else if (random < 30)
           Glantri
-        else if(random < 35)
+        else if (random < 35)
           Ierendi
-        else if(random < 36)
+        else if (random < 36)
           Alfheim
-        else if(random < 37)
+        else if (random < 37)
           Rockhome
-        else if(random < 43)
+        else if (random < 43)
           NorthernReaches
-        else if(random < 44)
+        else if (random < 44)
           FiveShires
-        else if(random < 49)
+        else if (random < 49)
           Minrothad
-        else if(random < 50)
+        else if (random < 50)
           Thar
-        else if(random < 65)
+        else if (random < 65)
           Darokin
-        else if(random < 70)
+        else if (random < 70)
           Ethengar
-        else if(random < 71)
+        else if (random < 71)
           ShadowLands
-        else if(random < 76)
+        else if (random < 76)
           Altruaghin
-        else if(random < 85)
+        else if (random < 85)
           Alphatia
-        else if(random < 95)
+        else if (random < 95)
           Thyatis
         else
           Wildlands
       case Elf =>
-        if(random < 2)
+        if (random < 2)
           Karameikos
-        else if(random < 4)
+        else if (random < 4)
           Ylaruam
-        else if(random < 14)
+        else if (random < 14)
           Glantri
-        else if(random < 15)
+        else if (random < 15)
           Ierendi
-        else if(random < 65)
+        else if (random < 65)
           Alfheim
-        else if(random < 66)
+        else if (random < 66)
           Rockhome
-        else if(random < 67)
+        else if (random < 67)
           NorthernReaches
-        else if(random < 68)
+        else if (random < 68)
           FiveShires
-        else if(random < 69)
+        else if (random < 69)
           Minrothad
-        else if(random < 70)
+        else if (random < 70)
           Thar
-        else if(random < 75)
+        else if (random < 75)
           Darokin
-        else if(random < 71)
+        else if (random < 71)
           Ethengar
-        else if(random < 80)
+        else if (random < 80)
           ShadowLands
-        else if(random < 81)
+        else if (random < 81)
           Altruaghin
-        else if(random < 84)
+        else if (random < 84)
           Alphatia
-        else if(random < 90)
+        else if (random < 90)
           Thyatis
         else
           Wildlands
       case Dwarf =>
-        if(random < 2)
+        if (random < 2)
           Karameikos
-        else if(random < 4)
+        else if (random < 4)
           Ylaruam
-        else if(random < 5)
+        else if (random < 5)
           Glantri
-        else if(random < 15)
+        else if (random < 15)
           Ierendi
-        else if(random < 16)
+        else if (random < 16)
           Alfheim
-        else if(random < 66)
+        else if (random < 66)
           Rockhome
-        else if(random < 67)
+        else if (random < 67)
           NorthernReaches
-        else if(random < 68)
+        else if (random < 68)
           FiveShires
-        else if(random < 69)
+        else if (random < 69)
           Minrothad
-        else if(random < 70)
+        else if (random < 70)
           Thar
-        else if(random < 75)
+        else if (random < 75)
           Darokin
-        else if(random < 71)
+        else if (random < 71)
           Ethengar
-        else if(random < 80)
+        else if (random < 80)
           ShadowLands
-        else if(random < 81)
+        else if (random < 81)
           Altruaghin
-        else if(random < 84)
+        else if (random < 84)
           Alphatia
-        else if(random < 90)
+        else if (random < 90)
           Thyatis
         else
           Wildlands
       case Halfling => Darokin
-        if(random < 2)
+        if (random < 2)
           Karameikos
-        else if(random < 4)
+        else if (random < 4)
           Ylaruam
-        else if(random < 5)
+        else if (random < 5)
           Glantri
-        else if(random < 15)
+        else if (random < 15)
           Ierendi
-        else if(random < 16)
+        else if (random < 16)
           Alfheim
-        else if(random < 17)
+        else if (random < 17)
           Rockhome
-        else if(random < 18)
+        else if (random < 18)
           NorthernReaches
-        else if(random < 68)
+        else if (random < 68)
           FiveShires
-        else if(random < 69)
+        else if (random < 69)
           Minrothad
-        else if(random < 70)
+        else if (random < 70)
           Thar
-        else if(random < 75)
+        else if (random < 75)
           Darokin
-        else if(random < 71)
+        else if (random < 71)
           Ethengar
-        else if(random < 80)
+        else if (random < 80)
           ShadowLands
-        else if(random < 81)
+        else if (random < 81)
           Altruaghin
-        else if(random < 84)
+        else if (random < 84)
           Alphatia
-        else if(random < 90)
+        else if (random < 90)
           Thyatis
         else
           Wildlands
       case HalfElf =>
-        if(random < 10)
+        if (random < 10)
           Karameikos
-        else if(random < 15)
+        else if (random < 15)
           Ylaruam
-        else if(random < 30)
+        else if (random < 30)
           Glantri
-        else if(random < 35)
+        else if (random < 35)
           Ierendi
-        else if(random < 55)
+        else if (random < 55)
           Alfheim
-        else if(random < 56)
+        else if (random < 56)
           Rockhome
-        else if(random < 60)
+        else if (random < 60)
           NorthernReaches
-        else if(random < 61)
+        else if (random < 61)
           FiveShires
-        else if(random < 65)
+        else if (random < 65)
           Minrothad
-        else if(random < 66)
+        else if (random < 66)
           Thar
-        else if(random < 75)
+        else if (random < 75)
           Darokin
-        else if(random < 80)
+        else if (random < 80)
           Ethengar
-        else if(random < 90)
+        else if (random < 90)
           ShadowLands
-        else if(random < 91)
+        else if (random < 91)
           Altruaghin
-        else if(random < 93)
+        else if (random < 93)
           Alphatia
-        else if(random < 98)
+        else if (random < 98)
           Thyatis
         else
           Wildlands
 
       case HalfOrc =>
-        if(random < 5)
+        if (random < 5)
           Karameikos
-        else if(random < 10)
+        else if (random < 10)
           Ylaruam
-        else if(random < 15)
+        else if (random < 15)
           Glantri
-        else if(random < 20)
+        else if (random < 20)
           Ierendi
-        else if(random < 21)
+        else if (random < 21)
           Alfheim
-        else if(random < 22)
+        else if (random < 22)
           Rockhome
-        else if(random < 27)
+        else if (random < 27)
           NorthernReaches
-        else if(random < 28)
+        else if (random < 28)
           FiveShires
-        else if(random < 33)
+        else if (random < 33)
           Minrothad
-        else if(random < 60)
+        else if (random < 60)
           Thar
-        else if(random < 65)
+        else if (random < 65)
           Darokin
-        else if(random < 70)
+        else if (random < 70)
           Ethengar
-        else if(random < 71)
+        else if (random < 71)
           ShadowLands
-        else if(random < 76)
+        else if (random < 76)
           Altruaghin
-        else if(random < 81)
+        else if (random < 81)
           Alphatia
-        else if(random < 86)
+        else if (random < 86)
           Thyatis
         else
           Wildlands
     }
   }
+
   sealed trait Nationality {
     def niceString(): String = {
       this.toString.replace("()", "")
     }
   }
+
   case object Karameikos extends Nationality
+
   case object Ylaruam extends Nationality
+
   case object Glantri extends Nationality
+
   case object Ierendi extends Nationality
+
   case object Alfheim extends Nationality
+
   case object Rockhome extends Nationality
+
   case object NorthernReaches extends Nationality {
     override def toString: String = "Northern Reaches"
   }
+
   case object FiveShires extends Nationality {
     override def toString: String = "The Five Shires"
   }
+
   case object Minrothad extends Nationality
+
   case object Thar extends Nationality
+
   case object Darokin extends Nationality
+
   case object Ethengar extends Nationality
+
   case object ShadowLands extends Nationality {
     override def toString: String = "Shadow Lands"
   }
+
   case object Altruaghin extends Nationality
+
   case object Alphatia extends Nationality
+
   case object Thyatis extends Nationality
+
   case object Wildlands extends Nationality
 
 }

@@ -1,8 +1,9 @@
-package fantasy.webapp
+package basic.webapp
 
-import fantasy.utilities.CharacterClasses.CharacterClass
-import fantasy.utilities.{CharacterClasses, Races}
-import fantasy.utilities.Races.Race
+import basic.fantasy.characterclass.CharacterClasses.CharacterClass
+import basic.fantasy.backgrounds.Races
+import basic.fantasy.backgrounds.Races.Race
+import basic.fantasy.characterclass.CharacterClasses
 import org.scalajs.dom.{document, html}
 
 object DOMObjects {

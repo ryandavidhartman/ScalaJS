@@ -1,6 +1,7 @@
-package fantasy.utilities
+package basic.fantasy.backgrounds
 
-import fantasy.utilities.CharacterClasses.CharacterClass
+import basic.fantasy.characterclass.CharacterClasses.CharacterClass
+import basic.fantasy.Roller
 
 sealed trait Alignment
 case object Lawful extends Alignment

@@ -1,4 +1,6 @@
-package fantasy.utilities
+package basic.fantasy.backgrounds
+
+import basic.fantasy.Roller
 
 object PersonalityGenerator {
 
@@ -78,7 +80,7 @@ object PersonalityGenerator {
   def getPersonality(): String = {
     val random1 = Roller.randomInt(Personalities.length)
     val tmp = Roller.randomInt(Personalities.length)
-    val random2 = if(tmp != random1) tmp else Roller.randomInt(Personalities.length)
+    val random2 = if (tmp != random1) tmp else Roller.randomInt(Personalities.length)
 
     s"${Personalities(random1)}/${Personalities(random2)}"
   }
