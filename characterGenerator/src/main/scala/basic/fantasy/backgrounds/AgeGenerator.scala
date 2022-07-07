@@ -1,7 +1,7 @@
 package basic.fantasy.backgrounds
 
-import Races._
 import basic.fantasy.Roller
+import basic.fantasy.backgrounds.Races._
 
 object AgeGenerator {
 

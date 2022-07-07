@@ -50,4 +50,6 @@ object CharacterClasses {
     case _ => throw InvalidCharacterClassException(s"Invalid character class: $characterClass")
   }
 
+  val All_CLASSES: Set[CharacterClass] = Set(Fighter, MagicUser, Thief, Cleric, FighterMagicUser, MagicUserThief)
+
 }

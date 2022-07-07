@@ -1,9 +1,9 @@
 package basic.webapp
 
-import basic.fantasy.characterclass.CharacterClasses.CharacterClass
 import basic.fantasy.backgrounds.Races
 import basic.fantasy.backgrounds.Races.Race
 import basic.fantasy.characterclass.CharacterClasses
+import basic.fantasy.characterclass.CharacterClasses.CharacterClass
 import org.scalajs.dom.{document, html}
 
 object DOMObjects {
