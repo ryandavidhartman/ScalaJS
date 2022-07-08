@@ -16,34 +16,34 @@ import scala.scalajs.js.annotation.JSExportTopLevel
 
 object CharacterApp {
   def main(args: Array[String]): Unit = {
-    document.addEventListener("DOMContentLoaded", { (e: dom.Event) =>
+    document.addEventListener("DOMContentLoaded", { (_: dom.Event) =>
       setupUI()
     })
   }
 
 
   def setupUI(): Unit = {
-    rollButton.addEventListener("click", { (e: dom.MouseEvent) =>
+    rollButton.addEventListener("click", { (_: dom.MouseEvent) =>
       getRandomAbilityScores()
       updateAllModifiers()
     })
 
-    rollNameButton.addEventListener("click", { (e: dom.MouseEvent) =>
+    rollNameButton.addEventListener("click", { (_: dom.MouseEvent) =>
      rollNameHandler()
     })
 
-    character_race_select.addEventListener("change", { (e: dom.MouseEvent) =>
+    character_race_select.addEventListener("change", { (_: dom.MouseEvent) =>
       updateAllModifiers()
       setSpecialAbilities()
       setHeightWeight()
       setAge()
     })
 
-    character_gender_select.addEventListener("change", { (e: dom.MouseEvent) =>
+    character_gender_select.addEventListener("change", { (_: dom.MouseEvent) =>
       setHeightWeight()
     })
 
-    character_class_select.addEventListener("change", { (e: dom.MouseEvent) =>
+    character_class_select.addEventListener("change", { (_: dom.MouseEvent) =>
       checkClass()
       updateAllModifiers()
       setSavingsThrows()
@@ -53,7 +53,7 @@ object CharacterApp {
       setAlignment()
     })
 
-    character_level_select.addEventListener("change", { (e: dom.MouseEvent) =>
+    character_level_select.addEventListener("change", { (_: dom.MouseEvent) =>
       updateAllModifiers()
       setSavingsThrows()
       setSpells()
@@ -62,28 +62,28 @@ object CharacterApp {
       setAge()
     })
 
-    str_select.addEventListener("change", { (e: dom.MouseEvent) =>
+    str_select.addEventListener("change", { (_: dom.MouseEvent) =>
       checkMaxStr()
       setMeleeAttackBonusHandler()
       setHeightWeight()
     })
 
-    int_select.addEventListener("change", { (e: dom.MouseEvent) =>
+    int_select.addEventListener("change", { (_: dom.MouseEvent) =>
       checkMaxInt()
     })
 
-    dex_select.addEventListener("change", { (e: dom.MouseEvent) =>
+    dex_select.addEventListener("change", { (_: dom.MouseEvent) =>
       checkMaxDex()
       setRangeAttackBonusHandler()
       setACBonusHandler()
     })
 
-    con_select.addEventListener("change", { (e: dom.MouseEvent) =>
+    con_select.addEventListener("change", { (_: dom.MouseEvent) =>
       checkMaxCon()
       setHitPointsHandler()
     })
 
-    chr_select.addEventListener("change", { (e: dom.MouseEvent) =>
+    chr_select.addEventListener("change", { (_: dom.MouseEvent) =>
       checkMaxChr()
     })
 
@@ -266,7 +266,7 @@ object CharacterApp {
     val level: Int = character_level_select.value.toInt
     val spells: Seq[Int] = SpellsPerLevel.getSpells(characterClass, level)
 
-    firstLvlSpellsSpan.textContent = spells(0).toString
+    firstLvlSpellsSpan.textContent = spells.head.toString
     secondLvlSpellsSpan.textContent = spells(1).toString
     thirdLvlSpellsSpan.textContent = spells(2).toString
     fourthLvlSpellsSpan.textContent = spells(3).toString
@@ -309,9 +309,9 @@ object CharacterApp {
     val characterClass =  character_class_select.value
     val level = if(characterClass == "Cleric") character_level_select.value.toInt else 0
 
-    val turns:Seq[String] = TurnUndead.turns(level)
+    val turns: Seq[String] = TurnUndead.turns(level)
 
-    turnSkeletonSpan.textContent = turns(0)
+    turnSkeletonSpan.textContent = turns.head
     turnZombieSpan.textContent   = turns(1)
     turnGhoulSpan.textContent    = turns(2)
     turnWightSpan.textContent    = turns(3)
@@ -330,7 +330,7 @@ object CharacterApp {
 
     val skills:Seq[String] = ThiefSkills.skills(level)
 
-    openLocksSpan.textContent = skills(0)
+    openLocksSpan.textContent = skills.head
     removeTrapsSpan.textContent = skills(1)
     pickPocketsSpan.textContent = skills(2)
     moveSilentlySpan.textContent = skills(3)
@@ -341,7 +341,7 @@ object CharacterApp {
 
   @JSExportTopLevel("setBackground")
   def setBackground(): Unit = {
-    val background = BackgroundGenerator.getBackground(getRace)
+    val background = BackgroundGenerator.getBackground(getRace())
 
     nationalitySpan.textContent = background.parentsNationality.toString
     parentOccupationSpan.textContent = background.parentsOccupation
@@ -362,7 +362,8 @@ object CharacterApp {
   def setEquipment(): Unit = {
     val equipment = EquipmentGenerator.getEquipment(getCharacterClass(), getCharacterLevel())
 
-    equipmentDiv.textContent = equipment.armor.toString
+    armorDiv.textContent = equipment.armor.toString
+    shieldDiv.textContent = equipment.shield.toString
   }
 
 }

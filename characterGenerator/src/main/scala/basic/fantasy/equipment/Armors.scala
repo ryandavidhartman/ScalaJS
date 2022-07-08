@@ -20,12 +20,12 @@ object Armors {
 
     override def toString: String = {
       val magicString = if(magicBonus > 0) s" (+$magicBonus)" else ""
-      s"Armor: $name$magicString, ac:${ac}, weight: $weight"
+      s"Armor: $name$magicString, ac: ${ac}, weight: $weight"
     }
   }
 
   case object NoArmor extends Armor(0, 0, 11) {
-    override val name = "No Armor"
+    override val name = "None"
   }
 
   case object Padded extends Armor(15, 10, 12) {
@@ -82,7 +82,9 @@ object Armors {
 
 
   def getArmor(characterClass: CharacterClass, level: Int): Armor = {
-    val magic: Int = Math.min(4, (Roller.randomDouble(0.4) * level).toInt)
+    val magicRoller = Roller.randomDouble(2.8*level)
+    val magic: Int = Math.max(0, Math.log(magicRoller).toInt)
+
     val roll = Roller.randomInt(100)
 
     characterClass match {
