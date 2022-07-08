@@ -78,8 +78,14 @@ object DOMObjects {
   val childhoodEventsDiv = document.getElementById("childhoodEvents").asInstanceOf[html.Div]
   val adolescentEventsDiv = document.getElementById("adolescentEvents").asInstanceOf[html.Div]
 
+
+  // Equipment
+  val equipmentDiv = document.getElementById("armor").asInstanceOf[html.Div]
+
   def getRace(): Race = Races.stringToRace(character_race_select.value)
 
   def getCharacterClass(): CharacterClass = CharacterClasses.stringToCharacterClass(character_class_select.value)
+
+  def getCharacterLevel(): Int =  character_level_select.value.toInt
 
 }

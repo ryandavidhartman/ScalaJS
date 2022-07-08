@@ -51,5 +51,4 @@ object CharacterClasses {
   }
 
   val All_CLASSES: Set[CharacterClass] = Set(Fighter, MagicUser, Thief, Cleric, FighterMagicUser, MagicUserThief)
-
 }

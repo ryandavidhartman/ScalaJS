@@ -6,6 +6,7 @@ import basic.fantasy.backgrounds.Races._
 import basic.fantasy.backgrounds._
 import basic.fantasy.characterclass.CharacterClasses._
 import basic.fantasy.characterclass.{SavingsThrows, SpellsPerLevel, ThiefSkills, TurnUndead}
+import basic.fantasy.equipment.EquipmentGenerator
 import basic.fantasy.rules.BasicFantasy._
 import basic.webapp.DOMObjects._
 import org.scalajs.dom
@@ -110,6 +111,7 @@ object CharacterApp {
     setPersonality()
     setTurnUndead()
     setThiefSkills()
+    setEquipment()
   }
 
   def appendPar(targetNode: dom.Node, text: String): Unit = {
@@ -354,6 +356,13 @@ object CharacterApp {
   @JSExportTopLevel("setPersonality")
   def setPersonality(): Unit = {
     character_personality_input.value = getPersonality()
+  }
+
+  @JSExportTopLevel("setEquipment")
+  def setEquipment(): Unit = {
+    val equipment = EquipmentGenerator.getEquipment(getCharacterClass(), getCharacterLevel())
+
+    equipmentDiv.textContent = equipment.armor.toString
   }
 
 }

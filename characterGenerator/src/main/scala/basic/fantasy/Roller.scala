@@ -26,6 +26,8 @@ object Roller {
 
   def randomInt(max: Int): Int = r.nextInt(max)
 
+  def randomDouble(max: Double): Double= r.between(0.0, max)
+
   def coinFLip(): Boolean = r.nextBoolean()
 
 }
