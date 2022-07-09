@@ -27,6 +27,7 @@ object Shields {
 
   case object NoShield extends Shield(0, 0, 0, 0) {
     override val name = "None"
+    override def toString(): String = "Shield: None"
   }
 
   case class Buckler(magic: Int) extends Shield(5, 2, 1, 0, magic) {
@@ -50,9 +51,11 @@ object Shields {
       case m if m.isMagicUser => NoShield
       case t if t.isThief => NoShield
       case _ =>
-        if(roll < 25)
+        if(roll < 40)
+          NoShield
+        else if (roll < 65)
           Buckler(magic)
-        else if (roll < 75)
+        else if (roll < 85)
           MediumShield(magic)
         else
           TowerShield(magic)

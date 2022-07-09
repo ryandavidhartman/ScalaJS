@@ -26,6 +26,7 @@ object Armors {
 
   case object NoArmor extends Armor(0, 0, 11) {
     override val name = "None"
+    override def toString(): String = "Armor: None"
   }
 
   case object Padded extends Armor(15, 10, 12) {

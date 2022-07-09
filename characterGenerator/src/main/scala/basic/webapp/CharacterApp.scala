@@ -363,6 +363,7 @@ object CharacterApp {
     val equipment = EquipmentGenerator.getEquipment(getCharacterClass(), getCharacterLevel())
 
     armorDiv.textContent = equipment.armor.toString
+    base_ac.textContent = equipment.armor.ac.toString
     shieldDiv.textContent = equipment.shield.toString
   }
 

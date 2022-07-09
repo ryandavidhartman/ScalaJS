@@ -34,6 +34,7 @@ object DOMObjects {
   val melee_attack_bonus = document.getElementById("melee_attack_bonus").asInstanceOf[html.Span]
   val ranged_attack_bonus = document.getElementById("ranged_attack_bonus").asInstanceOf[html.Span]
   val ac_bonus = document.getElementById("ac_bonus").asInstanceOf[html.Span]
+  val base_ac = document.getElementById("base_ac").asInstanceOf[html.Span]
   val hit_points = document.getElementById("hit_points").asInstanceOf[html.Span]
   val special_abilities = document.getElementById("special_abilities").asInstanceOf[html.Div]
 
