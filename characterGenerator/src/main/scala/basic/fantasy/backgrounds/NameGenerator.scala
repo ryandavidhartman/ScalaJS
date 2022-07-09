@@ -18,7 +18,7 @@ object NameGenerator {
     if (gender == "Male")
       s"$getHumanMaleFirstName $getHumanSurname"
     else
-      s"$getHumanFemaleFirstName() $getHumanSurname"
+      s"$getHumanFemaleFirstName $getHumanSurname"
   }
 
   def getElvenName(gender: String): String = {
