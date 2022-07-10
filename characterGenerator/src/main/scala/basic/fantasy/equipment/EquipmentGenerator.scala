@@ -13,7 +13,7 @@ object EquipmentGenerator {
   def getEquipment(characterClass: CharacterClass, level: Int, race: Race): Equipment = {
     val armor = Armors.getArmor(characterClass, level)
     val shield = Shields.getShield(characterClass, level)
-    val hasShield = shield == NoShield
+    val hasShield = (shield != NoShield)
     val meleeWeapon = MeleeWeapons.getMeleeWeapon(characterClass, level, race, hasShield)
     Equipment(armor, shield, meleeWeapon)
   }

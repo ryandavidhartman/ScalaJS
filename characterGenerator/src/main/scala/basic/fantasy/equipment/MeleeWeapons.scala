@@ -2,7 +2,7 @@ package basic.fantasy.equipment
 
 import basic.fantasy.Roller
 import basic.fantasy.backgrounds.Races.{Dwarf, Elf, HalfElf, HalfOrc, Halfling, Human, Race}
-import basic.fantasy.characterclass.CharacterClasses.CharacterClass
+import basic.fantasy.characterclass.CharacterClasses.{CharacterClass, Cleric, Fighter, FighterMagicUser, MagicUser, MagicUserThief, Thief}
 
 object MeleeWeapons {
 
@@ -27,7 +27,8 @@ object MeleeWeapons {
 
     override def toString: String = {
       val magicString = if(magicBonus > 0) s" (+$magicBonus)" else ""
-      s"Melee: $name$magicString, dmg: $damage, weight: $weight"
+      val magicDamage = if(magicBonus > 0) s" +$magicBonus" else ""
+      s"Melee: $name$magicString, dmg: $damage$magicDamage, weight: $weight"
     }
   }
 
@@ -58,35 +59,73 @@ object MeleeWeapons {
 
     maxSize match {
       case Small =>
-        if(roll < 50) HandAxe(magic)
-        else MilitaryPick(magic)
+        if(roll < 50)
+          HandAxe(magic)
+        else
+          MilitaryPick(magic)
       case Medium =>
-        if(roll < 10) HandAxe(magic)
-        else if(roll < 50) BattleAxe(magic)
-        else if(roll < 80 ) GreatAxe(magic)
-        else if(roll < 90)  MilitaryPick(magic)
-        else FootmansPick(magic)
+        if(roll < 10)
+          HandAxe(magic)
+        else if(roll < 80)
+          BattleAxe(magic)
+        else if(roll < 90)
+          MilitaryPick(magic)
+        else
+          FootmansPick(magic)
       case Large =>
-        if(roll < 10) HandAxe(magic)
-        else if(roll < 80) BattleAxe(magic)
-        else if(roll < 90)  MilitaryPick(magic)
-        else FootmansPick(magic)
+        if(roll < 10)
+          HandAxe(magic)
+        else if(roll < 55)
+          BattleAxe(magic)
+        else if(roll < 90 )
+          GreatAxe(magic)
+        else if(roll < 95)
+          MilitaryPick(magic)
+        else
+          FootmansPick(magic)
     }
   }
 
+  // Daggers
+  def getDagger(level: Int, maxSize: WeaponSize): MeleeWeapon = ???
+
+  // Swords
+  def getSword(level: Int, maxSize: WeaponSize): MeleeWeapon = ???
+
+  // Hammer and Maces
+  def getHammerOrMace(level: Int, maxSize: WeaponSize): MeleeWeapon = ???
+
+  // Spears and Polearms
+  def getSpearOrPolearm(level: Int, maxSize: WeaponSize): MeleeWeapon = ???
+
+  // Chain and Flail
+  def getChainOrFlail(level: Int, maxSize: WeaponSize): MeleeWeapon = ???
+
+  // Other Weapons
+  def getOtherWeapons(level: Int, maxSize: WeaponSize): MeleeWeapon = ???
+
+  // Magic user Weapons
+  def getMageWeapons(level: Int, maxSize: WeaponSize): MeleeWeapon = ???
 
   def getMeleeWeapon(characterClass: CharacterClass, level: Int, race: Race, hasShield: Boolean): MeleeWeapon = {
 
     val maxSize = race match {
-      case Human => if(hasShield) Medium else Large
-      case Elf => if(hasShield) Medium else Large
-      case Dwarf => if(hasShield) Small else Medium
-      case Halfling => if(hasShield) Small else Medium
-      case HalfElf => if(hasShield) Medium else Large
-      case HalfOrc => if(hasShield) Medium else Large
+      case Human => if (hasShield) Medium else Large
+      case Elf => if (hasShield) Medium else Large
+      case Dwarf => if (hasShield) Small else Medium
+      case Halfling => if (hasShield) Small else Medium
+      case HalfElf => if (hasShield) Medium else Large
+      case HalfOrc => if (hasShield) Medium else Large
     }
 
-    getAxe(level, maxSize)
+    characterClass match {
+      case Cleric => getAxe(level, maxSize)
+      case Fighter => getAxe(level, maxSize)
+      case FighterMagicUser => getAxe(level, maxSize)
+      case MagicUser => getAxe(level, maxSize)
+      case MagicUserThief => getAxe(level, maxSize)
+      case Thief => getAxe(level, maxSize)
+    }
   }
 
 }

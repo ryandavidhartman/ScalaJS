@@ -52,7 +52,7 @@ object Shields {
       case _ =>
         if(roll < 40)
           NoShield
-        else if (roll < 65)
+        else if (roll < 55)
           Buckler(magic)
         else if (roll < 85)
           MediumShield(magic)
