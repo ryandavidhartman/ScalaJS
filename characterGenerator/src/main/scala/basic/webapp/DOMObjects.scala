@@ -72,7 +72,7 @@ object DOMObjects {
   val hideSpan = document.getElementById("hide").asInstanceOf[html.Span]
   val listenSpan = document.getElementById("listen").asInstanceOf[html.Span]
 
-  // Back Ground
+  // Background
   val nationalitySpan = document.getElementById("nationality").asInstanceOf[html.Span]
   val parentOccupationSpan = document.getElementById("parentOccupation").asInstanceOf[html.Span]
   val birthOrderSpan = document.getElementById("birthOrder").asInstanceOf[html.Span]
@@ -83,6 +83,7 @@ object DOMObjects {
   // Equipment
   val armorDiv = document.getElementById("armor").asInstanceOf[html.Div]
   val shieldDiv = document.getElementById("shield").asInstanceOf[html.Div]
+  val meleeDiv = document.getElementById("melee").asInstanceOf[html.Div]
 
   def getRace(): Race = Races.stringToRace(character_race_select.value)
 

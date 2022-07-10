@@ -360,11 +360,12 @@ object CharacterApp {
 
   @JSExportTopLevel("setEquipment")
   def setEquipment(): Unit = {
-    val equipment = EquipmentGenerator.getEquipment(getCharacterClass(), getCharacterLevel())
+    val equipment = EquipmentGenerator.getEquipment(getCharacterClass(), getCharacterLevel(), getRace())
 
     armorDiv.textContent = equipment.armor.toString
     base_ac.textContent = equipment.armor.ac.toString
     shieldDiv.textContent = equipment.shield.toString
+    meleeDiv.textContent = equipment.meleeWeapon.toString
   }
 
 }

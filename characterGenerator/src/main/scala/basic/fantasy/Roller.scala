@@ -30,4 +30,9 @@ object Roller {
 
   def coinFLip(): Boolean = r.nextBoolean()
 
+  def randomMagicBonus(level: Int): Int = {
+    val magicRoller = Roller.randomDouble(2.8*level)
+    Math.max(0, Math.log(magicRoller).toInt)
+  }
+
 }

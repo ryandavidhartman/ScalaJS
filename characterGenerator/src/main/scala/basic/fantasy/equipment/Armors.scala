@@ -83,9 +83,7 @@ object Armors {
 
 
   def getArmor(characterClass: CharacterClass, level: Int): Armor = {
-    val magicRoller = Roller.randomDouble(2.8*level)
-    val magic: Int = Math.max(0, Math.log(magicRoller).toInt)
-
+    val magic: Int = Roller.randomMagicBonus(level)
     val roll = Roller.randomInt(100)
 
     characterClass match {
