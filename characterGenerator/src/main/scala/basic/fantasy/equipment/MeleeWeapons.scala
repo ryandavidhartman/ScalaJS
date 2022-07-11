@@ -87,13 +87,158 @@ object MeleeWeapons {
   }
 
   // Daggers
-  def getDagger(level: Int, maxSize: WeaponSize): MeleeWeapon = ???
+  case class Dagger(magic: Int) extends MeleeWeapon(2, Small, 1, "1d4", magic) {
+    val name: String = "Dagger"
+  }
+
+  case class DefendingDagger(magic: Int) extends MeleeWeapon(7, Small, 2, "1d4", magic) {
+    val name: String = "Defending Dagger"
+
+    override def toString: String = {
+      val magicString = if(magicBonus > 0) s" (+$magicBonus)" else ""
+      val magicDamage = if(magicBonus > 0) s" +$magicBonus" else ""
+      s"Melee: $name$magicString, dmg: $damage$magicDamage OR +1 to melee AC, weight: $weight"
+    }
+  }
+
+  case class SilverDagger(magic: Int) extends MeleeWeapon(25, Small, 1, "1d4", magic) {
+    val name: String = "Silver Dagger"
+  }
+
+  def getDagger(level: Int, offHand: Boolean): MeleeWeapon = {
+    val magic: Int = Roller.randomMagicBonus(level)
+    val roll = Roller.randomInt(100)
+
+    offHand match {
+      case false =>
+        if(roll < 75)
+          Dagger(magic)
+        else
+          SilverDagger(magic)
+      case true =>
+        if(roll < 50)
+          Dagger(magic)
+        else if(roll < 75)
+          DefendingDagger(magic)
+        else
+          SilverDagger(magic)
+    }
+  }
 
   // Swords
-  def getSword(level: Int, maxSize: WeaponSize): MeleeWeapon = ???
+  case class ShortSword(magic: Int) extends MeleeWeapon(6, Small, 3, "1d6", magic) {
+    val name: String = "Short Sword"
+  }
+
+  case class Cutlass(magic: Int) extends MeleeWeapon(6, Small, 3, "1d6", magic) {
+    val name: String = "Cutlass"
+  }
+
+  case class LongSword(magic: Int) extends MeleeWeapon(10, Medium, 4, "1d8", magic) {
+    val name: String = "Long Sword"
+  }
+
+  case class Scimitar(magic: Int) extends MeleeWeapon(10, Medium, 4, "1d8", magic) {
+    val name: String = "Scimitar"
+  }
+
+  case class TwoHandedSword(magic: Int) extends MeleeWeapon(18, Large, 10, "1d10", magic) {
+    val name: String = "Two-Handed Sword"
+  }
+
+  def getSword(level: Int, maxSize: WeaponSize, offHand: Boolean): MeleeWeapon = {
+
+    val magic: Int = Roller.randomMagicBonus(level)
+    val roll = Roller.randomInt(100)
+
+    val modifiedMaxSize = if(offHand) Small else maxSize
+
+    modifiedMaxSize match {
+      case Small =>
+        if(roll < 70)
+          ShortSword(magic)
+        else
+          Cutlass(magic)
+      case Medium =>
+        if(roll < 40)
+          ShortSword(magic)
+        else if(roll < 45)
+          Cutlass(magic)
+        else if(roll < 95)
+          LongSword(magic)
+        else
+          Scimitar(magic)
+      case Large =>
+        if(roll < 15)
+          ShortSword(magic)
+        else if(roll < 20)
+          Cutlass(magic)
+        else if(roll < 70)
+          LongSword(magic)
+        else if(roll < 75)
+          Scimitar(magic)
+        else
+          TwoHandedSword(magic)
+    }
+  }
 
   // Hammer and Maces
-  def getHammerOrMace(level: Int, maxSize: WeaponSize): MeleeWeapon = ???
+  case class WarHammer(magic: Int) extends MeleeWeapon(4, Small, 3, "1d6", magic) {
+    val name: String = "War Hammer"
+  }
+
+  case class LightMace(magic: Int) extends MeleeWeapon(5, Small, 5, "1d6", magic) {
+    val name: String = "Light Mace"
+  }
+
+  case class Mace(magic: Int) extends MeleeWeapon(6, Medium, 10, "1d8", magic) {
+    val name: String = "Mace"
+  }
+
+  case class Morningstar(magic: Int) extends MeleeWeapon(7, Medium, 7, "1d8", magic) {
+    val name: String = "Morningstar"
+  }
+
+  case class Maul(magic: Int) extends MeleeWeapon(10, Large, 16, "1d10", magic) {
+    val name: String = "Maul"
+  }
+
+  case class GreatMace(magic: Int) extends MeleeWeapon(10, Large, 16, "1d10", magic) {
+    val name: String = "Great Mace"
+  }
+
+  def getHammerOrMace(level: Int, maxSize: WeaponSize): MeleeWeapon = {
+    val magic: Int = Roller.randomMagicBonus(level)
+    val roll = Roller.randomInt(100)
+
+    maxSize match {
+      case Small =>
+        if(roll < 50)
+          WarHammer(magic)
+        else
+          LightMace(magic)
+      case Medium =>
+        if(roll < 10)
+          HandAxe(magic)
+        else if(roll < 80)
+          BattleAxe(magic)
+        else if(roll < 90)
+          MilitaryPick(magic)
+        else
+          FootmansPick(magic)
+      case Large =>
+        if(roll < 10)
+          HandAxe(magic)
+        else if(roll < 55)
+          BattleAxe(magic)
+        else if(roll < 90 )
+          GreatAxe(magic)
+        else if(roll < 95)
+          MilitaryPick(magic)
+        else
+          FootmansPick(magic)
+    }
+  }
 
   // Spears and Polearms
   def getSpearOrPolearm(level: Int, maxSize: WeaponSize): MeleeWeapon = ???
