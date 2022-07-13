@@ -34,7 +34,7 @@ s"Melee: $name$magicString, dmg: $damage$magicDamage, weight: $weight"
 
   case object NoMeleeWeapon extends MeleeWeapon(0, Small, 0,"") {
     val name = "None"
-    override def toString: String = "None"
+    override def toString: String = "No offhand weapon"
   }
 
   //Axes

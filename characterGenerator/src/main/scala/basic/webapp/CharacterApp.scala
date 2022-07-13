@@ -7,6 +7,7 @@ import basic.fantasy.backgrounds._
 import basic.fantasy.characterclass.CharacterClasses._
 import basic.fantasy.characterclass.{SavingsThrows, SpellsPerLevel, ThiefSkills, TurnUndead}
 import basic.fantasy.equipment.EquipmentGenerator
+import basic.fantasy.equipment.Shields.NoShield
 import basic.fantasy.rules.BasicFantasy._
 import basic.webapp.DOMObjects._
 import org.scalajs.dom
@@ -364,9 +365,11 @@ object CharacterApp {
 
     armorDiv.textContent = equipment.armor.toString
     base_ac.textContent = equipment.armor.ac.toString
-    shieldDiv.textContent = equipment.shield.toString
-    meleeDiv.textContent = equipment.meleeWeapon.toString
-    offHandDiv.textContent = equipment.offhand.toString
+    mainHandDiv.textContent = equipment.meleeWeapon.toString
+    if(equipment.shield == NoShield)
+      offHandDiv.textContent = equipment.offhand.toString
+    else
+      offHandDiv.textContent = equipment.shield.toString
   }
 
 }
