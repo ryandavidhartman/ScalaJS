@@ -6,7 +6,12 @@ import basic.fantasy.equipment.Armors.Armor
 import basic.fantasy.equipment.Shields.{NoShield, Shield}
 import basic.fantasy.equipment.MeleeWeapons.MeleeWeapon
 
-case class Equipment(armor: Armor, shield: Shield, meleeWeapon: MeleeWeapon)
+case class Equipment(
+  armor: Armor,
+  shield: Shield,
+  meleeWeapon: MeleeWeapon,
+  offhand: MeleeWeapon
+)
 
 object EquipmentGenerator {
 
@@ -15,7 +20,8 @@ object EquipmentGenerator {
     val shield = Shields.getShield(characterClass, level)
     val hasShield = (shield != NoShield)
     val meleeWeapon = MeleeWeapons.getMeleeWeapon(characterClass, level, race, hasShield)
-    Equipment(armor, shield, meleeWeapon)
+    val offhandWeapon = MeleeWeapons.getSecondaryWeapon(characterClass, race, level, meleeWeapon, hasShield)
+    Equipment(armor, shield, meleeWeapon, offhandWeapon)
   }
 
 }

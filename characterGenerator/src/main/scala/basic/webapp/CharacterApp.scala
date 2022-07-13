@@ -366,6 +366,7 @@ object CharacterApp {
     base_ac.textContent = equipment.armor.ac.toString
     shieldDiv.textContent = equipment.shield.toString
     meleeDiv.textContent = equipment.meleeWeapon.toString
+    offHandDiv.textContent = equipment.offhand.toString
   }
 
 }
