@@ -1,8 +1,13 @@
 package basic.fantasy.characterclass
 
+import basic.fantasy.Roller
+import basic.fantasy.backgrounds.{Chaotic, CharacterAlignment, Lawful, Neutral}
+import basic.fantasy.backgrounds.Spells.{CharmPerson, EvilClericSpells, EvilMagicUserSpells, GoodClericSpells, GoodMagicUserSpells, KnownClericSpells, KnownMagicUserSpells, Spell}
+import basic.fantasy.characterclass.CharacterClasses.CharacterClass
+
 object SpellsPerLevel {
 
-  val clericSpells = Map(
+  val clericSpellsPerLevel = Map(
     //        1  2  3  4  5  6
     1 -> Seq(0, 0, 0, 0, 0, 0),
     2 -> Seq(1, 0, 0, 0, 0, 0),
@@ -26,7 +31,9 @@ object SpellsPerLevel {
     20 -> Seq(6, 5, 5, 4, 3, 3),
   )
 
-  val magicUserSpells = Map(
+
+
+  val magicUserSpellsPerLevel = Map(
     //        1  2  3  4  5  6
     1 -> Seq(1, 0, 0, 0, 0, 0),
     2 -> Seq(2, 0, 0, 0, 0, 0),
@@ -50,13 +57,39 @@ object SpellsPerLevel {
     20 -> Seq(6, 5, 5, 4, 4, 3),
   )
 
-  def getSpells(characterClass: String, level: Int): Seq[Int] = {
-    if (characterClass.contains("Magic-User"))
-      magicUserSpells(level)
-    else if (characterClass == "Cleric")
-      clericSpells(level)
-    else
-      clericSpells(1)
+  def getRandomSpells(count: Int, spells: Seq[Spell]): String = {
+    if (count > 0) {
+      try {
+        (0 until count).map { _ =>
+          val random = Roller.randomInt(spells.length)
+          spells(random).name
+        }.mkString(",")
+      } catch {
+        case e: Throwable => println(e.getMessage); e.getMessage
+      }
+    } else
+      "0"
+  }
+
+
+  def getSpells(characterClass: CharacterClass, characterLevel: Int, characterAlignment: CharacterAlignment): Seq[String] = {
+    if (characterClass.isMagicUser) {
+      val spellsForAlignment = characterAlignment match {
+        case Lawful => GoodMagicUserSpells
+        case Neutral => KnownMagicUserSpells
+        case Chaotic => EvilMagicUserSpells
+      }
+      (1 to 6).map(i => getRandomSpells(magicUserSpellsPerLevel(characterLevel)(i-1), spellsForAlignment(i)))
+    } else if (characterClass.isCleric) {
+      val spellsForAlignment = characterAlignment match {
+        case Lawful => GoodClericSpells
+        case Neutral => KnownClericSpells
+        case Chaotic => EvilClericSpells
+      }
+      (1 to 6).map(i =>  getRandomSpells(clericSpellsPerLevel(characterLevel)(i-1),  spellsForAlignment(i)))
+    } else {
+      Seq("0", "0", "0", "0", "0", "0")
+    }
   }
 
 }

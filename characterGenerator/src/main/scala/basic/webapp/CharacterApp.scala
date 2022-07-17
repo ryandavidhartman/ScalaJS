@@ -63,6 +63,10 @@ object CharacterApp {
       setAge()
     })
 
+    character_alignment_select.addEventListener("change", { (_: dom.MouseEvent) =>
+      setSpells()
+    })
+
     str_select.addEventListener("change", { (_: dom.MouseEvent) =>
       checkMaxStr()
       setMeleeAttackBonusHandler()
@@ -263,16 +267,14 @@ object CharacterApp {
   @JSExportTopLevel("setSpells")
   def setSpells(): Unit = {
 
-    val characterClass = character_class_select.value
-    val level: Int = character_level_select.value.toInt
-    val spells: Seq[Int] = SpellsPerLevel.getSpells(characterClass, level)
+    val spells: Seq[String] = SpellsPerLevel.getSpells(getCharacterClass(), getCharacterLevel(), getCharacterAlignment())
 
-    firstLvlSpellsSpan.textContent = spells.head.toString
-    secondLvlSpellsSpan.textContent = spells(1).toString
-    thirdLvlSpellsSpan.textContent = spells(2).toString
-    fourthLvlSpellsSpan.textContent = spells(3).toString
-    fifthLvlSpellsSpan.textContent = spells(4).toString
-    sixthLvlSpellsSpan.textContent = spells(5).toString
+    firstLvlSpellsSpan.textContent = spells.head
+    secondLvlSpellsSpan.textContent = spells(1)
+    thirdLvlSpellsSpan.textContent = spells(2)
+    fourthLvlSpellsSpan.textContent = spells(3)
+    fifthLvlSpellsSpan.textContent = spells(4)
+    sixthLvlSpellsSpan.textContent = spells(5)
   }
 
   @JSExportTopLevel("setHeight")

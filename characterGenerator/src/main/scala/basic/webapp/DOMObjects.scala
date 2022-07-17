@@ -1,6 +1,6 @@
 package basic.webapp
 
-import basic.fantasy.backgrounds.Races
+import basic.fantasy.backgrounds.{AlignmentGenerator, CharacterAlignment, Races}
 import basic.fantasy.backgrounds.Races.Race
 import basic.fantasy.characterclass.CharacterClasses
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
@@ -90,5 +90,7 @@ object DOMObjects {
   def getCharacterClass(): CharacterClass = CharacterClasses.stringToCharacterClass(character_class_select.value)
 
   def getCharacterLevel(): Int =  character_level_select.value.toInt
+
+  def getCharacterAlignment(): CharacterAlignment =  AlignmentGenerator.stringToCharacterAlignment(character_alignment_select.value)
 
 }

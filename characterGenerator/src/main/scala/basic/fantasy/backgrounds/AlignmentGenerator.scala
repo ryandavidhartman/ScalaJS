@@ -3,14 +3,14 @@ package basic.fantasy.backgrounds
 import basic.fantasy.Roller
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
 
-sealed trait Alignment
-case object Lawful extends Alignment
-case object Neutral extends Alignment
-case object Chaotic extends Alignment
+sealed trait CharacterAlignment
+case object Lawful extends CharacterAlignment
+case object Neutral extends CharacterAlignment
+case object Chaotic extends CharacterAlignment
 
 object AlignmentGenerator {
 
-  def getAlignment(characterClass: CharacterClass): Alignment = {
+  def getAlignment(characterClass: CharacterClass): CharacterAlignment = {
 
     val random =
       if(characterClass.isThief)
@@ -25,5 +25,14 @@ object AlignmentGenerator {
     else
       Chaotic
     }
+
+  def stringToCharacterAlignment(alignment: String): CharacterAlignment = alignment match {
+    case "Lawful" => Lawful
+    case "Neutral" => Neutral
+    case "Chaotic" => Chaotic
+    case _ => throw InvalidAlignmentException(s"Invalid character alignment: $alignment")
+  }
+
+  case class InvalidAlignmentException(msg: String) extends Exception(msg)
 
 }

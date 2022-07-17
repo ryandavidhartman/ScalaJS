@@ -35,7 +35,6 @@ object BackgroundGenerator {
     } catch {
       case e: Throwable => println(e.getMessage); e.getMessage
     }
-
   }
 
   //Chart 1. Birth Order
