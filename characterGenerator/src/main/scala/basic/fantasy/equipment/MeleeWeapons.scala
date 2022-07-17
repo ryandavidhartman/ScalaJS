@@ -18,19 +18,19 @@ object MeleeWeapons {
    val damage: String,
    val magicBonus: Int = 0
  ) {
-def name: String
+    def name: String
 
-def cost: Int = if(magicBonus > 1)
-baseCost + (1000 * Math.pow(4,magicBonus-1)).toInt
-else
-baseCost
+    def cost: Int = if(magicBonus > 1)
+      baseCost + (1000 * Math.pow(4,magicBonus-1)).toInt
+    else
+      baseCost
 
-override def toString: String = {
-val magicString = if(magicBonus > 0) s" (+$magicBonus)" else ""
-val magicDamage = if(magicBonus > 0) s" +$magicBonus" else ""
-s"Melee: $name$magicString, dmg: $damage$magicDamage, weight: $weight"
-}
-}
+    override def toString: String = {
+      val magicString = if(magicBonus > 0) s" (+$magicBonus)" else ""
+      val magicDamage = if(magicBonus > 0) s" +$magicBonus" else ""
+      s"Melee: $name$magicString, dmg: $damage$magicDamage, weight: $weight"
+    }
+  }
 
   case object NoMeleeWeapon extends MeleeWeapon(0, Small, 0,"") {
     val name = "None"
@@ -466,11 +466,11 @@ s"Melee: $name$magicString, dmg: $damage$magicDamage, weight: $weight"
   }
 
   def getSecondaryWeapon(
-    characterClass: CharacterClass,
-    race: Race,
-    level: Int,
-    mainWeapon: MeleeWeapon,
-    hasShield: Boolean): MeleeWeapon = {
+                          characterClass: CharacterClass,
+                          race: Race,
+                          level: Int,
+                          mainWeapon: MeleeWeapon,
+                          hasShield: Boolean): MeleeWeapon = {
 
     val maxSize = race match {
       case Dwarf => Medium
