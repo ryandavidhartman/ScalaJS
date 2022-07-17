@@ -2,11 +2,11 @@ package basic.fantasy.backgrounds
 
 object Spells {
 
-  sealed abstract case class Spell(
-    name: String,
-    range: String,
-    duration: String,
-    reverseSpell: Option[Spell] = None
+  sealed abstract class Spell(
+    val name: String,
+    val range: String,
+    val duration: String,
+    val reverseSpell: Option[Spell] = None
   )
 
   case object AnimateDead extends Spell("Animate Dead", "touch", "special")
@@ -93,7 +93,7 @@ object Spells {
   case object ProtectionFromEvil extends Spell("Protection From Evil", "touch", "1 turn/level", Some(ProtectionFromGood))
   case object ProtectionFromGood extends Spell("Protection From Good", "touch", "1 turn/level", Some(ProtectionFromEvil))
   case object ProtectionFromEvilTenFootRadius extends Spell("Protection From Evil 10' Radius", "touch", "1 turn/level", Some(ProtectionFromGoodTenFootRadius))
-  case object ProtectionFromGoodTenFootRadius extends Spell("Protection From Good 10' Radius", "touch", "1 turn/level", Some(ProtectionFromGoodTenFootRadius))
+  case object ProtectionFromGoodTenFootRadius extends Spell("Protection From Good 10' Radius", "touch", "1 turn/level", Some(ProtectionFromEvilTenFootRadius))
   case object ProtectionFromNormalMissiles extends Spell("Protection From Normal Missiles", "self", "1 turn/level")
   case object PurifyFoodAndWater extends Spell("Purify Food And Water", "10'", "instantaneous")
   case object Quest extends Spell("Quest", "5'/level", "special", Some(RemoveQuest))
@@ -107,5 +107,48 @@ object Spells {
   case object RemoveCurse extends Spell("Remove Curse", "30'", "instantaneous", Some(BestowCurse))
   case object BestowCurse extends Spell("Bestow Curse", "30'", "instantaneous", Some(RemoveCurse))
   case object RemoveFear extends Spell("Remove Fear", "touch", "instantaneous", Some(CauseFear))
-  case object CauseFear extends Spell("Cause Fear", "120'", "2 turns", Some(CauseFear))
+  case object CauseFear extends Spell("Cause Fear", "120'", "2 turns", Some(RemoveFear))
+  case object ResistCold extends Spell("Resist Cold", "touch", "1 round/level")
+  case object ResistFire extends Spell("Resist Fire", "touch", "1 round/level")
+  case object Restoration extends Spell("Restoration", "touch", "permanent")
+  case object Shield extends Spell("Shield", "self", "5 rounds + 1/level")
+  case object SilenceFifteenFootRadius extends Spell("Silence 15' Radius", "360'", "2 round/level")
+  case object Sleep extends Spell("Sleep", "90'", "5 round/level")
+  case object SpeakWithAnimals extends Spell("Speak With Animals", "special", "1 turn/ 4 level")
+  case object SpeakWithMonsters extends Spell("Speak With Monsters", "special", "1 turn/ 5 level")
+  case object SpeakWithPlants extends Spell("Speak With Plants", "20'", "1 turn")
+  case object SpeakWithDead extends Spell("Speak With Dead", "10'", "3 round/level")
+  case object SpiritualHammer extends Spell("Spiritual Hammer", "30'", "1 round/level")
+  case object SticksToSnakes extends Spell("Sticks To Snakes", "120'", "6 turns")
+  case object Striking extends Spell("Striking", "touch", "1 round/level")
+  case object Telekinesis extends Spell("Telekinesis", "self", "3 turns")
+  case object Teleport extends Spell("Teleport", "self", "instantaneous")
+  case object TrueSeeing extends Spell("True Seeing", "touch", "1 round/level")
+  case object Ventriloquism extends Spell("Ventriloquism", "60'", "1 turn/level")
+  case object WallOfFire extends Spell("Wall Of Fire", "180'", "1 round/level (or special)")
+  case object WallOfIron extends Spell("Wall Of Iron", "90'", "permanent")
+  case object WallOfStone extends Spell("Wall Of Stone", "15'", "permanent")
+  case object WaterBreathing extends Spell("Water Breathing", "touch", "2 hours/levels")
+  case object Web extends Spell("Web", "10'/level", "2 turn/levels")
+  case object WizardEye extends Spell("Wizard Eye", "240'", "6 turns")
+  case object WizardLock extends Spell("Wizard Lock", "20'", "permanent")
+  case object WordOrRecall extends Spell("Word Of Recall", "self (special)", "instantaneous")
+
+
+  val ClericSpells: Map[Int, Seq[Spell]] = ??? ///Map(
+
+  val MagicUserSpells: Map[Int, Seq[Spell]] = Map(
+    1 -> Seq(CharmPerson, DetectMagic, FloatingDisc, HoldPerson, Light, Darkness, MagicMissile, MagicMouth, ProtectionFromEvil,
+      ProtectionFromEvil, ReadLanguages, Shield, Ventriloquism),
+    2 -> Seq(ContinualLight, ContinualDarkness, DetectEvil, DetectGood, DetectInvisible, ESP, Invisibility, Knock, Levitate,
+      LocateObject, MirrorImage, PhantasmalForce, Web, WizardLock),
+    3 -> Seq(Clairvoyance, DarkVision, DispelMagic, Fireball, Fly, Haste, Slow, HoldPerson, InvisibilityTenFootRadius, LightningBolt,
+      ProtectionFromEvilTenFootRadius, ProtectionFromGoodTenFootRadius, ProtectionFromNormalMissiles, WaterBreathing),
+    4 -> Seq(CharmMonster, Confusion, DimensionDoor, GrowthOfPlants, ShrinkPlants, HallucinatoryTerrain, IceStorm, MassMorph,
+      PolymorphOther, PolymorphSelf, RemoveCurse, BestowCurse, WallOfFire, WizardEye),
+    5 -> Seq(AnimateDead, CloudKill, ConjureElemental, Feeblemind, HoldMonster, MagicJar, PassWall, Telekinesis, Teleport,
+      WallOfStone),
+    6 -> Seq(AntiMagicShell, DeathSpell, Disintegrate, FleshToStone, StoneToFlesh, Geas, RemoveGeas, InvisibleStalker,
+      LowerWater, ProjectedImage, Reincarnate, WallOfIron)
+  )
 }
