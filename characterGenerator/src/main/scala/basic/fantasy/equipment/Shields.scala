@@ -43,7 +43,7 @@ object Shields {
   }
 
   def getShield(characterClass: CharacterClass, level: Int): Shield = {
-    val magic: Int = Roller.randomMagicBonus(level)
+    val magic: Int = Roller.randomMagicWeaponBonus(level)
     val roll = Roller.randomInt(100)
 
     characterClass match {

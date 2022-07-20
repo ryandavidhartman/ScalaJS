@@ -84,6 +84,7 @@ object DOMObjects {
   val armorDiv = document.getElementById("armor").asInstanceOf[html.Div]
   val mainHandDiv = document.getElementById("mainHand").asInstanceOf[html.Div]
   val offHandDiv = document.getElementById("offHand").asInstanceOf[html.Div]
+  val rangedWeaponDiv = document.getElementById("rangedWeapon").asInstanceOf[html.Div]
 
   def getRace(): Race = Races.stringToRace(character_race_select.value)
 

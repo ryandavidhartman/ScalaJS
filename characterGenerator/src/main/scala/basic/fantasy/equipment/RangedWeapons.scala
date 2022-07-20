@@ -1,5 +1,8 @@
 package basic.fantasy.equipment
 
+import basic.fantasy.Roller
+import basic.fantasy.backgrounds.Races.{Dwarf, Elf, HalfElf, HalfOrc, Halfling, Human, Race}
+import basic.fantasy.characterclass.CharacterClasses.{CharacterClass, Cleric, Fighter, FighterMagicUser, MagicUser, MagicUserThief, Thief}
 import basic.fantasy.equipment.Weapons.{Large, Medium, Small, WeaponSize}
 
 object RangedWeapons {
@@ -11,9 +14,9 @@ object RangedWeapons {
 
     def ammoString: String = {
       if(magicBonus > 0)
-        s", ammo: $name (+$magicBonus) x(count)"
+        s", ammo: $name (+$magicBonus) x($count)"
       else
-        s", ammo: $name x(count)"
+        s", ammo: $name x($count)"
     }
   }
 
@@ -63,7 +66,7 @@ object RangedWeapons {
       val magicString = if(magicBonus > 0) s" (+$magicBonus)" else ""
       val magicDamage = if(magicBonus > 0) s" +$magicBonus" else ""
       val ammoString = ammo.map(_.ammoString).getOrElse("")
-      s"Ranged: $name$magicString, dmg: $damage$magicDamage$ammoString"
+      s"Ranged: $name$magicString, dmg: $damage$magicDamage$ammoString, weight: $weight"
     }
   }
 
@@ -153,6 +156,38 @@ object RangedWeapons {
     val baseCost: Int = 2
     val weight: Int = 2
     val damage: String = "1d4"
+  }
+
+  def getSling(level: Int): RangedWeapon = {
+    val weaponMagicBonus: Int = Roller.randomMagicWeaponBonus(level)
+    val ammoMagicBonus: Int = Roller.randomMagicAmmoBonus(level)
+    val ammoCount = Roller.randomInt(30)+1
+    val ammo = Bullet(ammoCount, ammoMagicBonus)
+    Sling(weaponMagicBonus, Some(ammo))
+
+  }
+
+  def getRangedWeapon(characterClass: CharacterClass, level: Int, race: Race): RangedWeapon = {
+    val maxSize = race match {
+      case Human => Large
+      case Elf => Large
+      case Dwarf => Medium
+      case Halfling => Medium
+      case HalfElf => Large
+      case HalfOrc => Large
+    }
+
+    val roll = Roller.randomInt(100)
+
+    characterClass match {
+      case Cleric => getSling(level)
+      case Fighter => getSling(level)
+      case FighterMagicUser => getSling(level)
+      case MagicUser => getSling(level)
+      case MagicUserThief => getSling(level)
+      case Thief => getSling(level)
+    }
+
   }
 
 

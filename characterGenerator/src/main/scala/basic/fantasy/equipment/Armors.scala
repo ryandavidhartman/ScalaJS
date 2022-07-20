@@ -83,7 +83,7 @@ object Armors {
 
 
   def getArmor(characterClass: CharacterClass, level: Int): Armor = {
-    val magic: Int = Roller.randomMagicBonus(level)
+    val magic: Int = Roller.randomMagicWeaponBonus(level)
     val roll = Roller.randomInt(100)
 
     characterClass match {

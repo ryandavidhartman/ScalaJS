@@ -48,16 +48,13 @@ object CharacterApp {
       checkClass()
       updateAllModifiers()
       setSavingsThrows()
-      setSpells()
       setTurnUndead()
       setThiefSkills()
-      setAlignment()
     })
 
     character_level_select.addEventListener("change", { (_: dom.MouseEvent) =>
       updateAllModifiers()
       setSavingsThrows()
-      setSpells()
       setTurnUndead()
       setThiefSkills()
       setAge()
@@ -108,10 +105,10 @@ object CharacterApp {
     setHitPointsHandler()
     setSpecialAbilities()
     setSavingsThrows()
-    setSpells()
     setHeightWeight()
     setAge()
     setAlignment()
+    setSpells()
     setBackground()
     setPersonality()
     setTurnUndead()
@@ -372,6 +369,7 @@ object CharacterApp {
       offHandDiv.textContent = equipment.offhand.toString
     else
       offHandDiv.textContent = equipment.shield.toString
+    rangedWeaponDiv.textContent = equipment.rangedWeapon.toString
   }
 
 }

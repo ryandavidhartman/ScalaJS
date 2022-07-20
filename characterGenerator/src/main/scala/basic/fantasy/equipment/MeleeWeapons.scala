@@ -198,7 +198,7 @@ object MeleeWeapons {
 
 
   def getAxe(level: Int, maxSize: WeaponSize): MeleeWeapon = {
-    val magic: Int = Roller.randomMagicBonus(level)
+    val magic: Int = Roller.randomMagicWeaponBonus(level)
     val roll = Roller.randomInt(100)
 
     maxSize match {
@@ -230,7 +230,7 @@ object MeleeWeapons {
     }
   }
   def getDagger(level: Int, offHand: Boolean): MeleeWeapon = {
-    val magic: Int = Roller.randomMagicBonus(level)
+    val magic: Int = Roller.randomMagicWeaponBonus(level)
     val roll = Roller.randomInt(100)
 
     if (offHand) {
@@ -248,7 +248,7 @@ object MeleeWeapons {
     }
   }
   def getChainOrFlail(level: Int, maxSize: WeaponSize): MeleeWeapon = {
-    val magic: Int = Roller.randomMagicBonus(level)
+    val magic: Int = Roller.randomMagicWeaponBonus(level)
     val roll = Roller.randomInt(100)
 
     maxSize match {
@@ -276,7 +276,7 @@ object MeleeWeapons {
     }
   }
   def getHammerOrMace(level: Int, maxSize: WeaponSize): MeleeWeapon = {
-    val magic: Int = Roller.randomMagicBonus(level)
+    val magic: Int = Roller.randomMagicWeaponBonus(level)
     val roll = Roller.randomInt(100)
 
     maxSize match {
@@ -308,7 +308,7 @@ object MeleeWeapons {
     }
   }
   def getMageWeapons(level: Int, maxSize: WeaponSize): MeleeWeapon = {
-    val magic: Int = Roller.randomMagicBonus(level)
+    val magic: Int = Roller.randomMagicWeaponBonus(level)
     val roll = Roller.randomInt(100)
 
     maxSize match {
@@ -323,7 +323,7 @@ object MeleeWeapons {
     }
   }
   def getSpearOrPoleArm(level: Int, maxSize: WeaponSize): MeleeWeapon = {
-    val magic: Int = Roller.randomMagicBonus(level)
+    val magic: Int = Roller.randomMagicWeaponBonus(level)
     val roll = Roller.randomInt(100)
 
     maxSize match {
@@ -350,7 +350,7 @@ object MeleeWeapons {
   }
   def getSword(level: Int, maxSize: WeaponSize, offHand: Boolean): MeleeWeapon = {
 
-    val magic: Int = Roller.randomMagicBonus(level)
+    val magic: Int = Roller.randomMagicWeaponBonus(level)
     val roll = Roller.randomInt(100)
 
     val modifiedMaxSize = if(offHand) Small else maxSize
@@ -384,7 +384,7 @@ object MeleeWeapons {
     }
   }
   def getOtherWeapons(level: Int, maxSize: WeaponSize): MeleeWeapon = {
-    val magic: Int = Roller.randomMagicBonus(level)
+    val magic: Int = Roller.randomMagicWeaponBonus(level)
     val roll = Roller.randomInt(100)
 
     maxSize match {
