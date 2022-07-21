@@ -14,9 +14,9 @@ object RangedWeapons {
 
     def ammoString: String = {
       if(magicBonus > 0)
-        s", ammo: $name (+$magicBonus) x($count)"
+        s", ammo: $name (+$magicBonus) (x$count)"
       else
-        s", ammo: $name x($count)"
+        s", ammo: $name (x$count)"
     }
   }
 
@@ -46,6 +46,10 @@ object RangedWeapons {
 
   case class Stone(count:Int, magicBonus:Int = 0) extends Ammo{
     val name = "Stone"
+  }
+
+  case class DartAmmo(count:Int, magicBonus:Int = 0) extends Ammo{
+    val name = "Dart"
   }
 
   sealed trait RangedWeapon{
@@ -134,12 +138,18 @@ object RangedWeapons {
     val damage: String = "1d3"
   }
 
-  case class Dart(override val magicBonus: Int = 0) extends RangedWeapon{
+  case class Dart(count: Int, override val magicBonus: Int = 0) extends RangedWeapon{
     val name: String = "Dart"
     val size: WeaponSize = Small
     val baseCost: Int = 1
     val weight: Int = 0
     val damage: String = "1d3"
+
+    override def toString: String = {
+      val magicString = if(magicBonus > 0) s" (+$magicBonus)" else ""
+      val magicDamage = if(magicBonus > 0) s" +$magicBonus" else ""
+      s"Ranged: $name$magicString, dmg: $damage$magicDamage, count: $count, weight: $weight"
+    }
   }
 
   case class ThrowingKnife(override val magicBonus: Int = 0) extends RangedWeapon{
@@ -161,9 +171,41 @@ object RangedWeapons {
   def getSling(level: Int): RangedWeapon = {
     val weaponMagicBonus: Int = Roller.randomMagicWeaponBonus(level)
     val ammoMagicBonus: Int = Roller.randomMagicAmmoBonus(level)
-    val ammoCount = Roller.randomInt(30)+1
+    val ammoCount = Roller.randomInt(20)+1
     val ammo = Bullet(ammoCount, ammoMagicBonus)
     Sling(weaponMagicBonus, Some(ammo))
+  }
+
+  def getBow(level: Int, maxSize: WeaponSize): RangedWeapon = {
+    val weaponMagicBonus: Int = Roller.randomMagicWeaponBonus(level)
+    val ammoMagicBonus: Int = Roller.randomMagicAmmoBonus(level)
+    val ammoCount = Roller.randomInt(30)+1
+    val ammo = Arrow(ammoCount, ammoMagicBonus)
+
+    val roll = Roller.randomInt(100)
+
+    if(maxSize == Large && roll > 50)
+      LongBow(weaponMagicBonus, Some(ammo))
+    else
+      ShortBow(weaponMagicBonus, Some(ammo))
+  }
+
+  def getMagicUserRangedWeapon(level: Int): RangedWeapon = {
+    val weaponMagicBonus: Int = Roller.randomMagicWeaponBonus(level)
+    val ammoMagicBonus: Int = Roller.randomMagicAmmoBonus(level)
+    val ammoCount = Roller.randomInt(20)+1
+    val ammo = DartAmmo(ammoCount, ammoMagicBonus)
+
+    val roll = Roller.randomInt(100)
+
+    if(roll < 30)
+      Dart(ammoCount, ammoMagicBonus)
+    else if(roll < 60)
+      getSling(level)
+    else if(roll < 80)
+      Blowgun(weaponMagicBonus, Some(ammo))
+    else
+      ThrowingKnife(weaponMagicBonus)
 
   }
 
@@ -181,11 +223,23 @@ object RangedWeapons {
 
     characterClass match {
       case Cleric => getSling(level)
-      case Fighter => getSling(level)
-      case FighterMagicUser => getSling(level)
-      case MagicUser => getSling(level)
-      case MagicUserThief => getSling(level)
-      case Thief => getSling(level)
+      case Fighter => if(roll < 10)
+        getSling(level)
+      else
+        getBow(level, maxSize)
+      case FighterMagicUser => if(roll < 10)
+        getSling(level)
+      else
+        getBow(level, maxSize)
+      case MagicUser => getMagicUserRangedWeapon(level)
+      case MagicUserThief => if(roll < 10)
+        getSling(level)
+      else
+        getBow(level, maxSize)
+      case Thief => if(roll < 10)
+        getSling(level)
+      else
+        getBow(level, maxSize)
     }
 
   }
