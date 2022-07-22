@@ -158,6 +158,15 @@ object RangedWeapons {
     val baseCost: Int = 2
     val weight: Int = 0
     val damage: String = "1d3"
+    val count: Int = {
+      Roller.randomInt(4)
+    }
+
+    override def toString: String = {
+      val magicString = if(magicBonus > 0) s" (+$magicBonus)" else ""
+      val magicDamage = if(magicBonus > 0) s" +$magicBonus" else ""
+      s"Ranged: $name$magicString, dmg: $damage$magicDamage, count: $count, weight: $weight"
+    }
   }
 
   case class Javelin(override val magicBonus: Int = 0) extends RangedWeapon{
@@ -190,6 +199,30 @@ object RangedWeapons {
       ShortBow(weaponMagicBonus, Some(ammo))
   }
 
+  def getCrossBow(level: Int, maxSize: WeaponSize): RangedWeapon = {
+    val weaponMagicBonus: Int = Roller.randomMagicWeaponBonus(level)
+    val ammoMagicBonus: Int = Roller.randomMagicAmmoBonus(level)
+    val ammoCount = Roller.randomInt(30)+1
+    val ammo = Some(Quarrel(ammoCount, ammoMagicBonus))
+
+    val roll = Roller.randomInt(100)
+
+    if(maxSize == Large) {
+      if(roll < 10)
+        HandCrossbow(weaponMagicBonus, ammo)
+      else if(roll < 55)
+        LightCrossbow(weaponMagicBonus, ammo)
+      else
+        HeavyCrossbow(weaponMagicBonus, ammo)
+    } else if(maxSize == Medium) {
+      if(roll < 20)
+        HandCrossbow(weaponMagicBonus, ammo)
+      else
+        LightCrossbow(weaponMagicBonus, ammo)
+    }  else
+      HandCrossbow(weaponMagicBonus, ammo)
+  }
+
   def getMagicUserRangedWeapon(level: Int): RangedWeapon = {
     val weaponMagicBonus: Int = Roller.randomMagicWeaponBonus(level)
     val ammoMagicBonus: Int = Roller.randomMagicAmmoBonus(level)
@@ -209,6 +242,46 @@ object RangedWeapons {
 
   }
 
+  def getRandomRangedWeapon(level: Int, mazSize: WeaponSize): RangedWeapon = {
+    val weaponMagicBonus: Int = Roller.randomMagicWeaponBonus(level)
+    val ammoMagicBonus: Int = Roller.randomMagicAmmoBonus(level)
+    val ammoCount = Roller.randomInt(20)+1
+    val roll = Roller.randomInt(100)
+
+    if(mazSize == Small) {
+      if(roll < 33)
+        Bola(weaponMagicBonus)
+      else if(roll < 66)
+        Dart(ammoCount, ammoMagicBonus)
+      else
+        ThrowingKnife(ammoMagicBonus)
+    } else {
+      if(roll < 20)
+        Bola(weaponMagicBonus)
+      else if(roll < 40)
+        Dart(ammoCount, ammoMagicBonus)
+      else if(roll < 60)
+        ThrowingKnife(ammoMagicBonus)
+      else if(roll < 80)
+        Blowgun(weaponMagicBonus, Some(DartAmmo(ammoCount, ammoMagicBonus)))
+      else
+        Javelin(ammoMagicBonus)
+    }
+  }
+
+  def getFighterTypeRangedWeapon(level: Int, maxSize: WeaponSize): RangedWeapon = {
+    val roll = Roller.randomInt(100)
+
+    if(roll < 5)
+      getSling(level)
+    else if(roll < 30)
+      getRandomRangedWeapon(level, maxSize)
+    else if(roll < 65)
+      getCrossBow(level, maxSize)
+    else
+      getBow(level, maxSize)
+  }
+
   def getRangedWeapon(characterClass: CharacterClass, level: Int, race: Race): RangedWeapon = {
     val maxSize = race match {
       case Human => Large
@@ -219,27 +292,13 @@ object RangedWeapons {
       case HalfOrc => Large
     }
 
-    val roll = Roller.randomInt(100)
-
     characterClass match {
       case Cleric => getSling(level)
-      case Fighter => if(roll < 10)
-        getSling(level)
-      else
-        getBow(level, maxSize)
-      case FighterMagicUser => if(roll < 10)
-        getSling(level)
-      else
-        getBow(level, maxSize)
+      case Fighter => getFighterTypeRangedWeapon(level, maxSize)
+      case FighterMagicUser =>getFighterTypeRangedWeapon(level, maxSize)
       case MagicUser => getMagicUserRangedWeapon(level)
-      case MagicUserThief => if(roll < 10)
-        getSling(level)
-      else
-        getBow(level, maxSize)
-      case Thief => if(roll < 10)
-        getSling(level)
-      else
-        getBow(level, maxSize)
+      case MagicUserThief => getFighterTypeRangedWeapon(level, maxSize)
+      case Thief => getFighterTypeRangedWeapon(level, maxSize)
     }
 
   }
