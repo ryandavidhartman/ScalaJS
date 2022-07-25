@@ -74,6 +74,7 @@ object DOMObjects {
 
   // Background
   val nationalitySpan = document.getElementById("nationality").asInstanceOf[html.Span]
+  val languageSpan = document.getElementById("language").asInstanceOf[html.Span]
   val parentOccupationSpan = document.getElementById("parentOccupation").asInstanceOf[html.Span]
   val birthOrderSpan = document.getElementById("birthOrder").asInstanceOf[html.Span]
   val childhoodEventsDiv = document.getElementById("childhoodEvents").asInstanceOf[html.Div]
@@ -86,12 +87,17 @@ object DOMObjects {
   val offHandDiv = document.getElementById("offHand").asInstanceOf[html.Div]
   val rangedWeaponDiv = document.getElementById("rangedWeapon").asInstanceOf[html.Div]
 
+  def getStrength(): Int = str_select.value.toInt
+  def getDexterity(): Int = dex_select.value.toInt
+  def getConstitution(): Int = con_select.value.toInt
+  def getIntelligence(): Int = int_select.value.toInt
+  def getWisdom(): Int = wis_select.value.toInt
+  def getCharisma(): Int = chr_select.value.toInt
+
+  def getGender() = character_gender_select.value
   def getRace(): Race = Races.stringToRace(character_race_select.value)
-
   def getCharacterClass(): CharacterClass = CharacterClasses.stringToCharacterClass(character_class_select.value)
-
   def getCharacterLevel(): Int =  character_level_select.value.toInt
-
   def getCharacterAlignment(): CharacterAlignment =  AlignmentGenerator.stringToCharacterAlignment(character_alignment_select.value)
 
 }

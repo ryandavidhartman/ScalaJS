@@ -1,41 +1,56 @@
 package basic.fantasy.backgrounds
 
 import basic.fantasy.Roller
+import basic.fantasy.Roller.getRandomData
 import basic.fantasy.backgrounds.Races._
 
 object BackgroundGenerator {
 
   case class Background(
-                         parentsNationality: Nationality,
-                         parentsOccupation: String,
-                         birthOrder: String,
-                         childHoodEvents: Set[String],
-                         adolescentEvents: Set[String]
-                       )
+   parentsNationality: Nationality,
+   parentsOccupation: String,
+   birthOrder: String,
+   childHoodEvents: Set[String],
+   adolescentEvents: Set[String],
+   languages: Set[String]
+ )
 
-  def getBackground(race: Race): Background = {
+  def getBackground(race: Race, languageBonus: Int = 0): Background = {
     val numChildhoodEvents = Roller.randomInt(4)
     val numAdolescentEvents = Roller.randomInt(4)
 
     val childHoodEvents: Set[String] = (0 to numChildhoodEvents).map(_ => getChildhoodEvents()).toSet
     val adolescentEvents: Set[String] = (0 to numAdolescentEvents).map(_ => getYoungAdultEvents).toSet
+    val nationality = getNationality(race)
+    val languages: Set[String] = getLanguages(nationality.nativeLanguage, race, languageBonus)
 
-    Background(getNationality(race),
+    Background(
+      nationality,
       getOccupation(),
       getBirthOrder(),
       childHoodEvents,
-      adolescentEvents
+      adolescentEvents,
+      languages
     )
   }
 
-  def getRandomData(data: Map[Int, String]): String = {
-    try {
-      val random = Roller.randomInt(data.size) + 1
-      data(random)
-    } catch {
-      case e: Throwable => println(e.getMessage); e.getMessage
+  def getLanguages(nativeLanguage: String, race: Races.Race, bonus: Int): Set[String] = {
+
+    val bonusLanguageData: Seq[String] = Seq("Dwarvish", "Elvish", "Giant", "Gnomish", "Goblin", "Hinish", "Orcish", "Abyssal",
+      "Celestial", "Deep Speech", "Draconic", "Infernal", "Primordial", "Sylvan")
+    val bonusLanguages = (0 until bonus).map(_ => getRandomData(bonusLanguageData)).toSet
+
+    race match {
+      case Human => Set("Thyatian", nativeLanguage) ++ bonusLanguages
+      case Elf => Set("Thyatian", "Elvish", nativeLanguage) ++ bonusLanguages
+      case Dwarf => Set("Thyatian", "Dwarvish", nativeLanguage) ++ bonusLanguages
+      case Halfling => Set("Thyatian", "Hinish", nativeLanguage) ++ bonusLanguages
+      case HalfElf => Set("Thyatian", "Elvish", nativeLanguage) ++ bonusLanguages
+      case HalfOrc => Set("Thyatian", "Goblin", nativeLanguage) ++ bonusLanguages
     }
   }
+
+
 
   //Chart 1. Birth Order
   def getBirthOrder(): String = {
@@ -776,46 +791,78 @@ object BackgroundGenerator {
     def niceString(): String = {
       this.toString.replace("()", "")
     }
+    val nativeLanguage: String
   }
 
-  case object Karameikos extends Nationality
+  case object Karameikos extends Nationality {
+    override val nativeLanguage: String = "Thyatian"
+  }
 
-  case object Ylaruam extends Nationality
+  case object Ylaruam extends Nationality {
+    override val nativeLanguage: String = "Ylaruamian"
+  }
 
-  case object Glantri extends Nationality
+  case object Glantri extends Nationality {
+    override val nativeLanguage: String = "Thyatian"
+  }
 
-  case object Ierendi extends Nationality
+  case object Ierendi extends Nationality {
+    override val nativeLanguage: String = "Ierendisn"
+  }
 
-  case object Alfheim extends Nationality
+  case object Alfheim extends Nationality {
+    override val nativeLanguage: String = "Elvish"
+  }
 
-  case object Rockhome extends Nationality
+  case object Rockhome extends Nationality {
+    override val nativeLanguage: String = "Dwarvish"
+  }
 
   case object NorthernReaches extends Nationality {
     override def toString: String = "Northern Reaches"
+    override val nativeLanguage: String = "Nordic"
   }
 
   case object FiveShires extends Nationality {
     override def toString: String = "The Five Shires"
+    override val nativeLanguage: String = "Hinish"
   }
 
-  case object Minrothad extends Nationality
+  case object Minrothad extends Nationality {
+    override val nativeLanguage: String = "Minrothadi"
+  }
 
-  case object Thar extends Nationality
+  case object Thar extends Nationality {
+    override val nativeLanguage: String = "Goblin"
+  }
 
-  case object Darokin extends Nationality
+  case object Darokin extends Nationality {
+    override val nativeLanguage: String = "Darokian"
+  }
 
-  case object Ethengar extends Nationality
+  case object Ethengar extends Nationality {
+    override val nativeLanguage: String = "Ethengari"
+  }
 
   case object ShadowLands extends Nationality {
     override def toString: String = "Shadow Lands"
+    override val nativeLanguage: String = "Elvish"
   }
 
-  case object Altruaghin extends Nationality
+  case object Altruaghin extends Nationality {
+    override val nativeLanguage: String = "Altruaghini"
+  }
 
-  case object Alphatia extends Nationality
+  case object Alphatia extends Nationality {
+    override val nativeLanguage: String = "Alphatian"
+  }
 
-  case object Thyatis extends Nationality
+  case object Thyatis extends Nationality {
+    override val nativeLanguage: String = "Thyatian"
+  }
 
-  case object Wildlands extends Nationality
+  case object Wildlands extends Nationality {
+    override val nativeLanguage: String = "Regional Dialect"
+  }
 
 }

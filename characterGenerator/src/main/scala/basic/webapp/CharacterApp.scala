@@ -8,6 +8,7 @@ import basic.fantasy.characterclass.CharacterClasses._
 import basic.fantasy.characterclass.{SavingsThrows, SpellsPerLevel, ThiefSkills, TurnUndead}
 import basic.fantasy.equipment.EquipmentGenerator
 import basic.fantasy.equipment.Shields.NoShield
+import basic.fantasy.rules.BasicFantasy
 import basic.fantasy.rules.BasicFantasy._
 import basic.webapp.DOMObjects._
 import org.scalajs.dom
@@ -157,11 +158,9 @@ object CharacterApp {
 
   @JSExportTopLevel("setMeleeAttackBonusHandler")
   def setMeleeAttackBonusHandler(): Unit = {
-
-    val strength: Int = str_select.value.toInt
     val baseAttackBonus: Int = base_attack_bonus.textContent.toInt
 
-    melee_attack_bonus.textContent = calcMeleeAttackModifier(strength, baseAttackBonus)
+    melee_attack_bonus.textContent = calcMeleeAttackModifier(getStrength(), baseAttackBonus)
   }
 
   @JSExportTopLevel("setRangeAttackBonusHandler")
@@ -277,39 +276,30 @@ object CharacterApp {
   @JSExportTopLevel("setHeight")
   def setHeightWeight(): Unit = {
 
-    val gender = character_gender_select.value
-    val strength = str_select.value.toInt
-
-    val (height, weight) = HeightWeightGenerator.getHeight(getRace(), gender, strength)
+    val (height, weight) = HeightWeightGenerator.getHeight(getRace(), getGender, getStrength())
     character_height_input.value = height
     character_weight_input.value = weight
   }
 
   @JSExportTopLevel("setAge")
   def setAge(): Unit = {
-
-    val level = character_level_select.value.toInt
-
-    val age = AgeGenerator.getAge(getRace(), level)
-
+    val age = AgeGenerator.getAge(getRace(), getCharacterLevel())
     character_age_input.value = age.toString
 
   }
 
   @JSExportTopLevel("setAlignment")
   def setAlignment(): Unit = {
-    val characterClass = character_class_select.value
-    val alignment = AlignmentGenerator.getAlignment(stringToCharacterClass(characterClass))
+    val alignment = AlignmentGenerator.getAlignment(getCharacterClass())
     character_alignment_select.value = alignment.toString
 
   }
 
   @JSExportTopLevel("setTurnUndead")
   def setTurnUndead(): Unit = {
-    val characterClass =  character_class_select.value
-    val level = if(characterClass == "Cleric") character_level_select.value.toInt else 0
 
-    val turns: Seq[String] = TurnUndead.turns(level)
+    val clericLevel = if(getCharacterClass().isCleric) getCharacterLevel() else 0
+    val turns: Seq[String] = TurnUndead.turns(clericLevel)
 
     turnSkeletonSpan.textContent = turns.head
     turnZombieSpan.textContent   = turns(1)
@@ -325,10 +315,8 @@ object CharacterApp {
   @JSExportTopLevel("setThiefSkills")
   def setThiefSkills(): Unit = {
 
-    val characterClass =  character_class_select.value
-    val level = if(characterClass.contains("Thief")) character_level_select.value.toInt else 0
-
-    val skills:Seq[String] = ThiefSkills.skills(level)
+    val thiefLevel = if(getCharacterClass().isThief) getCharacterLevel() else 0
+    val skills:Seq[String] = ThiefSkills.skills(thiefLevel)
 
     openLocksSpan.textContent = skills.head
     removeTrapsSpan.textContent = skills(1)
@@ -341,9 +329,11 @@ object CharacterApp {
 
   @JSExportTopLevel("setBackground")
   def setBackground(): Unit = {
-    val background = BackgroundGenerator.getBackground(getRace())
+    val languageBonus = BasicFantasy.getLanguageBonus(getIntelligence())
+    val background = BackgroundGenerator.getBackground(getRace(), languageBonus)
 
     nationalitySpan.textContent = background.parentsNationality.toString
+    languageSpan.textContent = background.languages.mkString(",")
     parentOccupationSpan.textContent = background.parentsOccupation
     birthOrderSpan.textContent = background.birthOrder
     childhoodEventsDiv.innerHTML = background.childHoodEvents.map(a => s"<tr><td>$a</td>")

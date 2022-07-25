@@ -30,6 +30,24 @@ object Roller {
 
   def coinFLip(): Boolean = r.nextBoolean()
 
+  def getRandomData(data: Map[Int, String]): String = {
+    try {
+      val random = Roller.randomInt(data.size) + 1
+      data(random)
+    } catch {
+      case e: Throwable => println(e.getMessage); e.getMessage
+    }
+  }
+
+  def getRandomData(data: Seq[String]): String = {
+    try {
+      val random = Roller.randomInt(data.size)
+      data(random)
+    } catch {
+      case e: Throwable => println(e.getMessage); e.getMessage
+    }
+  }
+
   def randomMagicWeaponBonus(level: Int): Int = {
     val magicRoller = Roller.randomDouble(2.8*level)
     Math.max(0, Math.log(magicRoller).toInt)

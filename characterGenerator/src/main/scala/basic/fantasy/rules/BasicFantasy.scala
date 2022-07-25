@@ -116,6 +116,8 @@ object BasicFantasy {
     case _ => 3
   }
 
+  def getLanguageBonus(int: Int): Int = Math.max(0, attributeModifiers(int))
+
   def modifierBonusIntToString(mod: Int): String = {
     if (mod > 0)
       s"+$mod"
