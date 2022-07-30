@@ -5,6 +5,11 @@ import basic.fantasy.characterclass.CharacterClasses._
 
 object Armors {
 
+  sealed trait ArmorType
+  case object NoneOrMagicLeather extends ArmorType
+  case object LeatherOrMagicMetal extends ArmorType
+  case object Metal extends ArmorType
+
   sealed abstract class Armor(
     val baseCost: Int,
     val weight: Int,
@@ -17,32 +22,38 @@ object Armors {
       baseCost + (1500 * Math.pow(4,magicBonus-1)).toInt
     else
       baseCost
+    def armorType: ArmorType = if(magicBonus > 0) LeatherOrMagicMetal else Metal
 
     override def toString: String = {
       val magicString = if(magicBonus > 0) s" (+$magicBonus)" else ""
-      s"Armor: $name$magicString, ac: ${ac}, weight: $weight"
+      s"Armor: $name$magicString, ac: $ac, weight: $weight"
     }
   }
 
   case object NoArmor extends Armor(0, 0, 11) {
     override val name = "None"
-    override def toString(): String = "Armor: None"
+    override def toString: String = "Armor: None"
+    override val armorType: ArmorType = NoneOrMagicLeather
   }
 
   case object Padded extends Armor(15, 10, 12) {
     override val name = "Padded"
+    override val armorType: ArmorType  = NoneOrMagicLeather
   }
 
   case object Hide extends Armor(10, 30, 13) {
     override val name = "Hide"
+    override val armorType: ArmorType  = NoneOrMagicLeather
   }
 
   case class Leather(magic: Int) extends Armor(20, 15, 13, magic) {
     override val name = "Leather"
+    override val armorType: ArmorType  = if(magic > 0) NoneOrMagicLeather else LeatherOrMagicMetal
   }
 
   case class Studded(magic: Int) extends Armor(30, 25, 14, magic) {
     override val name = "Studded Leather"
+    override val armorType: ArmorType  = if(magic > 0) NoneOrMagicLeather else LeatherOrMagicMetal
   }
 
   case class RingMail(magic: Int) extends Armor(25, 30, 14, magic) {
