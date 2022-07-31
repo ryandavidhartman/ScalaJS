@@ -1,8 +1,8 @@
 package basic.fantasy.equipment
 
-import basic.fantasy.backgrounds.Races.Race
+import basic.fantasy.backgrounds.Races.{Race, stringToRace}
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
-import basic.fantasy.equipment.Armors.Armor
+import basic.fantasy.equipment.Armors.{Armor, LeatherOrMagicMetal, Metal, NoneOrMagicLeather}
 import basic.fantasy.equipment.Shields.{NoShield, Shield}
 import basic.fantasy.equipment.MeleeWeapons.MeleeWeapon
 import basic.fantasy.equipment.RangedWeapons.RangedWeapon
@@ -13,7 +13,42 @@ case class Equipment(
   meleeWeapon: MeleeWeapon,
   offhand: MeleeWeapon,
   rangedWeapon: RangedWeapon
-)
+) {
+  def totalWeight(): Int = {
+    armor.weight + shield.weight + meleeWeapon.weight + offhand.weight + rangedWeapon.weight
+  }
+
+  def findMovement(strength: Int, race: Race): String = {
+    val (lightLoad, heavyLoad) = race.carryingCapacity(strength)
+    val weight = totalWeight()
+
+    armor.armorType match {
+      case NoneOrMagicLeather =>
+        if(weight < lightLoad)
+          "40'"
+        else if(weight < heavyLoad)
+          "30'"
+        else
+          "10' or less"
+      case LeatherOrMagicMetal =>
+        if(weight < lightLoad)
+          "30'"
+        else if(weight < heavyLoad)
+          "20'"
+        else
+          "7' or less"
+      case Metal =>
+        if(weight < lightLoad)
+          "20'"
+        else if(weight < heavyLoad)
+          "10'"
+        else
+          "3' or less"
+    }
+
+
+  }
+}
 
 object EquipmentGenerator {
 

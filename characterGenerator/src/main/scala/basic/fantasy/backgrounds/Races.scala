@@ -11,16 +11,34 @@ object Races {
 
    */
 
-  case class SavingsThrowBonuses(deathRayOrPoison: Int,
-                                 magicWands: Int,
-                                 paralysisOrPetrify: Int,
-                                 breathWeapons: Int,
-                                 spells: Int)
+  case class SavingsThrowBonuses(
+   deathRayOrPoison: Int,
+   magicWands: Int,
+   paralysisOrPetrify: Int,
+   breathWeapons: Int,
+   spells: Int
+  )
 
   sealed trait Race {
     val weapons: Seq[String] = Seq("Large weapons require two hands")
     val getAbilities: Seq[String]
     val savingsThrowBonuses: SavingsThrowBonuses = SavingsThrowBonuses(0, 0, 0, 0, 0)
+    def carryingCapacity(strength: Int): (Int, Int) = {
+      if(strength == 3)
+        (25, 60)
+      else if(strength <= 5)
+        (35, 90)
+      else if(strength <= 8)
+        (50, 120)
+      else if(strength <= 12)
+        (60, 150)
+      else if(strength <= 15)
+        (65, 165)
+      else if(strength <= 17)
+        (70, 180)
+      else
+        (80, 195)
+    }
   }
 
   case object Human extends Race {
@@ -55,8 +73,24 @@ object Races {
   case object Halfling extends Race {
     override val weapons: Seq[String] = Seq(
       "Must use medium weapons in two hands",
-      "Cannot use large weapons"
-    )
+      "Cannot use large weapons")
+
+    override def carryingCapacity(strength: Int): (Int, Int) = {
+      if(strength == 3)
+        (20, 40)
+      else if(strength <= 5)
+        (30, 60)
+      else if(strength <= 8)
+        (40, 80)
+      else if(strength <= 12)
+        (50, 100)
+      else if(strength <= 15)
+        (55, 110)
+      else if(strength <= 17)
+        (60, 120)
+      else
+        (65, 130)
+    }
 
     override val getAbilities: Seq[String] = Seq(
       "+1 attack bonus on ranged weapons (bonus added already)",
