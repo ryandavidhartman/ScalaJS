@@ -1,11 +1,11 @@
 package basic.fantasy.equipment
 
-import basic.fantasy.backgrounds.Races.{Race, stringToRace}
+import basic.fantasy.backgrounds.Races.Race
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
 import basic.fantasy.equipment.Armors.{Armor, LeatherOrMagicMetal, Metal, NoneOrMagicLeather}
-import basic.fantasy.equipment.Shields.{NoShield, Shield}
 import basic.fantasy.equipment.MeleeWeapons.MeleeWeapon
 import basic.fantasy.equipment.RangedWeapons.RangedWeapon
+import basic.fantasy.equipment.Shields.{NoShield, Shield}
 
 case class Equipment(
   armor: Armor,
