@@ -360,6 +360,7 @@ object CharacterApp {
     else
       offHandDiv.textContent = equipment.shield.toString
     rangedWeaponDiv.textContent = equipment.rangedWeapon.toString
+    equipmentPackDiv.textContent = equipment.equipmentPack.toString
   }
 
 }

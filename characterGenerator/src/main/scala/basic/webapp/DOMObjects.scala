@@ -86,6 +86,7 @@ object DOMObjects {
   val mainHandDiv = document.getElementById("mainHand").asInstanceOf[html.Div]
   val offHandDiv = document.getElementById("offHand").asInstanceOf[html.Div]
   val rangedWeaponDiv = document.getElementById("rangedWeapon").asInstanceOf[html.Div]
+  val equipmentPackDiv = document.getElementById("equipmentPack").asInstanceOf[html.Div]
 
   def getStrength(): Int = str_select.value.toInt
   def getDexterity(): Int = dex_select.value.toInt

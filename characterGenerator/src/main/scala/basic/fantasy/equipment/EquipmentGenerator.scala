@@ -3,6 +3,7 @@ package basic.fantasy.equipment
 import basic.fantasy.backgrounds.Races.Race
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
 import basic.fantasy.equipment.Armors.{Armor, LeatherOrMagicMetal, Metal, NoneOrMagicLeather}
+import basic.fantasy.equipment.EquipmentPacks.EquipmentPack
 import basic.fantasy.equipment.MeleeWeapons.MeleeWeapon
 import basic.fantasy.equipment.RangedWeapons.RangedWeapon
 import basic.fantasy.equipment.Shields.{NoShield, Shield}
@@ -12,10 +13,11 @@ case class Equipment(
   shield: Shield,
   meleeWeapon: MeleeWeapon,
   offhand: MeleeWeapon,
-  rangedWeapon: RangedWeapon
+  rangedWeapon: RangedWeapon,
+  equipmentPack: EquipmentPack
 ) {
   def totalWeight(): Int = {
-    armor.weight + shield.weight + meleeWeapon.weight + offhand.weight + rangedWeapon.weight
+    armor.weight + shield.weight + meleeWeapon.weight + offhand.weight + rangedWeapon.weight + equipmentPack.weight
   }
 
   def findMovement(strength: Int, race: Race): String = {
@@ -59,7 +61,8 @@ object EquipmentGenerator {
     val meleeWeapon = MeleeWeapons.getMeleeWeapon(characterClass, level, race, hasShield)
     val offhandWeapon = MeleeWeapons.getSecondaryWeapon(characterClass, race, level, meleeWeapon, hasShield)
     val rangedWeapon = RangedWeapons.getRangedWeapon(characterClass, level, race)
-    Equipment(armor, shield, meleeWeapon, offhandWeapon, rangedWeapon)
+    val equipmentPack = EquipmentPacks.getEquipmentPack(characterClass)
+    Equipment(armor, shield, meleeWeapon, offhandWeapon, rangedWeapon, equipmentPack)
   }
 
 }
