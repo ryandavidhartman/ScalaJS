@@ -26,6 +26,99 @@ object MagicalItems {
     override def usable(characterClass: CharacterClass, race: Race): Boolean = characterClass.isMagicUser
   }
 
+  // Miscellaneous
+  case object AmuletOfProofAgainstDetectionAndLocation extends Miscellaneous {
+     override def toString: String = "Amulet of Proof against Detection and Location"
+  }
+  case object BagOfDevouring extends Miscellaneous {
+    override def toString: String = "Bag of Devouring"
+  }
+  case object BagOfHolding extends Miscellaneous {
+    override def toString: String = "Bag of Holding"
+  }
+  case object BootsOfLevitation extends Miscellaneous {
+    override def toString: String = "Boots of Levitation"
+  }
+  case object BootsOfSpeed extends Miscellaneous {
+    override def toString: String = "Boots of Speed"
+  }
+  case object BootsOfTravelingAndLeaping extends Miscellaneous {
+    override def toString: String = "Boots of Traveling and Leaping"
+  }
+  case object BowlCommandingWaterElementals extends Miscellaneous {
+    override def toString: String = "Bowl Commanding Water Elementals"
+  }
+  case object BrazierCommandingFireElementals extends Miscellaneous {
+    override def toString: String = "Brazier Commanding Fire Elementals"
+  }
+  case object Broom of Flying extends Miscellaneous {
+    override def toString: String = "Commanding Air Elementals"
+  }
+  case object CenserCommandingAirElementals extends Miscellaneous {
+    override def toString: String = "Commanding Air Elementals"
+  }
+  case object CloakOfDisplacement extends Miscellaneous {
+    override def toString: String = "Cloak of Displacement"
+  }
+  case object CrystalBall extends Miscellaneous {
+    override def toString: String = "Crystal Ball"
+  }
+  case object CrystalBallWithClairaudience extends Miscellaneous {
+    override def toString: String = "Crystal Ball with Clairaudience"
+  }
+  case object DrumsOfPanic extends Miscellaneous {
+    override def toString: String = "Drums of Panic"
+  }
+  case object EfreetiBottle extends Miscellaneous {
+    override def toString: String = "Efreeti Bottle"
+  }
+  case object ElvenBoots extends Miscellaneous {
+    override def toString: String = "Elven Boots"
+  }
+  case object ElvenCloak extends Miscellaneous {
+    override def toString: String = "Elven Cloak"
+  }
+  case object FlyingCarpet extends Miscellaneous {
+    override def toString: String = "Flying Carpet"
+  }
+  case object GauntletsOfOgrePower extends Miscellaneous {
+    override def toString: String = "Gauntlets of Ogre Power"
+  }
+  case object GirdleOfGiantStrength extends Miscellaneous {
+    override def toString: String = "Girdle of Giant Strength"
+  }
+  case object HelmOfReadingLanguagesAndMagic extends Miscellaneous {
+    override def toString: String = "Helm of Reading Languages and Magic"
+  }
+  case object HelmOfTelepathy extends Miscellaneous {
+    override def toString: String = "Helm of Telepathy"
+  }
+  case object HelmOfTeleportation extends Miscellaneous {
+    override def toString: String = "Helm of Teleportation"
+  }
+  case object HornOfBlasting extends Miscellaneous {
+    override def toString: String = "Horn of Blasting"
+  }
+  case object HornOfDoom extends Miscellaneous {
+    override def toString: String = "Horn of Doom"
+  }
+  case object MedallionOfESP extends Miscellaneous {
+    override def toString: String = "Medallion of ESP"
+  }
+  case object MirrorOfLifeTrapping extends Miscellaneous {
+    override def toString: String = "Mirror of Life Trapping"
+  }
+  case object RopeOfClimbing extends Miscellaneous {
+    override def toString: String = "Rope of Climbing"
+  }
+  case object ScarabOfProtection extends Miscellaneous {
+    override def toString: String = "Scarab of Protection"
+  }
+  case object StoneCommandingEarthElementals extends Miscellaneous {
+    override def toString: String = "Stone Commanding Earth Elementals"
+  }
+
+
   // Potions
   case object Clairaudience extends Potion {
     override def usable(characterClass: CharacterClass, race: Race): Boolean = characterClass.isSpellCaster
