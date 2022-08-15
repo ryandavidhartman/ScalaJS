@@ -1,7 +1,8 @@
 package basic.fantasy.equipment
 
+import basic.fantasy.Roller
 import basic.fantasy.backgrounds.Races.Race
-import basic.fantasy.characterclass.CharacterClasses.CharacterClass
+import basic.fantasy.characterclass.CharacterClasses.{CharacterClass, Cleric, Fighter, FighterMagicUser, MagicUser, MagicUserThief, Thief}
 
 
 object MagicalItems {
@@ -19,8 +20,6 @@ object MagicalItems {
   sealed trait Ring extends MagicItem {
     override def toString: String = s"Ring of ${this.getClass}"
   }
-
-  sealed trait Scroll extends MagicItem
 
   sealed trait WandStaffOrRod extends MagicItem {
     override def usable(characterClass: CharacterClass, race: Race): Boolean = characterClass.isMagicUser
@@ -51,7 +50,7 @@ object MagicalItems {
   case object BrazierCommandingFireElementals extends Miscellaneous {
     override def toString: String = "Brazier Commanding Fire Elementals"
   }
-  case object Broom of Flying extends Miscellaneous {
+  case object BroomofFlying extends Miscellaneous {
     override def toString: String = "Commanding Air Elementals"
   }
   case object CenserCommandingAirElementals extends Miscellaneous {
@@ -118,7 +117,6 @@ object MagicalItems {
     override def toString: String = "Stone Commanding Earth Elementals"
   }
 
-
   // Potions
   case object Clairaudience extends Potion {
     override def usable(characterClass: CharacterClass, race: Race): Boolean = characterClass.isSpellCaster
@@ -126,7 +124,6 @@ object MagicalItems {
   case object Clairvoyance extends Potion {
     override def usable(characterClass: CharacterClass, race: Race): Boolean = characterClass.isSpellCaster
   }
-
   case object ColdResistance extends Potion {
     override def toString: String = s"Potion of Cold Resistance"
   }
@@ -183,40 +180,40 @@ object MagicalItems {
     override def toString: String = s"Potion of Treasure Finding"
   }
 
-
   // Rings
-  case object AnimalControl extends Ring
-
+  case object AnimalControl extends Ring {
+    override def toString: String = s"Ring of Animal Control"
+  }
   case object Delusion extends Ring
-
-  case object DjinniSummoning extends Ring
-
+  case object DjinniSummoning extends Ring {
+    override def toString: String = s"Ring of Djinni Summoning"
+  }
   case object Ear extends Ring
-
-  case object ElementalAdaptation extends Ring
-
-  case object FareResistance extends Ring
-
+  case object ElementalAdaptation extends Ring {
+    override def toString: String = s"Ring of Elemental Adaptation"
+  }
+  case object FireResistanceRing extends Ring {
+    override def toString: String = s"Ring of Fire Resistance"
+  }
   case object Holiness extends Ring {
     override def usable(characterClass: CharacterClass, race: Race): Boolean = characterClass.isCleric
   }
-
-  case object HumanControl extends Ring
-
+  case object HumanControl extends Ring {
+    override def toString: String = s"Ring of Human Control"
+  }
   case object Invisibility extends Ring
-
-  case object LifeProtection extends Ring
-
+  case object LifeProtection extends Ring {
+    override def toString: String = s"Ring of Life Protection"
+  }
   case object Memory extends Ring {
     override def usable(characterClass: CharacterClass, race: Race): Boolean = characterClass.isSpellCaster
   }
-
-  case object PlantControl extends Ring
-
+  case object PlantControl extends Ring {
+    override def toString: String = s"Ring of Plant Control"
+  }
   case class Protection(level: Int) extends Ring {
     override def toString: String = s"Ring of Protection +{level/5}"
   }
-
   case object Quickness extends Ring
 
   // Wands, Staves and Rods
@@ -231,6 +228,7 @@ object MagicalItems {
   }
   case object StaffOfHealing extends WandStaffOrRod {
     override def toString: String = s"Staff Of Healing"
+    override def usable(characterClass: CharacterClass, race: Race): Boolean = characterClass.isCleric
   }
   case object StaffOfPower extends WandStaffOrRod {
     override def toString: String = s"Staff Of Power"
@@ -240,6 +238,8 @@ object MagicalItems {
   }
   case object StaffOfWizardry extends WandStaffOrRod {
     override def toString: String = s"Staff Of Wizardry"
+
+    override def usable(characterClass: CharacterClass, race: Race): Boolean = characterClass.isMagicUser
   }
   case object WandOfCold extends WandStaffOrRod {
     override def toString: String = s"Wand Of Cold"
@@ -273,6 +273,80 @@ object MagicalItems {
   }
   case object WandOfTrapDetection extends WandStaffOrRod {
     override def toString: String = s"Wand Of Trap Detection"
+  }
+
+  def getPotion(characterClass: CharacterClass, race: Race, level: Int): Potion = ???
+
+  def getMiscellaneous(characterClass: CharacterClass, race: Race, level: Int): Miscellaneous = ???
+
+  def getRing(characterClass: CharacterClass, race: Race, level: Int): Ring = {
+    val roll = Roller.randomInt(100)
+    val item: Ring =
+      if(roll < 5) AnimalControl
+      else if (roll < 10) Delusion
+      else if (roll < 15) DjinniSummoning
+      else if (roll < 20) Ear
+      else if (roll < 25) ElementalAdaptation
+      else if (roll < 30) FireResistanceRing
+      else if (roll < 35) Holiness
+      else if (roll < 40) HumanControl
+      else if (roll < 45) Invisibility
+      else if (roll < 50) LifeProtection
+      else if (roll < 55) Memory
+      else if (roll < 60) PlantControl
+      else if (roll < 65) Quickness
+      else Protection(level)
+
+    if(item.usable(characterClass, race)) item else getRing(characterClass, race, level)
+
+  }
+
+  def getWandStaffOrRod(characterClass: CharacterClass, race: Race, level: Int):  WandStaffOrRod = {
+    val roll = Roller.randomInt(100)
+    val item: WandStaffOrRod =
+      if(roll < 5) RodOfCancellation
+      else if (roll < 10) SnakeStaff
+      else if (roll < 15) StaffOfCommanding
+      else if (roll < 20) StaffOfHealing
+      else if (roll < 25) StaffOfPower
+      else if (roll < 30) SnakeStaff
+      else if (roll < 35) StaffOfCommanding
+      else if (roll < 40) StaffOfHealing
+      else if (roll < 45) StaffOfPower
+      else if (roll < 50) StaffOfStriking
+      else if (roll < 55) StaffOfWizardry
+      else if (roll < 60) WandOfCold
+      else if (roll < 65) WandOfEnemyDetection
+      else if (roll < 70) WandOfFear
+      else if (roll < 75) WandOfFireballs
+      else if (roll < 80) WandOfIllusion
+      else if (roll < 85) WandOfLightningBolts
+      else if (roll < 90) WandOfMagicDetection
+      else if (roll < 95) WandOfParalyzation
+      else WandOfTrapDetection
+
+    if(item.usable(characterClass, race)) item else getWandStaffOrRod(characterClass, race, level)
+  }
+
+  def getMagicItem(characterClass: CharacterClass, race: Race, level: Int): MagicItem = {
+    val roll = Roller.randomInt(100)
+    characterClass match {
+      case c if c.isSpellCaster =>
+        if(roll < 25) getPotion(characterClass, race, level)
+        else if(roll < 50) getMiscellaneous(characterClass, race, level)
+        else if(roll < 75) getRing(characterClass, race, level)
+        else getWandStaffOrRod(characterClass, race, level)
+      case _ =>
+        if(roll < 33) getPotion(characterClass, race, level)
+        else if(roll < 66) getMiscellaneous(characterClass, race, level)
+        else getRing(characterClass, race, level)
+    }
+  }
+
+  def getMagicItems(characterClass: CharacterClass, race: Race, level: Int): Set[MagicItem] = {
+    val numItems: Int = level/5
+
+    (0 to numItems).map(_ => getMagicItem(characterClass, race, level)).toSet
   }
 
 }
