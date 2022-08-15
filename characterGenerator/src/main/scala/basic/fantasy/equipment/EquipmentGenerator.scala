@@ -4,6 +4,7 @@ import basic.fantasy.backgrounds.Races.Race
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
 import basic.fantasy.equipment.Armors.{Armor, LeatherOrMagicMetal, Metal, NoneOrMagicLeather}
 import basic.fantasy.equipment.EquipmentPacks.EquipmentPack
+import basic.fantasy.equipment.MagicalItems.MagicItem
 import basic.fantasy.equipment.MeleeWeapons.MeleeWeapon
 import basic.fantasy.equipment.RangedWeapons.RangedWeapon
 import basic.fantasy.equipment.Shields.{NoShield, Shield}
@@ -14,7 +15,8 @@ case class Equipment(
   meleeWeapon: MeleeWeapon,
   offhand: MeleeWeapon,
   rangedWeapon: RangedWeapon,
-  equipmentPack: EquipmentPack
+  equipmentPack: EquipmentPack,
+  magicalItems: Set[MagicItem]
 ) {
   def totalWeight(): Int = {
     armor.weight + shield.weight + meleeWeapon.weight + offhand.weight + rangedWeapon.weight + equipmentPack.weight
@@ -62,7 +64,8 @@ object EquipmentGenerator {
     val offhandWeapon = MeleeWeapons.getSecondaryWeapon(characterClass, race, level, meleeWeapon, hasShield)
     val rangedWeapon = RangedWeapons.getRangedWeapon(characterClass, level, race)
     val equipmentPack = EquipmentPacks.getEquipmentPack(characterClass)
-    Equipment(armor, shield, meleeWeapon, offhandWeapon, rangedWeapon, equipmentPack)
+    val magicalItems: Set[MagicItem] = MagicalItems.getMagicItems(characterClass, race, level)
+    Equipment(armor, shield, meleeWeapon, offhandWeapon, rangedWeapon, equipmentPack, magicalItems)
   }
 
 }
