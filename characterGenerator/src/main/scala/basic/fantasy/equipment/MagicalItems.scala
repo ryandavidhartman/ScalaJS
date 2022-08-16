@@ -1,7 +1,7 @@
 package basic.fantasy.equipment
 
 import basic.fantasy.Roller
-import basic.fantasy.backgrounds.Races.Race
+import basic.fantasy.backgrounds.Races.{Elf, Race}
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
 
 
@@ -12,13 +12,13 @@ object MagicalItems {
   }
 
   sealed trait Potion extends MagicItem {
-    override def toString: String = s"Potion of ${this.getClass}"
+    override def toString: String = s"Potion of ${this.getClass.getSimpleName.replace("$", "")}"
   }
 
   sealed trait Miscellaneous extends MagicItem
 
   sealed trait Ring extends MagicItem {
-    override def toString: String = s"Ring of ${this.getClass}"
+    override def toString: String = s"Ring of ${this.getClass.getSimpleName.replace("$", "")}"
   }
 
   sealed trait WandStaffOrRod extends MagicItem {
@@ -73,18 +73,22 @@ object MagicalItems {
   }
   case object ElvenBoots extends Miscellaneous {
     override def toString: String = "Elven Boots"
+    override def usable(characterClass: CharacterClass, race: Race): Boolean = race == Elf
   }
   case object ElvenCloak extends Miscellaneous {
     override def toString: String = "Elven Cloak"
+    override def usable(characterClass: CharacterClass, race: Race): Boolean = race == Elf
   }
   case object FlyingCarpet extends Miscellaneous {
     override def toString: String = "Flying Carpet"
   }
   case object GauntletsOfOgrePower extends Miscellaneous {
     override def toString: String = "Gauntlets of Ogre Power"
+    override def usable(characterClass: CharacterClass, race: Race): Boolean = characterClass.isFighter
   }
   case object GirdleOfGiantStrength extends Miscellaneous {
     override def toString: String = "Girdle of Giant Strength"
+    override def usable(characterClass: CharacterClass, race: Race): Boolean = characterClass.isFighter
   }
   case object HelmOfReadingLanguagesAndMagic extends Miscellaneous {
     override def toString: String = "Helm of Reading Languages and Magic"
@@ -212,7 +216,7 @@ object MagicalItems {
     override def toString: String = s"Ring of Plant Control"
   }
   case class Protection(level: Int) extends Ring {
-    override def toString: String = s"Ring of Protection +{level/5}"
+    override def toString: String = s"Ring of Protection +${level/5}"
   }
   case object Quickness extends Ring
 
@@ -276,33 +280,33 @@ object MagicalItems {
   }
 
   def getPotion(characterClass: CharacterClass, race: Race, level: Int): Potion = {
-    val roll = Roller.randomInt(65)
+    val roll = Roller.randomInt(29)
     val item: Potion =
-      if(roll < 3) Clairaudience
-      else if (roll < 5) Clairvoyance
-      else if (roll < 8) ColdResistance
-      else if (roll < 10) ControlAnimal
-      else if (roll < 13) ControlDragon
-      else if (roll < 15) ControlGiant
-      else if (roll < 18) ControlHuman
-      else if (roll < 20) ControlPlant
-      else if (roll < 23) ControlUndead
-      else if (roll < 25) DelusionPotion
-      else if (roll < 27) Diminution
-      else if (roll < 30) ESP
-      else if (roll < 33) FireResistance
-      else if (roll < 35) Flying
-      else if (roll < 38) GaseousForm
-      else if (roll < 40) GiantStrength
-      else if (roll < 43) Growth
-      else if (roll < 45) Healing
-      else if (roll < 48) Heroism
-      else if (roll < 50) InvisibilityPotion
-      else if (roll < 53) Invulnerability
-      else if (roll < 55) Levitation
-      else if (roll < 58) Longevity
-      else if (roll < 60) Poison
-      else if (roll < 63) Speed
+      if(roll < 1) Clairaudience
+      else if (roll < 2) Clairvoyance
+      else if (roll < 3) ColdResistance
+      else if (roll < 4) ControlAnimal
+      else if (roll < 5) ControlDragon
+      else if (roll < 6) ControlGiant
+      else if (roll < 7) ControlHuman
+      else if (roll < 8) ControlPlant
+      else if (roll < 9) ControlUndead
+      else if (roll < 10) DelusionPotion
+      else if (roll < 11) Diminution
+      else if (roll < 12) ESP
+      else if (roll < 13) FireResistance
+      else if (roll < 14) Flying
+      else if (roll < 15) GaseousForm
+      else if (roll < 16) GiantStrength
+      else if (roll < 17) Growth
+      else if (roll < 20) Healing
+      else if (roll < 21) Heroism
+      else if (roll < 22) InvisibilityPotion
+      else if (roll < 23) Invulnerability
+      else if (roll < 24) Levitation
+      else if (roll < 25) Longevity
+      else if (roll < 26) Poison
+      else if (roll < 28) Speed
       else TreasureFinding
 
     if(item.usable(characterClass, race)) item else getPotion(characterClass, race, level)
@@ -310,43 +314,43 @@ object MagicalItems {
   }
 
   def getMiscellaneous(characterClass: CharacterClass, race: Race, level: Int): Miscellaneous = {
-    val roll = Roller.randomInt(90)
+    val roll = Roller.randomInt(48)
     val item: Miscellaneous =
-      if(roll < 3) AmuletOfProofAgainstDetectionAndLocation
-      else if (roll < 5) BagOfDevouring
-      else if (roll < 8) BagOfHolding
-      else if (roll < 10) BootsOfLevitation
-      else if (roll < 13) BootsOfSpeed
-      else if (roll < 15) BootsOfTravelingAndLeaping
-      else if (roll < 18) BowlCommandingWaterElementals
-      else if (roll < 20) BrazierCommandingFireElementals
-      else if (roll < 23) BroomOfFlying
-      else if (roll < 25) CenserCommandingAirElementals
-      else if (roll < 27) CloakOfDisplacement
-      else if (roll < 30) CrystalBall
-      else if (roll < 33) CrystalBallWithClairaudience
-      else if (roll < 35) DrumsOfPanic
-      else if (roll < 38) EfreetiBottle
-      else if (roll < 40) BootsOfLevitation
-      else if (roll < 43) ElvenBoots
-      else if (roll < 45) ElvenCloak
-      else if (roll < 48) FlyingCarpet
-      else if (roll < 50) GauntletsOfOgrePower
-      else if (roll < 53) GirdleOfGiantStrength
-      else if (roll < 55) HelmOfReadingLanguagesAndMagic
-      else if (roll < 58) HelmOfTelepathy
-      else if (roll < 60) HelmOfTeleportation
-      else if (roll < 63) HornOfBlasting
-      else if (roll < 65) HornOfDoom
-      else if (roll < 68) MedallionOfESP
-      else if (roll < 70) MirrorOfLifeTrapping
-      else if (roll < 73) GauntletsOfOgrePower
-      else if (roll < 75) GirdleOfGiantStrength
-      else if (roll < 78) HelmOfReadingLanguagesAndMagic
-      else if (roll < 80) HelmOfTelepathy
-      else if (roll < 83) HelmOfTeleportation
-      else if (roll < 85) RopeOfClimbing
-      else if (roll < 88) ScarabOfProtection
+      if(roll < 1) AmuletOfProofAgainstDetectionAndLocation
+      else if (roll < 2) BagOfDevouring
+      else if (roll < 12) BagOfHolding
+      else if (roll < 13) BootsOfLevitation
+      else if (roll < 15) BootsOfSpeed
+      else if (roll < 16) BootsOfTravelingAndLeaping
+      else if (roll < 17) BowlCommandingWaterElementals
+      else if (roll < 18) BrazierCommandingFireElementals
+      else if (roll < 19) BroomOfFlying
+      else if (roll < 20) CenserCommandingAirElementals
+      else if (roll < 21) CloakOfDisplacement
+      else if (roll < 22) CrystalBall
+      else if (roll < 23) CrystalBallWithClairaudience
+      else if (roll < 24) DrumsOfPanic
+      else if (roll < 25) EfreetiBottle
+      else if (roll < 26) BootsOfLevitation
+      else if (roll < 28) ElvenBoots
+      else if (roll < 30) ElvenCloak
+      else if (roll < 31) FlyingCarpet
+      else if (roll < 32) GauntletsOfOgrePower
+      else if (roll < 33) GirdleOfGiantStrength
+      else if (roll < 34) HelmOfReadingLanguagesAndMagic
+      else if (roll < 35) HelmOfTelepathy
+      else if (roll < 36) HelmOfTeleportation
+      else if (roll < 37) HornOfBlasting
+      else if (roll < 38) HornOfDoom
+      else if (roll < 39) MedallionOfESP
+      else if (roll < 40) MirrorOfLifeTrapping
+      else if (roll < 41) GauntletsOfOgrePower
+      else if (roll < 42) GirdleOfGiantStrength
+      else if (roll < 43) HelmOfReadingLanguagesAndMagic
+      else if (roll < 44) HelmOfTelepathy
+      else if (roll < 45) HelmOfTeleportation
+      else if (roll < 46) RopeOfClimbing
+      else if (roll < 47) ScarabOfProtection
       else StoneCommandingEarthElementals
 
     if(item.usable(characterClass, race)) item else getMiscellaneous(characterClass, race, level)
@@ -354,48 +358,48 @@ object MagicalItems {
   }
 
   def getRing(characterClass: CharacterClass, race: Race, level: Int): Ring = {
-    val roll = Roller.randomInt(100)
+    val roll = Roller.randomInt(20)
     val item: Ring =
-      if(roll < 5) AnimalControl
-      else if (roll < 10) Delusion
-      else if (roll < 15) DjinniSummoning
-      else if (roll < 20) Ear
-      else if (roll < 25) ElementalAdaptation
-      else if (roll < 30) FireResistanceRing
-      else if (roll < 35) Holiness
-      else if (roll < 40) HumanControl
-      else if (roll < 45) Invisibility
-      else if (roll < 50) LifeProtection
-      else if (roll < 55) Memory
-      else if (roll < 60) PlantControl
-      else if (roll < 65) Quickness
+      if(roll < 1) AnimalControl
+      else if (roll < 2) Delusion
+      else if (roll < 3) DjinniSummoning
+      else if (roll < 4) Ear
+      else if (roll < 5) ElementalAdaptation
+      else if (roll < 6) FireResistanceRing
+      else if (roll < 7) Holiness
+      else if (roll < 8) HumanControl
+      else if (roll < 10) Invisibility
+      else if (roll < 11) LifeProtection
+      else if (roll < 12) Memory
+      else if (roll < 13) PlantControl
+      else if (roll < 16) Quickness
       else Protection(level)
 
     if(item.usable(characterClass, race)) item else getRing(characterClass, race, level)
   }
 
   def getWandStaffOrRod(characterClass: CharacterClass, race: Race, level: Int):  WandStaffOrRod = {
-    val roll = Roller.randomInt(100)
+    val roll = Roller.randomInt(20)
     val item: WandStaffOrRod =
-      if(roll < 5) RodOfCancellation
-      else if (roll < 10) SnakeStaff
-      else if (roll < 15) StaffOfCommanding
-      else if (roll < 20) StaffOfHealing
-      else if (roll < 25) StaffOfPower
-      else if (roll < 30) SnakeStaff
-      else if (roll < 35) StaffOfCommanding
-      else if (roll < 40) StaffOfHealing
-      else if (roll < 45) StaffOfPower
-      else if (roll < 50) StaffOfStriking
-      else if (roll < 55) StaffOfWizardry
-      else if (roll < 60) WandOfCold
-      else if (roll < 65) WandOfEnemyDetection
-      else if (roll < 70) WandOfFear
-      else if (roll < 75) WandOfFireballs
-      else if (roll < 80) WandOfIllusion
-      else if (roll < 85) WandOfLightningBolts
-      else if (roll < 90) WandOfMagicDetection
-      else if (roll < 95) WandOfParalyzation
+      if(roll < 1) RodOfCancellation
+      else if (roll < 2) SnakeStaff
+      else if (roll < 3) StaffOfCommanding
+      else if (roll < 4) StaffOfHealing
+      else if (roll < 5) StaffOfPower
+      else if (roll < 6) SnakeStaff
+      else if (roll < 7) StaffOfCommanding
+      else if (roll < 8) StaffOfHealing
+      else if (roll < 9) StaffOfPower
+      else if (roll < 10) StaffOfStriking
+      else if (roll < 11) StaffOfWizardry
+      else if (roll < 12) WandOfCold
+      else if (roll < 13) WandOfEnemyDetection
+      else if (roll < 14) WandOfFear
+      else if (roll < 15) WandOfFireballs
+      else if (roll < 16) WandOfIllusion
+      else if (roll < 17) WandOfLightningBolts
+      else if (roll < 18) WandOfMagicDetection
+      else if (roll < 19) WandOfParalyzation
       else WandOfTrapDetection
 
     if(item.usable(characterClass, race)) item else getWandStaffOrRod(characterClass, race, level)

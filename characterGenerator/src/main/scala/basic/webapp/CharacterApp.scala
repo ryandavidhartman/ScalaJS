@@ -360,7 +360,9 @@ object CharacterApp {
     else
       offHandDiv.textContent = equipment.shield.toString
     rangedWeaponDiv.textContent = equipment.rangedWeapon.toString
-    equipmentPackDiv.textContent = equipment.equipmentPack.toString
+    magicItemsDiv.innerHTML = equipment.magicalItems.map(i => s"<tr><td>$i</td>")
+      .mkString("<table class=\"unstriped\">", "", "</table>")
+    equipmentPackDiv.textContent = equipment.equipmentPack.toString()
   }
 
 }
