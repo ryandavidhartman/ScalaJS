@@ -44,7 +44,9 @@ object DOMObjects {
   val breathSavingsThrow = document.getElementById("breath").asInstanceOf[html.Span]
   val spellsSavingsThrow = document.getElementById("spells").asInstanceOf[html.Span]
 
-  // Savings Throws
+  // Turn Undead
+  val turnUndeadDiv = document.getElementById("turn_undead_div").asInstanceOf[html.Div]
+  turnUndeadDiv.style.display = "none"
   val turnSkeletonSpan = document.getElementById("skeleton").asInstanceOf[html.Span]
   val turnZombieSpan = document.getElementById("zombie").asInstanceOf[html.Span]
   val turnGhoulSpan = document.getElementById("ghoul").asInstanceOf[html.Span]
@@ -55,15 +57,9 @@ object DOMObjects {
   val turnVampireSpan = document.getElementById("vampire").asInstanceOf[html.Span]
   val turnGhostSpan = document.getElementById("ghost").asInstanceOf[html.Span]
 
-  // Spells
-  val firstLvlSpellsSpan = document.getElementById("first_level").asInstanceOf[html.Span]
-  val secondLvlSpellsSpan = document.getElementById("second_level").asInstanceOf[html.Span]
-  val thirdLvlSpellsSpan = document.getElementById("third_level").asInstanceOf[html.Span]
-  val fourthLvlSpellsSpan = document.getElementById("fourth_level").asInstanceOf[html.Span]
-  val fifthLvlSpellsSpan = document.getElementById("fifth_level").asInstanceOf[html.Span]
-  val sixthLvlSpellsSpan = document.getElementById("sixth_level").asInstanceOf[html.Span]
-
-  // Pick Pockets
+  // Thief Skills
+  val thiefSkillsDiv = document.getElementById("thief_skills_div").asInstanceOf[html.Div]
+  thiefSkillsDiv.style.display = "none"
   val openLocksSpan = document.getElementById("openLocks").asInstanceOf[html.Span]
   val removeTrapsSpan = document.getElementById("removeTraps").asInstanceOf[html.Span]
   val pickPocketsSpan = document.getElementById("pickPockets").asInstanceOf[html.Span]
@@ -71,6 +67,17 @@ object DOMObjects {
   val climbWallsSpan = document.getElementById("climbWalls").asInstanceOf[html.Span]
   val hideSpan = document.getElementById("hide").asInstanceOf[html.Span]
   val listenSpan = document.getElementById("listen").asInstanceOf[html.Span]
+
+  // Spells
+  val casterSpellsDiv = document.getElementById("caster_spells_div").asInstanceOf[html.Div]
+  casterSpellsDiv.style.display = "none"
+  val firstLvlSpellsSpan = document.getElementById("first_level").asInstanceOf[html.Span]
+  val secondLvlSpellsSpan = document.getElementById("second_level").asInstanceOf[html.Span]
+  val thirdLvlSpellsSpan = document.getElementById("third_level").asInstanceOf[html.Span]
+  val fourthLvlSpellsSpan = document.getElementById("fourth_level").asInstanceOf[html.Span]
+  val fifthLvlSpellsSpan = document.getElementById("fifth_level").asInstanceOf[html.Span]
+  val sixthLvlSpellsSpan = document.getElementById("sixth_level").asInstanceOf[html.Span]
+
 
   // Background
   val nationalitySpan = document.getElementById("nationality").asInstanceOf[html.Span]

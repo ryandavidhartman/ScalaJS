@@ -198,6 +198,23 @@ object CharacterApp {
 
     if(!checkCharacterClass(getRace(), getCharacterClass()))
       character_class_select.selectedIndex = 0
+
+    val characterClass = getCharacterClass()
+    if(characterClass.isCleric)
+      turnUndeadDiv.style.display = "inline"
+    else
+      turnUndeadDiv.style.display = "none"
+
+    if(characterClass.isThief)
+      thiefSkillsDiv.style.display = "inline"
+    else
+      thiefSkillsDiv.style.display = "none"
+
+    if(characterClass.isSpellCaster)
+      casterSpellsDiv.style.display = "inline"
+    else
+      casterSpellsDiv.style.display = "none"
+
   }
 
   @JSExportTopLevel("checkMaxStr")

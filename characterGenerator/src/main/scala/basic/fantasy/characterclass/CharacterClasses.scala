@@ -36,6 +36,7 @@ object CharacterClasses {
     override val isThief = true
     override val isMagicUser = true
     override val isMultiClass = true
+    override val isSpellCaster = true
   }
 
   case object Thief extends CharacterClass {
