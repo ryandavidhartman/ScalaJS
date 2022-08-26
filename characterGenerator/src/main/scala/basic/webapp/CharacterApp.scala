@@ -190,7 +190,7 @@ object CharacterApp {
   }
 
   @JSExportTopLevel("setSpecialAbilities")
-  def setSpecialAbilities(): Unit = special_abilities.innerHTML= getRacialAbilities(getRace())
+  def setSpecialAbilities(): Unit = special_abilities.innerHTML= getAbilities(getRace(), getCharacterClass())
 
 
   @JSExportTopLevel("checkClass")

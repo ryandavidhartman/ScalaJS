@@ -139,8 +139,8 @@ object BasicFantasy {
     }
   }
 
-  def getRacialAbilities(race: Race): String = {
-    val abilities = race.weapons ++ race.getAbilities
+  def getAbilities(race: Race, characterClass: CharacterClass): String = {
+    val abilities = characterClass.getAbilities() ++ race.weapons ++ race.getAbilities
 
     abilities.map(a => s"<tr><td>$a</td>")
       .mkString("<table class=\"unstriped\">", "", "</table>")

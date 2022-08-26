@@ -20,7 +20,7 @@ object Races {
   )
 
   sealed trait Race {
-    val weapons: Seq[String] = Seq("Large weapons require two hands")
+    val weapons: Seq[String] = Seq.empty[String]
     val getAbilities: Seq[String]
     val savingsThrowBonuses: SavingsThrowBonuses = SavingsThrowBonuses(0, 0, 0, 0, 0)
     def carryingCapacity(strength: Int): (Int, Int) = {
@@ -58,7 +58,6 @@ object Races {
 
   case object Dwarf extends Race {
     override val weapons = Seq(
-      "Large weapons require two hands",
       "No 2-handed swords, pole-arms, or longbows"
     )
 
