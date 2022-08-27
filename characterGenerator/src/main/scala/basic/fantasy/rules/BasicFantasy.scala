@@ -142,7 +142,7 @@ object BasicFantasy {
   def getAbilities(race: Race, characterClass: CharacterClass): String = {
     val abilities = characterClass.getAbilities() ++ race.weapons ++ race.getAbilities
 
-    abilities.map(a => s"<tr><td>$a</td>")
+    abilities.map(a => s"<tr><td><small>$a</small></td>")
       .mkString("<table class=\"unstriped\">", "", "</table>")
   }
 }

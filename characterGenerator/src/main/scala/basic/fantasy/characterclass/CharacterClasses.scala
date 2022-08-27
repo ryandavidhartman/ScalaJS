@@ -18,8 +18,8 @@ object CharacterClasses {
     override val isSpellCaster = true
 
     override def getAbilities(): Seq[String] = Seq(
-      "Armor: Any, shields allowed",
-      "Weapons: Blunt weapons only (club, mace, maul, quarterstaff, sling, warhammer)",
+      "Any armor/shield",
+      "Blunt weapons only (club, mace, maul, quarterstaff, sling, warhammer)",
     )
   }
 
@@ -27,8 +27,8 @@ object CharacterClasses {
     override val isFighter = true
 
     override def getAbilities(): Seq[String] = Seq(
-      "Armor: Any, shields allowed",
-      "Weapon Proficiencies: All"
+      "Any armor/shield",
+      "Any weapon type"
     )
   }
 
@@ -39,8 +39,8 @@ object CharacterClasses {
     override val isSpellCaster = true
 
     override def getAbilities(): Seq[String] = Seq(
-      "Armor: None when casting, Any otherwise",
-      "Weapon Proficiencies: All"
+      "No armor/shield when casting, any otherwise",
+      "All weapon types"
     )
   }
 
@@ -49,8 +49,8 @@ object CharacterClasses {
     override val isSpellCaster = true
 
     override def getAbilities(): Seq[String] = Seq(
-      "Armor: None",
-      "Weapon Proficiencies: Cudgel, dagger, walking staff",
+      "No armor or shield",
+      "Allowed weapons: cudgel, dagger, walking staff",
     )
   }
 
@@ -61,8 +61,8 @@ object CharacterClasses {
     override val isSpellCaster = true
 
     override def getAbilities(): Seq[String] = Seq(
-      "Armor: None when casting, Leather, no shield otherwise",
-      "Weapon Proficiencies: All"
+      "No armor/shield when casting. Leather, no shield otherwise",
+      "All weapon types"
     )
   }
 
@@ -70,8 +70,8 @@ object CharacterClasses {
     override val isThief = true
 
     override def getAbilities(): Seq[String] = Seq(
-      "Armor: Leather, no shield",
-      "Weapon Proficiencies: All"
+      "Leather armor, no shield",
+      "All weapon types"
     )
   }
 
