@@ -36,7 +36,7 @@ object DOMObjects {
   val ac_bonus = document.getElementById("ac_bonus").asInstanceOf[html.Span]
   val base_ac = document.getElementById("base_ac").asInstanceOf[html.Span]
   val hit_points = document.getElementById("hit_points").asInstanceOf[html.Span]
-  val special_abilities = document.getElementById("special_abilities").asInstanceOf[html.Div]
+  val special_abilities = document.getElementById("special_abilities").asInstanceOf[html.TextArea]
 
   val deathSavingsThrow = document.getElementById("death").asInstanceOf[html.Span]
   val wandsSavingsThrow = document.getElementById("wands").asInstanceOf[html.Span]
