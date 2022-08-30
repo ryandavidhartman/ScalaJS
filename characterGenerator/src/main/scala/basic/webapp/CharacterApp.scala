@@ -86,6 +86,10 @@ object CharacterApp {
       setHitPointsHandler()
     })
 
+    wis_select.addEventListener("change", { (_: dom.MouseEvent) =>
+      checkMaxWis()
+    })
+
     chr_select.addEventListener("change", { (_: dom.MouseEvent) =>
       checkMaxChr()
     })
@@ -138,14 +142,14 @@ object CharacterApp {
     val attributes: Seq[html.Select] = getCharacterClass() match {
       case Cleric => Seq(wis_select, str_select, con_select, int_select,  chr_select, dex_select)
       case Fighter => Seq(str_select, con_select, dex_select, chr_select,  wis_select, int_select)
-      case Thief =>   Seq(dex_select, chr_select, con_select, str_select,  int_select, wis_select)
-      case MagicUser => Seq(int_select, dex_select, con_select, wis_select, chr_select, str_select)
       case FighterMagicUser =>  Seq(int_select, str_select, con_select, dex_select, wis_select, chr_select)
+      case MagicUser => Seq(int_select, dex_select, con_select, wis_select, chr_select, str_select)
       case MagicUserThief => Seq(int_select, dex_select, con_select, wis_select, chr_select, str_select)
+      case Monk => Seq(wis_select, dex_select, str_select, con_select, int_select, chr_select)
+      case Thief =>   Seq(dex_select, chr_select, con_select, str_select,  int_select, wis_select)
     }
 
     (0 to 5).foreach(i => attributes(i).selectedIndex = scores(i))
-    checkMaxStr()
   }
 
   @JSExportTopLevel("setBaseAttackBonusHandler")
@@ -176,7 +180,6 @@ object CharacterApp {
   def setACBonusHandler(): Unit = {
 
     val dexterity: Int = dex_select.value.toInt
-
     ac_bonus.textContent = calcACModifier(dexterity)
   }
 
@@ -219,21 +222,40 @@ object CharacterApp {
 
   @JSExportTopLevel("checkMaxStr")
   def checkMaxStr(): Unit = {
-    val race = character_race_select.value
-    if(race == "Halfling" && str_select.selectedIndex >= 15)
+    val race = getRace()
+    val characterClass = getCharacterClass()
+
+    if(race == Halfling && str_select.selectedIndex >= 15)
       str_select.selectedIndex = 14
+
+    if(characterClass == Monk && str_select.selectedIndex < 10)
+      str_select.selectedIndex = 10
   }
 
   @JSExportTopLevel("checkMaxDex")
   def checkMaxDex(): Unit = {
-    val race = character_race_select.value
-    if(race == "Halfling" && dex_select.selectedIndex < 6)
+    val race = getRace()
+    val characterClass = getCharacterClass()
+
+    if(race == Halfling && dex_select.selectedIndex < 6)
       dex_select.selectedIndex = 6
+
+    if(characterClass == Monk && dex_select.selectedIndex < 10)
+      dex_select.selectedIndex = 10
+  }
+
+  @JSExportTopLevel("checkMaxWis")
+  def checkMaxWis(): Unit = {
+    val characterClass = getCharacterClass()
+    if(characterClass == Monk && wis_select.selectedIndex < 10)
+      wis_select.selectedIndex = 10
   }
 
   @JSExportTopLevel("checkMaxCon")
   def checkMaxCon(): Unit = {
     val race = getRace()
+    val characterClass = getCharacterClass()
+
     if(race == Elf && con_select.selectedIndex >= 15)
       con_select.selectedIndex = 14
     if(race == HalfElf && con_select.selectedIndex >= 15)
@@ -241,6 +263,8 @@ object CharacterApp {
     if(race == Dwarf && con_select.selectedIndex < 6)
       con_select.selectedIndex = 6
     if(race == HalfOrc && con_select.selectedIndex < 6)
+      con_select.selectedIndex = 6
+    if(characterClass == Monk && con_select.selectedIndex < 6)
       con_select.selectedIndex = 6
   }
 
@@ -253,8 +277,8 @@ object CharacterApp {
     if(race == HalfElf && int_select.selectedIndex < 6)
       int_select.selectedIndex = 6
 
-    if(race == HalfOrc && con_select.selectedIndex >= 15)
-      con_select.selectedIndex = 14
+    if(race == HalfOrc && int_select.selectedIndex >= 15)
+      int_select.selectedIndex = 14
   }
 
   @JSExportTopLevel("checkChrChr")

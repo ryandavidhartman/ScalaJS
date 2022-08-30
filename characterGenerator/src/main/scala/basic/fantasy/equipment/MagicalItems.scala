@@ -216,7 +216,10 @@ object MagicalItems {
     override def toString: String = s"Ring of Plant Control"
   }
   case class Protection(level: Int) extends Ring {
-    override def toString: String = s"Ring of Protection +${level/5}"
+    override def toString: String = {
+      val magic = Math.max(level/5, 1)
+      s"Ring of Protection +$magic"
+    }
   }
   case object Quickness extends Ring
 
@@ -421,9 +424,9 @@ object MagicalItems {
   }
 
   def getMagicItems(characterClass: CharacterClass, race: Race, level: Int): Set[MagicItem] = {
-    val numItems: Int = level/5
+    val numItems: Int = Math.min(Roller.randomInt(level), 6)
 
-    (0 to numItems).map(_ => getMagicItem(characterClass, race, level)).toSet
+    (1 to numItems).map(_ => getMagicItem(characterClass, race, level)).toSet
   }
 
 }

@@ -2,7 +2,7 @@ package basic.fantasy.equipment
 
 import basic.fantasy.Roller
 import basic.fantasy.backgrounds.Races.{Dwarf, Elf, HalfElf, HalfOrc, Halfling, Human, Race}
-import basic.fantasy.characterclass.CharacterClasses.{CharacterClass, Cleric, Fighter, FighterMagicUser, MagicUser, MagicUserThief, Thief}
+import basic.fantasy.characterclass.CharacterClasses.{CharacterClass, Cleric, Fighter, FighterMagicUser, MagicUser, MagicUserThief, Monk, Thief}
 
 object MeleeWeapons {
 
@@ -34,7 +34,7 @@ object MeleeWeapons {
 
   case object NoMeleeWeapon extends MeleeWeapon(0, Small, 0,"") {
     val name = "None"
-    override def toString: String = "No offhand weapon"
+    override def toString: String = "No melee weapon"
   }
 
   //Axes
@@ -457,6 +457,19 @@ object MeleeWeapons {
           getSword(level, maxSize, offHand = false)
         else
           getDagger(level, offHand = false)
+      case Monk =>
+        if(roll < 50)
+          NoMeleeWeapon
+        else if(roll < 60)
+          getChainOrFlail(level,maxSize)
+        else if(roll < 70)
+          getHammerOrMace(level, maxSize)
+        else if(roll < 80)
+          getSpearOrPoleArm(level, maxSize)
+        else if(roll < 90)
+          getSword(level, maxSize, offHand = false)
+        else
+          getOtherWeapons(level, maxSize)
       case Thief => getAxe(level, maxSize)
         if(roll < 70)
           getSword(level, maxSize, offHand = false)
@@ -466,11 +479,11 @@ object MeleeWeapons {
   }
 
   def getSecondaryWeapon(
-                          characterClass: CharacterClass,
-                          race: Race,
-                          level: Int,
-                          mainWeapon: MeleeWeapon,
-                          hasShield: Boolean): MeleeWeapon = {
+    characterClass: CharacterClass,
+    race: Race,
+    level: Int,
+    mainWeapon: MeleeWeapon,
+    hasShield: Boolean): MeleeWeapon = {
 
     val maxSize = race match {
       case Dwarf => Medium

@@ -1,8 +1,8 @@
 package basic.fantasy.characterclass
 
 import basic.fantasy.Roller
+import basic.fantasy.backgrounds.Spells._
 import basic.fantasy.backgrounds.{Chaotic, CharacterAlignment, Lawful, Neutral}
-import basic.fantasy.backgrounds.Spells.{CharmPerson, EvilClericSpells, EvilMagicUserSpells, GoodClericSpells, GoodMagicUserSpells, KnownClericSpells, KnownMagicUserSpells, Spell}
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
 
 object SpellsPerLevel {

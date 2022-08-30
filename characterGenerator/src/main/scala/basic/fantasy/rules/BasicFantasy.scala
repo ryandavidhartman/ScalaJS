@@ -8,7 +8,7 @@ object BasicFantasy {
 
   def calcBaseAttackModifier(characterClass: CharacterClass, level: Int): String = {
     characterClass match {
-      case f if f.isFighter =>
+      case f if f.isFighter || f.isMonk =>
         if (level == 1)
           "+1"
         else if (level <= 3)
@@ -89,7 +89,7 @@ object BasicFantasy {
     val truncated_level = Math.min(level, cutOffLevel)
     val hitDice: Int = characterClass match {
       case f if f.isFighter => 8
-      case c if c.isCleric => 6
+      case c if c.isCleric || c.isMonk => 6
       case s if s.isThief || s.isMagicUser => 4
     }
 
