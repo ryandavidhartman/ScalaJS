@@ -2,7 +2,7 @@ package basic.fantasy.rules
 
 import basic.fantasy.Roller
 import basic.fantasy.backgrounds.Races._
-import basic.fantasy.characterclass.CharacterClasses.{CharacterClass, MagicUser}
+import basic.fantasy.characterclass.CharacterClasses.{CharacterClass, MagicUser, Monk}
 
 object BasicFantasy {
 
@@ -77,9 +77,14 @@ object BasicFantasy {
     modifierBonusIntToString(num)
   }
 
-  def calcACModifier(dexterity: Int): String = {
-    val num = attributeModifiers(dexterity)
-    modifierBonusIntToString(num)
+  def calcACModifier(dexterity: Int, wisdom: Int, characterClass: CharacterClass, level: Int): String = {
+    val dexMod = attributeModifiers(dexterity)
+    val wisMod = attributeModifiers(wisdom)
+    val levelMod = level/4
+    if(characterClass == Monk)
+      modifierBonusIntToString(dexMod + wisMod + levelMod)
+    else
+      modifierBonusIntToString(dexMod)
   }
 
   def calcHitPoints(characterClass: CharacterClass, race: Race, level: Int, constitution: Int): Int = {

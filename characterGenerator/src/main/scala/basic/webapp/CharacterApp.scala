@@ -5,7 +5,7 @@ import basic.fantasy.backgrounds.PersonalityGenerator.getPersonality
 import basic.fantasy.backgrounds.Races._
 import basic.fantasy.backgrounds._
 import basic.fantasy.characterclass.CharacterClasses._
-import basic.fantasy.characterclass.{SavingsThrows, SpellsPerLevel, ThiefSkills, TurnUndead}
+import basic.fantasy.characterclass.{MonkSkills, SavingsThrows, SpellsPerLevel, ThiefSkills, TurnUndead}
 import basic.fantasy.equipment.EquipmentGenerator
 import basic.fantasy.equipment.Shields.NoShield
 import basic.fantasy.rules.BasicFantasy
@@ -118,6 +118,7 @@ object CharacterApp {
     setPersonality()
     setTurnUndead()
     setThiefSkills()
+    setMonkSkills()
     setEquipment()
   }
 
@@ -180,7 +181,8 @@ object CharacterApp {
   def setACBonusHandler(): Unit = {
 
     val dexterity: Int = dex_select.value.toInt
-    ac_bonus.textContent = calcACModifier(dexterity)
+    val wisdom: Int = wis_select.value.toInt
+    ac_bonus.textContent = calcACModifier(dexterity, wisdom, getCharacterClass(), getCharacterLevel())
   }
 
   @JSExportTopLevel("setHitPointsHandler")
@@ -217,6 +219,11 @@ object CharacterApp {
       casterSpellsDiv.style.display = "inline"
     else
       casterSpellsDiv.style.display = "none"
+
+    if(characterClass.isMonk)
+      monkSkillsDiv.style.display = "inline"
+    else
+      monkSkillsDiv.style.display = "none"
 
   }
 
@@ -366,6 +373,18 @@ object CharacterApp {
     climbWallsSpan.textContent = skills(4)
     hideSpan.textContent = skills(5)
     listenSpan.textContent = skills(6)
+  }
+
+  @JSExportTopLevel("setMonkSkills")
+  def setMonkSkills(): Unit = {
+
+    val monkLevel = if(getCharacterClass().isMonk) getCharacterLevel() else 0
+    val skills:Seq[String] = MonkSkills.skills(monkLevel)
+
+    monkMoveSilentlySpan.textContent = skills.head
+    monkClimbWallsSpan.textContent = skills(1)
+    monkHideSpan.textContent = skills(2)
+    monkListenSpan.textContent = skills(3)
   }
 
   @JSExportTopLevel("setBackground")

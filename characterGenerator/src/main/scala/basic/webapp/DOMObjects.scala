@@ -68,6 +68,15 @@ object DOMObjects {
   val hideSpan = document.getElementById("hide").asInstanceOf[html.Span]
   val listenSpan = document.getElementById("listen").asInstanceOf[html.Span]
 
+  // Monk Skills
+  val monkSkillsDiv = document.getElementById("monk_skills_div").asInstanceOf[html.Div]
+  monkSkillsDiv.style.display = "none"
+
+  val monkMoveSilentlySpan = document.getElementById("monkMoveSilently").asInstanceOf[html.Span]
+  val monkClimbWallsSpan = document.getElementById("monkClimbWalls").asInstanceOf[html.Span]
+  val monkHideSpan = document.getElementById("monkHide").asInstanceOf[html.Span]
+  val monkListenSpan = document.getElementById("monkListen").asInstanceOf[html.Span]
+
   // Spells
   val casterSpellsDiv = document.getElementById("caster_spells_div").asInstanceOf[html.Div]
   casterSpellsDiv.style.display = "none"

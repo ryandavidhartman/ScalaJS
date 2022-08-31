@@ -32,9 +32,23 @@ object MeleeWeapons {
     }
   }
 
-  case object NoMeleeWeapon extends MeleeWeapon(0, Small, 0,"") {
-    val name = "None"
-    override def toString: String = "No melee weapon"
+  case class Unarmed(characterClass: CharacterClass, level: Int)
+    extends MeleeWeapon(0, Small, 0,"") {
+    val name = "Unarmed"
+    override def toString: String = {
+      val damage =
+        if(characterClass.isMonk)
+          if(level < 4) "1d4"
+          else if(level < 8) "1d6"
+          else if(level < 12) "1d8"
+          else if(level < 16) "1d10"
+          else if(level < 20) "2d6"
+          else "2d8"
+        else "punch 1d3, kick 1d4 (-2 attack penalty)"
+
+      s"Unarmed Attack: $damage"
+
+    }
   }
 
   //Axes
@@ -458,18 +472,7 @@ object MeleeWeapons {
         else
           getDagger(level, offHand = false)
       case Monk =>
-        if(roll < 50)
-          NoMeleeWeapon
-        else if(roll < 60)
-          getChainOrFlail(level,maxSize)
-        else if(roll < 70)
-          getHammerOrMace(level, maxSize)
-        else if(roll < 80)
-          getSpearOrPoleArm(level, maxSize)
-        else if(roll < 90)
-          getSword(level, maxSize, offHand = false)
-        else
-          getOtherWeapons(level, maxSize)
+        Unarmed(characterClass, level)
       case Thief => getAxe(level, maxSize)
         if(roll < 70)
           getSword(level, maxSize, offHand = false)
@@ -498,10 +501,19 @@ object MeleeWeapons {
         getDagger(level, offHand = true)
       else if(roll < 60)
         getSword(level, Small, offHand = true)
+    if(characterClass.isMonk)
+      if(roll < 20)
+        getChainOrFlail(level,maxSize)
+      else if(roll < 40)
+        getHammerOrMace(level, maxSize)
+      else if(roll < 60)
+        getSpearOrPoleArm(level, maxSize)
+      else if(roll < 80)
+        getSword(level, maxSize, offHand = false)
       else
-        NoMeleeWeapon
+        getOtherWeapons(level, maxSize)
     else
-      NoMeleeWeapon
+      Unarmed(characterClass, level)
 
   }
 
