@@ -4,31 +4,32 @@ import basic.fantasy.backgrounds.{AlignmentGenerator, CharacterAlignment, Races}
 import basic.fantasy.backgrounds.Races.Race
 import basic.fantasy.characterclass.CharacterClasses
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
+import org.scalajs.dom.html.{Button, Input, Select}
 import org.scalajs.dom.{document, html}
 
 object DOMObjects {
 
   // DOM Objects
-  val character_name_input = document.getElementById("character_name_input").asInstanceOf[html.Input]
-  val character_gender_select = document.getElementById("character_gender_select").asInstanceOf[html.Select]
-  val character_height_input =  document.getElementById("character_height_input").asInstanceOf[html.Input]
-  val character_weight_input =  document.getElementById("character_weight_input").asInstanceOf[html.Input]
-  val character_age_input =  document.getElementById("character_age_input").asInstanceOf[html.Input]
-  val character_alignment_select =  document.getElementById("character_alignment_select").asInstanceOf[html.Select]
-  val character_personality_input = document.getElementById("character_personality_input").asInstanceOf[html.Input]
+  val character_name_input: Input = document.getElementById("character_name_input").asInstanceOf[Input]
+  val character_gender_select: Select = document.getElementById("character_gender_select").asInstanceOf[Select]
+  val character_height_input: Input =  document.getElementById("character_height_input").asInstanceOf[Input]
+  val character_weight_input: Input =  document.getElementById("character_weight_input").asInstanceOf[Input]
+  val character_age_input: Input =  document.getElementById("character_age_input").asInstanceOf[Input]
+  val character_alignment_select: Select =  document.getElementById("character_alignment_select").asInstanceOf[Select]
+  val character_personality_input: Input = document.getElementById("character_personality_input").asInstanceOf[Input]
 
-  val str_select = document.getElementById("character_strength_select").asInstanceOf[html.Select]
-  val dex_select = document.getElementById("character_dexterity_select").asInstanceOf[html.Select]
-  val con_select = document.getElementById("character_constitution_select").asInstanceOf[html.Select]
-  val int_select = document.getElementById("character_intelligence_select").asInstanceOf[html.Select]
-  val wis_select = document.getElementById("character_wisdom_select").asInstanceOf[html.Select]
-  val chr_select = document.getElementById("character_charisma_select").asInstanceOf[html.Select]
+  val str_select: Select = document.getElementById("character_strength_select").asInstanceOf[Select]
+  val dex_select: Select = document.getElementById("character_dexterity_select").asInstanceOf[Select]
+  val con_select: Select = document.getElementById("character_constitution_select").asInstanceOf[Select]
+  val int_select: Select = document.getElementById("character_intelligence_select").asInstanceOf[Select]
+  val wis_select: Select = document.getElementById("character_wisdom_select").asInstanceOf[Select]
+  val chr_select: Select = document.getElementById("character_charisma_select").asInstanceOf[Select]
 
-  val character_race_select = document.getElementById("character_race_select").asInstanceOf[html.Select]
-  val character_class_select = document.getElementById("character_class_select").asInstanceOf[html.Select]
-  val character_level_select = document.getElementById("character_level_select").asInstanceOf[html.Select]
-  val rollButton = document.getElementById("roll_ability_scores").asInstanceOf[html.Button]
-  val rollNameButton = document.getElementById("roll_character_name").asInstanceOf[html.Button]
+  val character_race_select: Select = document.getElementById("character_race_select").asInstanceOf[html.Select]
+  val character_class_select: Select = document.getElementById("character_class_select").asInstanceOf[html.Select]
+  val character_level_select: Select = document.getElementById("character_level_select").asInstanceOf[html.Select]
+  val rollButton: Button = document.getElementById("roll_ability_scores").asInstanceOf[Button]
+  val rollNameButton: Button = document.getElementById("roll_character_name").asInstanceOf[Button]
 
   val base_attack_bonus = document.getElementById("base_attack_bonus").asInstanceOf[html.Span]
   val melee_attack_bonus = document.getElementById("melee_attack_bonus").asInstanceOf[html.Span]
@@ -97,8 +98,9 @@ object DOMObjects {
   val adolescentEventsDiv = document.getElementById("adolescentEvents").asInstanceOf[html.Div]
 
 
+
   // Equipment
-  val armorDiv = document.getElementById("armor").asInstanceOf[html.Div]
+  val armorInput: Input = document.getElementById("armor").asInstanceOf[Input]
   val mainHandDiv = document.getElementById("mainHand").asInstanceOf[html.Div]
   val offHandDiv = document.getElementById("offHand").asInstanceOf[html.Div]
   val rangedWeaponDiv = document.getElementById("rangedWeapon").asInstanceOf[html.Div]

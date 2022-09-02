@@ -412,7 +412,7 @@ object CharacterApp {
   def setEquipment(): Unit = {
     val equipment = EquipmentGenerator.getEquipment(getCharacterClass(), getCharacterLevel(), getRace())
 
-    armorDiv.textContent = equipment.armor.toString
+    armorInput.value = equipment.armor.toString
     base_ac.textContent = equipment.armor.ac.toString
     mainHandDiv.textContent = equipment.meleeWeapon.toString
     if(equipment.shield == NoShield)
