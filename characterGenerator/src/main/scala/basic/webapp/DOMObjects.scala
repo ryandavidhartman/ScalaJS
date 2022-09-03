@@ -4,7 +4,7 @@ import basic.fantasy.backgrounds.{AlignmentGenerator, CharacterAlignment, Races}
 import basic.fantasy.backgrounds.Races.Race
 import basic.fantasy.characterclass.CharacterClasses
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
-import org.scalajs.dom.html.{Button, Input, Select}
+import org.scalajs.dom.html.{Button, Div, Input, Select, Span, TextArea}
 import org.scalajs.dom.{document, html}
 
 object DOMObjects {
@@ -25,30 +25,30 @@ object DOMObjects {
   val wis_select: Select = document.getElementById("character_wisdom_select").asInstanceOf[Select]
   val chr_select: Select = document.getElementById("character_charisma_select").asInstanceOf[Select]
 
-  val character_race_select: Select = document.getElementById("character_race_select").asInstanceOf[html.Select]
-  val character_class_select: Select = document.getElementById("character_class_select").asInstanceOf[html.Select]
-  val character_level_select: Select = document.getElementById("character_level_select").asInstanceOf[html.Select]
+  val character_race_select: Select = document.getElementById("character_race_select").asInstanceOf[Select]
+  val character_class_select: Select = document.getElementById("character_class_select").asInstanceOf[Select]
+  val character_level_select: Select = document.getElementById("character_level_select").asInstanceOf[Select]
   val rollButton: Button = document.getElementById("roll_ability_scores").asInstanceOf[Button]
   val rollNameButton: Button = document.getElementById("roll_character_name").asInstanceOf[Button]
 
-  val base_attack_bonus = document.getElementById("base_attack_bonus").asInstanceOf[html.Span]
-  val melee_attack_bonus = document.getElementById("melee_attack_bonus").asInstanceOf[html.Span]
-  val ranged_attack_bonus = document.getElementById("ranged_attack_bonus").asInstanceOf[html.Span]
-  val ac_bonus = document.getElementById("ac_bonus").asInstanceOf[html.Span]
-  val base_ac = document.getElementById("base_ac").asInstanceOf[html.Span]
-  val hit_points = document.getElementById("hit_points").asInstanceOf[html.Span]
-  val special_abilities = document.getElementById("special_abilities").asInstanceOf[html.TextArea]
+  val base_attack_bonus: Span = document.getElementById("base_attack_bonus").asInstanceOf[Span]
+  val melee_attack_bonus: Span = document.getElementById("melee_attack_bonus").asInstanceOf[Span]
+  val ranged_attack_bonus: Span = document.getElementById("ranged_attack_bonus").asInstanceOf[Span]
+  val ac_bonus: Span = document.getElementById("ac_bonus").asInstanceOf[Span]
+  val base_ac: Span = document.getElementById("base_ac").asInstanceOf[Span]
+  val hit_points: Span = document.getElementById("hit_points").asInstanceOf[Span]
+  val special_abilities: TextArea = document.getElementById("special_abilities").asInstanceOf[TextArea]
 
-  val deathSavingsThrow = document.getElementById("death").asInstanceOf[html.Span]
-  val wandsSavingsThrow = document.getElementById("wands").asInstanceOf[html.Span]
-  val paralysisSavingsThrow = document.getElementById("paralysis").asInstanceOf[html.Span]
-  val breathSavingsThrow = document.getElementById("breath").asInstanceOf[html.Span]
-  val spellsSavingsThrow = document.getElementById("spells").asInstanceOf[html.Span]
+  val deathSavingsThrow: Span = document.getElementById("death").asInstanceOf[Span]
+  val wandsSavingsThrow: Span = document.getElementById("wands").asInstanceOf[Span]
+  val paralysisSavingsThrow: Span = document.getElementById("paralysis").asInstanceOf[Span]
+  val breathSavingsThrow: Span = document.getElementById("breath").asInstanceOf[Span]
+  val spellsSavingsThrow: Span = document.getElementById("spells").asInstanceOf[Span]
 
   // Turn Undead
-  val turnUndeadDiv = document.getElementById("turn_undead_div").asInstanceOf[html.Div]
+  val turnUndeadDiv: Div = document.getElementById("turn_undead_div").asInstanceOf[Div]
   turnUndeadDiv.style.display = "none"
-  val turnSkeletonSpan = document.getElementById("skeleton").asInstanceOf[html.Span]
+  val turnSkeletonSpan: Span = document.getElementById("skeleton").asInstanceOf[html.Span]
   val turnZombieSpan = document.getElementById("zombie").asInstanceOf[html.Span]
   val turnGhoulSpan = document.getElementById("ghoul").asInstanceOf[html.Span]
   val turnWightSpan = document.getElementById("wight").asInstanceOf[html.Span]
@@ -101,11 +101,11 @@ object DOMObjects {
 
   // Equipment
   val armorInput: Input = document.getElementById("armor").asInstanceOf[Input]
-  val mainHandDiv = document.getElementById("mainHand").asInstanceOf[html.Div]
-  val offHandDiv = document.getElementById("offHand").asInstanceOf[html.Div]
-  val rangedWeaponDiv = document.getElementById("rangedWeapon").asInstanceOf[html.Div]
-  val magicItemsDiv = document.getElementById("magicItems").asInstanceOf[html.Div]
-  val equipmentPackDiv = document.getElementById("equipmentPack").asInstanceOf[html.Div]
+  val mainHandInput: Input = document.getElementById("mainHand").asInstanceOf[Input]
+  val offHandInput: Input = document.getElementById("offHand").asInstanceOf[Input]
+  val rangedWeaponInput: Input = document.getElementById("rangedWeapon").asInstanceOf[Input]
+  val magicItemsTextArea: TextArea = document.getElementById("magicItems").asInstanceOf[TextArea]
+  val equipmentPackInput: Input = document.getElementById("equipmentPack").asInstanceOf[Input]
 
   def getStrength(): Int = str_select.value.toInt
   def getDexterity(): Int = dex_select.value.toInt
