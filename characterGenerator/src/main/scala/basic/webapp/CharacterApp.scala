@@ -147,7 +147,7 @@ object CharacterApp {
       case MagicUser => Seq(int_select, dex_select, con_select, wis_select, chr_select, str_select)
       case MagicUserThief => Seq(int_select, dex_select, con_select, wis_select, chr_select, str_select)
       case Monk => Seq(wis_select, dex_select, str_select, con_select, int_select, chr_select)
-      case Thief =>   Seq(dex_select, chr_select, con_select, str_select,  int_select, wis_select)
+      case Thief =>   Seq(dex_select, con_select, str_select, chr_select, int_select, wis_select)
     }
 
     (0 to 5).foreach(i => attributes(i).selectedIndex = scores(i))
