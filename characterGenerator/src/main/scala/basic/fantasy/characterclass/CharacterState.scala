@@ -1,8 +1,10 @@
 package basic.fantasy.characterclass
 
+import basic.fantasy.backgrounds.BackgroundGenerator.Background
 import basic.fantasy.backgrounds.CharacterAlignment
 import basic.fantasy.backgrounds.Races.Race
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
+import basic.fantasy.equipment.Equipment
 
 case class CharacterState(
    name: String,
@@ -22,5 +24,13 @@ case class CharacterState(
    wisdom: Int,
    charisma: Int,
    attackBonus: String,
-
+   meleeBonus: String,
+   rangedBonus: String,
+   acBonus: String,
+   baseBonus: String,
+   hitPoints: Int,
+   savingsThrows: SavingsThrows,
+   abilities: String,
+   background: Background,
+   equipment: Equipment
 )
