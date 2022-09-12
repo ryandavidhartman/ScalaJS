@@ -121,6 +121,13 @@ object DOMObjects {
   def getCharacterClass(): CharacterClass = CharacterClasses.stringToCharacterClass(character_class_select.value)
   def getCharacterLevel(): Int =  character_level_select.value.toInt
   def getCharacterAlignment(): CharacterAlignment =  AlignmentGenerator.stringToCharacterAlignment(character_alignment_select.value)
+  def getSavingThrows(): SavingsThrows = SavingsThrows(
+    deathRayOrPoison = deathSavingsThrow.textContent.toInt,
+    magicWands = wandsSavingsThrow.textContent.toInt,
+    paralysisOrPetrify = paralysisSavingsThrow.textContent.toInt,
+    breathWeapons = breathSavingsThrow.textContent.toInt,
+    spells = spellsSavingsThrow.textContent.toInt
+  )
 
   var state: CharacterState = CharacterState(
     name = character_name_input.value,
@@ -145,8 +152,8 @@ object DOMObjects {
     acBonus = ac_bonus.textContent,
     acBase = base_ac.textContent,
     hitPoints = hit_points.textContent.toInt,
-    savingsThrows = ???,
-    abilities = ???, //: String,
+    savingsThrows = getSavingThrows(),
+    abilities = special_abilities.value,
     background = ???, //: Background,
     equipment = ??? //: Equipment
 
