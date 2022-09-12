@@ -1,9 +1,11 @@
 package basic.webapp
 
+import basic.fantasy.backgrounds.BackgroundGenerator.Background
 import basic.fantasy.backgrounds.{AlignmentGenerator, CharacterAlignment, Races}
 import basic.fantasy.backgrounds.Races.Race
-import basic.fantasy.characterclass.CharacterClasses
+import basic.fantasy.characterclass.{CharacterClasses, CharacterState, SavingsThrows}
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
+import basic.fantasy.equipment.Equipment
 import org.scalajs.dom.html.{Button, Div, Input, Select, Span, TextArea}
 import org.scalajs.dom.{document, html}
 
@@ -119,5 +121,35 @@ object DOMObjects {
   def getCharacterClass(): CharacterClass = CharacterClasses.stringToCharacterClass(character_class_select.value)
   def getCharacterLevel(): Int =  character_level_select.value.toInt
   def getCharacterAlignment(): CharacterAlignment =  AlignmentGenerator.stringToCharacterAlignment(character_alignment_select.value)
+
+  var state: CharacterState = CharacterState(
+    name = character_name_input.value,
+    race =  getRace(),
+    characterClass = getCharacterClass(),
+    level = character_level_select.value.toInt,
+    gender = character_gender_select.value,
+    height = character_height_input.value,
+    weight = character_weight_input.value.toInt,
+    age = character_age_input.value.toInt,
+    alignment = getCharacterAlignment(),
+    personality = character_personality_input.toString,
+    strength = getStrength(),
+    dexterity = getDexterity(),
+    constitution = getConstitution(),
+    intelligence = getIntelligence(),
+    wisdom = getWisdom(),
+    charisma = getCharisma(),
+    attackBonus = base_attack_bonus.textContent,
+    meleeBonus = melee_attack_bonus.textContent,
+    rangedBonus = ranged_attack_bonus.textContent,
+    acBonus = ac_bonus.textContent,
+    acBase = base_ac.textContent,
+    hitPoints = hit_points.textContent.toInt,
+    savingsThrows = ???,
+    abilities = ???, //: String,
+    background = ???, //: Background,
+    equipment = ??? //: Equipment
+
+  )
 
 }

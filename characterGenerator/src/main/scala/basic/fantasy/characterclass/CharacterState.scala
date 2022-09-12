@@ -27,7 +27,7 @@ case class CharacterState(
    meleeBonus: String,
    rangedBonus: String,
    acBonus: String,
-   baseBonus: String,
+   acBase: String,
    hitPoints: Int,
    savingsThrows: SavingsThrows,
    abilities: String,
