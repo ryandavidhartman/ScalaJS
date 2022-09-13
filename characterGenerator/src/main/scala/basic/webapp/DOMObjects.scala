@@ -1,12 +1,16 @@
 package basic.webapp
 
 import basic.fantasy.backgrounds.BackgroundGenerator.Background
-import basic.fantasy.backgrounds.{AlignmentGenerator, CharacterAlignment, Races}
 import basic.fantasy.backgrounds.Races.Race
-import basic.fantasy.characterclass.{CharacterClasses, CharacterState, SavingsThrows}
+import basic.fantasy.backgrounds.{AlignmentGenerator, BackgroundGenerator, CharacterAlignment, Races}
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
-import basic.fantasy.equipment.Equipment
-import org.scalajs.dom.html.{Button, Div, Input, Select, Span, TextArea}
+import basic.fantasy.characterclass.{CharacterClasses, CharacterState, SavingsThrows}
+import basic.fantasy.equipment.Armors.NoArmor
+import basic.fantasy.equipment.MeleeWeapons.ShortSword
+import basic.fantasy.equipment.RangedWeapons.ThrowingKnife
+import basic.fantasy.equipment.Shields.NoShield
+import basic.fantasy.equipment.{Equipment, EquipmentPacks}
+import org.scalajs.dom.html._
 import org.scalajs.dom.{document, html}
 
 object DOMObjects {
@@ -51,53 +55,53 @@ object DOMObjects {
   val turnUndeadDiv: Div = document.getElementById("turn_undead_div").asInstanceOf[Div]
   turnUndeadDiv.style.display = "none"
   val turnSkeletonSpan: Span = document.getElementById("skeleton").asInstanceOf[html.Span]
-  val turnZombieSpan = document.getElementById("zombie").asInstanceOf[html.Span]
-  val turnGhoulSpan = document.getElementById("ghoul").asInstanceOf[html.Span]
-  val turnWightSpan = document.getElementById("wight").asInstanceOf[html.Span]
-  val turnWraithSpan = document.getElementById("wraith").asInstanceOf[html.Span]
-  val turnMummySpan = document.getElementById("mummy").asInstanceOf[html.Span]
-  val turnSpectreSpan = document.getElementById("spectre").asInstanceOf[html.Span]
-  val turnVampireSpan = document.getElementById("vampire").asInstanceOf[html.Span]
-  val turnGhostSpan = document.getElementById("ghost").asInstanceOf[html.Span]
+  val turnZombieSpan: Span = document.getElementById("zombie").asInstanceOf[html.Span]
+  val turnGhoulSpan: Span = document.getElementById("ghoul").asInstanceOf[html.Span]
+  val turnWightSpan: Span = document.getElementById("wight").asInstanceOf[html.Span]
+  val turnWraithSpan: Span = document.getElementById("wraith").asInstanceOf[html.Span]
+  val turnMummySpan: Span = document.getElementById("mummy").asInstanceOf[html.Span]
+  val turnSpectreSpan: Span = document.getElementById("spectre").asInstanceOf[html.Span]
+  val turnVampireSpan: Span = document.getElementById("vampire").asInstanceOf[html.Span]
+  val turnGhostSpan: Span = document.getElementById("ghost").asInstanceOf[html.Span]
 
   // Thief Skills
-  val thiefSkillsDiv = document.getElementById("thief_skills_div").asInstanceOf[html.Div]
+  val thiefSkillsDiv: Div = document.getElementById("thief_skills_div").asInstanceOf[html.Div]
   thiefSkillsDiv.style.display = "none"
-  val openLocksSpan = document.getElementById("openLocks").asInstanceOf[html.Span]
-  val removeTrapsSpan = document.getElementById("removeTraps").asInstanceOf[html.Span]
-  val pickPocketsSpan = document.getElementById("pickPockets").asInstanceOf[html.Span]
-  val moveSilentlySpan = document.getElementById("moveSilently").asInstanceOf[html.Span]
-  val climbWallsSpan = document.getElementById("climbWalls").asInstanceOf[html.Span]
-  val hideSpan = document.getElementById("hide").asInstanceOf[html.Span]
-  val listenSpan = document.getElementById("listen").asInstanceOf[html.Span]
+  val openLocksSpan: Span = document.getElementById("openLocks").asInstanceOf[html.Span]
+  val removeTrapsSpan: Span = document.getElementById("removeTraps").asInstanceOf[html.Span]
+  val pickPocketsSpan: Span = document.getElementById("pickPockets").asInstanceOf[html.Span]
+  val moveSilentlySpan: Span = document.getElementById("moveSilently").asInstanceOf[html.Span]
+  val climbWallsSpan: Span = document.getElementById("climbWalls").asInstanceOf[html.Span]
+  val hideSpan: Span = document.getElementById("hide").asInstanceOf[html.Span]
+  val listenSpan: Span = document.getElementById("listen").asInstanceOf[html.Span]
 
   // Monk Skills
-  val monkSkillsDiv = document.getElementById("monk_skills_div").asInstanceOf[html.Div]
+  val monkSkillsDiv: Div = document.getElementById("monk_skills_div").asInstanceOf[html.Div]
   monkSkillsDiv.style.display = "none"
 
-  val monkMoveSilentlySpan = document.getElementById("monkMoveSilently").asInstanceOf[html.Span]
-  val monkClimbWallsSpan = document.getElementById("monkClimbWalls").asInstanceOf[html.Span]
-  val monkHideSpan = document.getElementById("monkHide").asInstanceOf[html.Span]
-  val monkListenSpan = document.getElementById("monkListen").asInstanceOf[html.Span]
+  val monkMoveSilentlySpan: Span = document.getElementById("monkMoveSilently").asInstanceOf[html.Span]
+  val monkClimbWallsSpan: Span = document.getElementById("monkClimbWalls").asInstanceOf[html.Span]
+  val monkHideSpan: Span = document.getElementById("monkHide").asInstanceOf[html.Span]
+  val monkListenSpan: Span = document.getElementById("monkListen").asInstanceOf[html.Span]
 
   // Spells
-  val casterSpellsDiv = document.getElementById("caster_spells_div").asInstanceOf[html.Div]
+  val casterSpellsDiv: Div = document.getElementById("caster_spells_div").asInstanceOf[html.Div]
   casterSpellsDiv.style.display = "none"
-  val firstLvlSpellsSpan = document.getElementById("first_level").asInstanceOf[html.Span]
-  val secondLvlSpellsSpan = document.getElementById("second_level").asInstanceOf[html.Span]
-  val thirdLvlSpellsSpan = document.getElementById("third_level").asInstanceOf[html.Span]
-  val fourthLvlSpellsSpan = document.getElementById("fourth_level").asInstanceOf[html.Span]
-  val fifthLvlSpellsSpan = document.getElementById("fifth_level").asInstanceOf[html.Span]
-  val sixthLvlSpellsSpan = document.getElementById("sixth_level").asInstanceOf[html.Span]
+  val firstLvlSpellsSpan: Span = document.getElementById("first_level").asInstanceOf[html.Span]
+  val secondLvlSpellsSpan: Span = document.getElementById("second_level").asInstanceOf[html.Span]
+  val thirdLvlSpellsSpan: Span = document.getElementById("third_level").asInstanceOf[html.Span]
+  val fourthLvlSpellsSpan: Span = document.getElementById("fourth_level").asInstanceOf[html.Span]
+  val fifthLvlSpellsSpan: Span = document.getElementById("fifth_level").asInstanceOf[html.Span]
+  val sixthLvlSpellsSpan: Span = document.getElementById("sixth_level").asInstanceOf[html.Span]
 
 
   // Background
-  val nationalitySpan = document.getElementById("nationality").asInstanceOf[html.Span]
-  val languageSpan = document.getElementById("language").asInstanceOf[html.Span]
-  val parentOccupationSpan = document.getElementById("parentOccupation").asInstanceOf[html.Span]
-  val birthOrderSpan = document.getElementById("birthOrder").asInstanceOf[html.Span]
-  val childhoodEventsDiv = document.getElementById("childhoodEvents").asInstanceOf[html.Div]
-  val adolescentEventsDiv = document.getElementById("adolescentEvents").asInstanceOf[html.Div]
+  val nationalitySpan: Span = document.getElementById("nationality").asInstanceOf[html.Span]
+  val languageSpan: Span = document.getElementById("language").asInstanceOf[html.Span]
+  val parentOccupationSpan: Span = document.getElementById("parentOccupation").asInstanceOf[html.Span]
+  val birthOrderSpan: Span = document.getElementById("birthOrder").asInstanceOf[html.Span]
+  val childhoodEventsDiv: Div = document.getElementById("childhoodEvents").asInstanceOf[html.Div]
+  val adolescentEventsDiv: Div = document.getElementById("adolescentEvents").asInstanceOf[html.Div]
 
 
 
@@ -129,15 +133,36 @@ object DOMObjects {
     spells = spellsSavingsThrow.textContent.toInt
   )
 
+
+  def getBackground(): Background = Background(
+    parentsNationality = BackgroundGenerator.nationalityFromString(nationalitySpan.textContent),
+    parentsOccupation = parentOccupationSpan.textContent,
+    birthOrder = birthOrderSpan.textContent,
+    childHoodEvents = childhoodEventsDiv.textContent.split(",").toSet,
+    adolescentEvents =  adolescentEventsDiv.textContent.split(",").toSet,
+    languages = languageSpan.textContent.split(",").toSet
+  )
+
+  def getEquipment(): Equipment = Equipment(
+    armor = NoArmor,
+    shield = NoShield,
+    meleeWeapon = ShortSword(0),
+    offhand = ShortSword(0),
+    rangedWeapon = ThrowingKnife(0),
+    equipmentPack = EquipmentPacks.BurglarsPack,
+    magicalItems = Set.empty
+  )
+
+
   var state: CharacterState = CharacterState(
     name = character_name_input.value,
     race =  getRace(),
     characterClass = getCharacterClass(),
-    level = character_level_select.value.toInt,
+    level = 0, //character_level_select.value.toInt,
     gender = character_gender_select.value,
     height = character_height_input.value,
-    weight = character_weight_input.value.toInt,
-    age = character_age_input.value.toInt,
+    weight = 0, //character_weight_input.value.toInt,
+    age = 0, //character_age_input.value.toInt,
     alignment = getCharacterAlignment(),
     personality = character_personality_input.toString,
     strength = getStrength(),
@@ -151,12 +176,11 @@ object DOMObjects {
     rangedBonus = ranged_attack_bonus.textContent,
     acBonus = ac_bonus.textContent,
     acBase = base_ac.textContent,
-    hitPoints = hit_points.textContent.toInt,
+    hitPoints = 0, //hit_points.textContent.toInt,
     savingsThrows = getSavingThrows(),
     abilities = special_abilities.value,
-    background = ???, //: Background,
-    equipment = ??? //: Equipment
-
+    background = getBackground(),
+    equipment = getEquipment()
   )
 
 }

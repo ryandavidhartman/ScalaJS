@@ -20,7 +20,7 @@ object BackgroundGenerator {
     val numAdolescentEvents = Roller.randomInt(4)
 
     val childHoodEvents: Set[String] = (0 to numChildhoodEvents).map(_ => getChildhoodEvents()).toSet
-    val adolescentEvents: Set[String] = (0 to numAdolescentEvents).map(_ => getYoungAdultEvents).toSet
+    val adolescentEvents: Set[String] = (0 to numAdolescentEvents).map(_ => getYoungAdultEvents()).toSet
     val nationality = getNationality(race)
     val languages: Set[String] = getLanguages(nationality.nativeLanguage, race, languageBonus)
 
@@ -863,6 +863,27 @@ object BackgroundGenerator {
 
   case object Wildlands extends Nationality {
     override val nativeLanguage: String = "Regional Dialect"
+  }
+
+  def nationalityFromString(nation: String): Nationality = nation match {
+    case "Alfheim" => Alfheim
+    case "Alphatia" => Alphatia
+    case "Altruaghin" => Altruaghin
+    case "Darokin" => Darokin
+    case "Ethengar" => Ethengar
+    case "Glantri" => Glantri
+    case "Ierendi" => Ierendi
+    case "Karameikos" => Karameikos
+    case "Minrothad" => Minrothad
+    case "Northern Reaches" => NorthernReaches
+    case "Rockhome" => Rockhome
+    case "Shadow Lands" => ShadowLands
+    case "Thar" => Thar
+    case "The Five Shires" => FiveShires
+    case "Thyatis" => Thyatis
+    case "Wildlands" => Wildlands
+    case "Ylaruam" => Ylaruam
+    case _ => Ylaruam //remove this!!!
   }
 
 }
