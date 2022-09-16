@@ -428,7 +428,7 @@ object CharacterApp {
     else
       offHandInput.value = equipment.shield.toString
     rangedWeaponInput.value = equipment.rangedWeapon.toString
-    magicItemsTextArea.value = equipment.magicalItems.mkString("&#13;&#10;&#13;&#10;")    //.mkString("<table class=\"unstriped\">", "", "</table>")
+    magicItemsTextArea.value = equipment.magicalItems.mkString("Magic Items: ", ", ", "")
     equipmentPackInput.value = equipment.equipmentPack.toString()
   }
 
