@@ -158,7 +158,7 @@ object DOMObjects {
     name = character_name_input.value,
     race =  getRace(),
     characterClass = getCharacterClass(),
-    level = 0, //character_level_select.value.toInt,
+    level = character_level_select.value.toInt,
     gender = character_gender_select.value,
     height = character_height_input.value,
     weight = 0, //character_weight_input.value.toInt,

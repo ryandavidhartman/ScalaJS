@@ -130,10 +130,9 @@ object CharacterApp {
 
   @JSExportTopLevel("rollNameHandler")
   def rollNameHandler(): Unit = {
-    val gender: String = character_gender_select.value
-
-    val characterName = NameGenerator.getName(getRace(), gender)
+    val characterName = NameGenerator.getName(state.race, state.gender)
     character_name_input.value = characterName
+    state = state.copy(name = characterName)
   }
 
   @JSExportTopLevel("addRollHandler")
@@ -147,10 +146,20 @@ object CharacterApp {
       case MagicUser => Seq(int_select, dex_select, con_select, wis_select, chr_select, str_select)
       case MagicUserThief => Seq(int_select, dex_select, con_select, wis_select, chr_select, str_select)
       case Monk => Seq(wis_select, dex_select, str_select, con_select, int_select, chr_select)
-      case Thief =>   Seq(dex_select, con_select, str_select, chr_select, int_select, wis_select)
+      case Thief => Seq(dex_select, con_select, str_select, chr_select, int_select, wis_select)
     }
 
     (0 to 5).foreach(i => attributes(i).selectedIndex = scores(i))
+
+    state = state.copy (
+      strength = getStrength(),
+      dexterity = getDexterity(),
+      constitution = getConstitution(),
+      intelligence = getIntelligence(),
+      wisdom = getWisdom(),
+      charisma = getCharisma()
+    )
+
   }
 
   @JSExportTopLevel("setBaseAttackBonusHandler")
