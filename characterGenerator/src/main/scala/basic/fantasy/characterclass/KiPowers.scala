@@ -1,5 +1,7 @@
 package basic.fantasy.characterclass
 
+import basic.fantasy.Roller
+
 object KiPowers {
 
   sealed abstract trait KiPower {
@@ -20,7 +22,6 @@ object KiPowers {
 
     override def canSelect(level: Int, kiPowers: Set[KiPower]): Boolean = (level >= 7) && super.canSelect(level, kiPowers)
   }
-
   case object BurstingFist extends KiPower {
     override def description: String =
       """Once per day a Monk may slam their palms together
@@ -37,7 +38,6 @@ object KiPowers {
       kiPowers.contains(DiamondFist) &&
       super.canSelect(level, kiPowers)
   }
-
   case object DeflectArrows extends KiPower {
     override def description: String =
       """Once per round, the Monk may deflect incoming ranged
@@ -48,7 +48,6 @@ object KiPowers {
 
     override def name: String = "Deflect Arrows"
   }
-
   case object DiamondBody extends KiPower {
     override def description: String =
       """The Monk may flush any and all poison from their system
@@ -62,7 +61,6 @@ object KiPowers {
 
     override def canUseWhenEncumbered: Boolean = true
   }
-
   case object DiamondFist extends KiPower {
     override def description: String =
       """The Monk’s unarmed attacks ignore any hardness of the
@@ -75,7 +73,6 @@ object KiPowers {
       kiPowers.contains(StunningFist) &&
       super.canSelect(level, kiPowers)
   }
-
   case object Evasion extends KiPower {
     override def description: String =
       """When a Monk makes a saving throw to avoid physical
@@ -84,7 +81,6 @@ object KiPowers {
 
     override def name: String = "Evasion"
   }
-
   case object FeatherBalance extends KiPower {
     override def description: String =
       """For one turn, the Monk cannot lose their balance. Any
@@ -97,7 +93,6 @@ object KiPowers {
 
     override def name: String = "Feather Balance"
   }
-
   case object FeatherStep extends KiPower {
     override def description: String =
       """While using feather balance, the Monk is able to move
@@ -115,7 +110,6 @@ object KiPowers {
         kiPowers.contains(FeatherBalance) &&
         super.canSelect(level, kiPowers)
   }
-
   case object FlawlessMind extends KiPower {
     override def description: String =
       """The Monk gains a +4 bonus on all saving throws against
@@ -129,7 +123,6 @@ object KiPowers {
       (level >= 15) &&
         super.canSelect(level, kiPowers)
   }
-
   case object ImprovedEvasion extends KiPower {
     override def description: String =
       """When a Monk makes a saving throw to avoid physical
@@ -147,7 +140,6 @@ object KiPowers {
 
     override def canUseWhenEncumbered: Boolean = true
   }
-
   case object KiStrike extends KiPower {
     override def description: String =
       """The Monk’s unarmed attacks are treated as if they were
@@ -162,7 +154,6 @@ object KiPowers {
       (level >= 7) &&
         super.canSelect(level, kiPowers)
   }
-
   case object PunishingStrike extends KiPower {
     override def description: String =
       """Once per day a Monk may deliver a particularly punishing
@@ -178,7 +169,6 @@ object KiPowers {
         kiPowers.contains(StunningFist) &&
         super.canSelect(level, kiPowers)
   }
-
   case object PurityOfBody extends KiPower {
     override def description: String =
       """The Monk may remove any diseases from his or her
@@ -192,7 +182,6 @@ object KiPowers {
       (level >= 7) &&
         super.canSelect(level, kiPowers)
   }
-
   case object QuiveringPalm extends KiPower {
     override def description: String =
       """Once a week the Monk may designate they are using the
@@ -213,7 +202,6 @@ object KiPowers {
       (level >= 15) &&
         super.canSelect(level, kiPowers)
   }
-
   case object SilverFist extends KiPower {
     override def description: String =
       """The Monk’s unarmed attacks may count as any kind of
@@ -221,7 +209,6 @@ object KiPowers {
 
     override def name: String = "Silver Fist"
   }
-
   case object SlowFall extends KiPower {
     override def description: String =
     """As long as a Monk is within 10’ of a vertical surface while
@@ -231,7 +218,6 @@ object KiPowers {
 
     override def name: String = "Slow Fall"
   }
-
   case object StunningFist extends KiPower {
     override def description: String =
       """Once per day, the Monk may declare an unarmed attack
@@ -246,7 +232,6 @@ object KiPowers {
         |""".stripMargin
     override def name: String = "StunningFist"
   }
-
   case object TimelessBody extends KiPower {
     override def description: String =
       """The Monk gains harmony between their mind and body
@@ -262,7 +247,6 @@ object KiPowers {
 
     override def canUseWhenEncumbered: Boolean = true
   }
-
   case object TongueOfTheStars extends KiPower {
     override def description: String =
       """The Monk may speak with any living creature for one
@@ -277,7 +261,6 @@ object KiPowers {
 
     override def canUseWhenEncumbered: Boolean = true
   }
-
   case object WholenessOfBody extends KiPower {
     override def description: String =
       """The Monk may heal twice his or her level in hit points per
@@ -292,6 +275,71 @@ object KiPowers {
         super.canSelect(level, kiPowers)
 
     override def canUseWhenEncumbered: Boolean = true
+  }
+
+  val numPowersPerLevel: Map[Int, Int] = Map(
+    1 -> 0,
+    2 -> 0,
+    3 -> 2,
+    4 -> 2,
+    5 -> 3,
+    6 -> 3,
+    7 -> 4,
+    8 -> 4,
+    9 -> 5,
+    10 -> 5,
+    11 -> 6,
+    12 -> 6,
+    13 -> 7,
+    14 -> 7,
+    15 -> 8,
+    16 -> 8,
+    17 -> 9,
+    18 -> 9,
+    19 -> 10,
+    20 -> 10,
+  )
+
+  val kiPowers: Map[Int, KiPower] = Map(
+    1 -> AbundantStep,
+    2 -> BurstingFist,
+    3 -> DeflectArrows,
+    4 -> DiamondBody,
+    5 -> DiamondFist,
+    6 -> Evasion,
+    7 -> FeatherBalance,
+    8 -> FeatherStep,
+    9 -> FlawlessMind,
+    10 -> ImprovedEvasion,
+    11 -> KiStrike,
+    12 -> PunishingStrike,
+    13 -> PurityOfBody,
+    14 -> QuiveringPalm,
+    15 -> SilverFist,
+    16 -> SlowFall,
+    17 -> StunningFist,
+    18 -> TimelessBody,
+    19 -> TongueOfTheStars,
+    20 -> WholenessOfBody
+  )
+
+  def getKiPowersHelper(num: Int, level: Int, acc: Set[KiPower]): Set[KiPower] = {
+    if (num <= 0) {
+      acc
+    }
+    else {
+      val newPower: KiPower = Roller.getRandomData(kiPowers)
+      if (newPower.canSelect(level, acc))
+        getKiPowersHelper(num - 1, level, acc + newPower)
+      else
+        getKiPowersHelper(num, level, acc)
+    }
+  }
+
+  def getKiPowers(monkLevel: Int): Set[KiPower] = {
+    val numPowers = numPowersPerLevel(monkLevel)
+
+    Set.empty
   }
 
 }

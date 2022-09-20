@@ -30,12 +30,12 @@ object Roller {
 
   def coinFLip(): Boolean = r.nextBoolean()
 
-  def getRandomData(data: Map[Int, String]): String = {
+  def getRandomData[T](data: Map[Int, T]): T = {
     try {
       val random = Roller.randomInt(data.size) + 1
       data(random)
     } catch {
-      case e: Throwable => println(e.getMessage); e.getMessage
+      case e: Throwable => println(e.getMessage); throw e
     }
   }
 
