@@ -79,6 +79,9 @@ object DOMObjects {
   val monkSkillsDiv: Div = document.getElementById("monk_skills_div").asInstanceOf[html.Div]
   monkSkillsDiv.style.display = "none"
 
+  val monkPowersDiv: Div = document.getElementById("monk_powers_div").asInstanceOf[html.Div]
+  monkPowersDiv.style.display = "none"
+
   val monkMoveSilentlySpan: Span = document.getElementById("monkMoveSilently").asInstanceOf[html.Span]
   val monkClimbWallsSpan: Span = document.getElementById("monkClimbWalls").asInstanceOf[html.Span]
   val monkHideSpan: Span = document.getElementById("monkHide").asInstanceOf[html.Span]

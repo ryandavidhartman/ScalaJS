@@ -229,10 +229,13 @@ object CharacterApp {
     else
       casterSpellsDiv.style.display = "none"
 
-    if(characterClass.isMonk)
+    if(characterClass.isMonk) {
       monkSkillsDiv.style.display = "inline"
-    else
+      monkPowersDiv.style.display = "inline"
+    } else {
       monkSkillsDiv.style.display = "none"
+      monkPowersDiv.style.display = "inline"
+    }
 
   }
 
