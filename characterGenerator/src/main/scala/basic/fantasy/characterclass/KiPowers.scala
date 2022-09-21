@@ -323,7 +323,7 @@ object KiPowers {
     20 -> WholenessOfBody
   )
 
-  def getKiPowersHelper(num: Int, level: Int, acc: Set[KiPower]): Set[KiPower] = {
+  private def getKiPowersHelper(num: Int, level: Int, acc: Set[KiPower]): Set[KiPower] = {
     if (num <= 0) {
       acc
     }
@@ -338,8 +338,7 @@ object KiPowers {
 
   def getKiPowers(monkLevel: Int): Set[KiPower] = {
     val numPowers = numPowersPerLevel(monkLevel)
-
-    Set.empty
+    getKiPowersHelper(numPowers, monkLevel, Set.empty)
   }
 
 }

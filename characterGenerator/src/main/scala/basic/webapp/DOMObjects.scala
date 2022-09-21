@@ -79,13 +79,15 @@ object DOMObjects {
   val monkSkillsDiv: Div = document.getElementById("monk_skills_div").asInstanceOf[html.Div]
   monkSkillsDiv.style.display = "none"
 
-  val monkPowersDiv: Div = document.getElementById("monk_powers_div").asInstanceOf[html.Div]
-  monkPowersDiv.style.display = "none"
-
   val monkMoveSilentlySpan: Span = document.getElementById("monkMoveSilently").asInstanceOf[html.Span]
   val monkClimbWallsSpan: Span = document.getElementById("monkClimbWalls").asInstanceOf[html.Span]
   val monkHideSpan: Span = document.getElementById("monkHide").asInstanceOf[html.Span]
   val monkListenSpan: Span = document.getElementById("monkListen").asInstanceOf[html.Span]
+
+  // Monk Powers
+  val monkPowersDiv: Div = document.getElementById("monk_powers_div").asInstanceOf[html.Div]
+  monkPowersDiv.style.display = "none"
+  val monkPowers: TextArea = document.getElementById("monk_powers").asInstanceOf[html.TextArea]
 
   // Spells
   val casterSpellsDiv: Div = document.getElementById("caster_spells_div").asInstanceOf[html.Div]

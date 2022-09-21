@@ -5,7 +5,8 @@ import basic.fantasy.backgrounds.PersonalityGenerator.getPersonality
 import basic.fantasy.backgrounds.Races._
 import basic.fantasy.backgrounds._
 import basic.fantasy.characterclass.CharacterClasses._
-import basic.fantasy.characterclass.{MonkSkills, SavingsThrows, SpellsPerLevel, ThiefSkills, TurnUndead}
+import basic.fantasy.characterclass.KiPowers.KiPower
+import basic.fantasy.characterclass.{KiPowers, MonkSkills, SavingsThrows, SpellsPerLevel, ThiefSkills, TurnUndead}
 import basic.fantasy.equipment.EquipmentGenerator
 import basic.fantasy.equipment.Shields.NoShield
 import basic.fantasy.rules.BasicFantasy
@@ -118,7 +119,7 @@ object CharacterApp {
     setPersonality()
     setTurnUndead()
     setThiefSkills()
-    setMonkSkills()
+    setMonkSkillsAndPowers()
     setEquipment()
   }
 
@@ -234,7 +235,7 @@ object CharacterApp {
       monkPowersDiv.style.display = "inline"
     } else {
       monkSkillsDiv.style.display = "none"
-      monkPowersDiv.style.display = "inline"
+      monkPowersDiv.style.display = "none"
     }
 
   }
@@ -388,7 +389,7 @@ object CharacterApp {
   }
 
   @JSExportTopLevel("setMonkSkills")
-  def setMonkSkills(): Unit = {
+  def setMonkSkillsAndPowers(): Unit = {
 
     val monkLevel = if(getCharacterClass().isMonk) getCharacterLevel() else 0
     val skills:Seq[String] = MonkSkills.skills(monkLevel)
@@ -397,6 +398,9 @@ object CharacterApp {
     monkClimbWallsSpan.textContent = skills(1)
     monkHideSpan.textContent = skills(2)
     monkListenSpan.textContent = skills(3)
+
+    val powers: Set[KiPower] = KiPowers.getKiPowers(monkLevel)
+    monkPowers.value = powers.map(power => power.name).mkString("\n")
   }
 
   @JSExportTopLevel("setBackground")
