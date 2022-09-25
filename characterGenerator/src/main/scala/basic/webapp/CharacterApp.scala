@@ -32,10 +32,14 @@ object CharacterApp {
     })
 
     rollNameButton.addEventListener("click", { (_: dom.MouseEvent) =>
-     rollNameHandler()
+      val characterName = NameGenerator.getName(state.race, state.gender)
+      character_name_input.value = characterName
+      state = state.copy(name = characterName)
     })
 
     character_race_select.addEventListener("change", { (_: dom.MouseEvent) =>
+      val newRace = Races.stringToRace(character_race_select.value)
+      state = state.copy(race = newRace)
       updateAllModifiers()
       setSpecialAbilities()
       setHeightWeight()
@@ -43,6 +47,8 @@ object CharacterApp {
     })
 
     character_gender_select.addEventListener("change", { (_: dom.MouseEvent) =>
+      val newGender = character_gender_select.value
+      state = state.copy(gender = newGender)
       setHeightWeight()
     })
 
@@ -55,6 +61,8 @@ object CharacterApp {
     })
 
     character_level_select.addEventListener("change", { (_: dom.MouseEvent) =>
+      val newLevel = character_level_select.value.toInt
+      state = state.copy(level = newLevel)
       updateAllModifiers()
       setSavingsThrows()
       setTurnUndead()
@@ -129,18 +137,12 @@ object CharacterApp {
     targetNode.appendChild(parNode)
   }
 
-  @JSExportTopLevel("rollNameHandler")
-  def rollNameHandler(): Unit = {
-    val characterName = NameGenerator.getName(state.race, state.gender)
-    character_name_input.value = characterName
-    state = state.copy(name = characterName)
-  }
 
   @JSExportTopLevel("addRollHandler")
   def getRandomAbilityScores(): Unit = {
     val scores = getSixScores()
 
-    val attributes: Seq[html.Select] = getCharacterClass() match {
+    val attributes: Seq[html.Select] = state.characterClass match {
       case Cleric => Seq(wis_select, str_select, con_select, int_select,  chr_select, dex_select)
       case Fighter => Seq(str_select, con_select, dex_select, chr_select,  wis_select, int_select)
       case FighterMagicUser =>  Seq(int_select, str_select, con_select, dex_select, wis_select, chr_select)
@@ -153,29 +155,28 @@ object CharacterApp {
     (0 to 5).foreach(i => attributes(i).selectedIndex = scores(i))
 
     state = state.copy (
-      strength = getStrength(),
-      dexterity = getDexterity(),
-      constitution = getConstitution(),
-      intelligence = getIntelligence(),
-      wisdom = getWisdom(),
-      charisma = getCharisma()
+      strength = getStrengthFromDom(),
+      dexterity = getDexterityFromDom(),
+      constitution = getConstitutionFromDom(),
+      intelligence = getIntelligenceFromDom(),
+      wisdom = getWisdomFromDom(),
+      charisma = getCharismaFromDom()
     )
 
   }
 
   @JSExportTopLevel("setBaseAttackBonusHandler")
   def setBaseAttackBonusHandler(): Unit = {
-
-    val level: Int = character_level_select.value.toInt
-
-    base_attack_bonus.textContent = calcBaseAttackModifier(getCharacterClass(), level)
+    val newBaseAttackBonus = calcBaseAttackModifier(state.characterClass, state.level)
+    base_attack_bonus.textContent = newBaseAttackBonus
+    state = state.copy(attackBonus = newBaseAttackBonus)
   }
 
   @JSExportTopLevel("setMeleeAttackBonusHandler")
   def setMeleeAttackBonusHandler(): Unit = {
-    val baseAttackBonus: Int = base_attack_bonus.textContent.toInt
-
-    melee_attack_bonus.textContent = calcMeleeAttackModifier(getStrength(), baseAttackBonus)
+    val newMeleeAttackBonus = calcMeleeAttackModifier(state.strength, state.attackBonus.toInt)
+    melee_attack_bonus.textContent = newMeleeAttackBonus
+    state = state.copy(meleeBonus = newMeleeAttackBonus)
   }
 
   @JSExportTopLevel("setRangeAttackBonusHandler")
@@ -337,9 +338,10 @@ object CharacterApp {
   @JSExportTopLevel("setHeight")
   def setHeightWeight(): Unit = {
 
-    val (height, weight) = HeightWeightGenerator.getHeight(getRace(), getGender, getStrength())
+    val (height, weight) = HeightWeightGenerator.getHeight(state.race, state.gender, state.strength)
     character_height_input.value = height
     character_weight_input.value = weight
+    state.copy(height = height, weight = weight.toInt)
   }
 
   @JSExportTopLevel("setAge")
@@ -391,21 +393,24 @@ object CharacterApp {
   @JSExportTopLevel("setMonkSkills")
   def setMonkSkillsAndPowers(): Unit = {
 
-    val monkLevel = if(getCharacterClass().isMonk) getCharacterLevel() else 0
-    val skills:Seq[String] = MonkSkills.skills(monkLevel)
+    if(state.characterClass.isMonk) {
 
-    monkMoveSilentlySpan.textContent = skills.head
-    monkClimbWallsSpan.textContent = skills(1)
-    monkHideSpan.textContent = skills(2)
-    monkListenSpan.textContent = skills(3)
+      val monkLevel = state.level
+      val skills: Seq[String] = MonkSkills.skills(monkLevel)
 
-    val powers: Set[KiPower] = KiPowers.getKiPowers(monkLevel)
-    monkPowers.value = powers.map(power => power.name).mkString("\n")
+      monkMoveSilentlySpan.textContent = skills.head
+      monkClimbWallsSpan.textContent = skills(1)
+      monkHideSpan.textContent = skills(2)
+      monkListenSpan.textContent = skills(3)
+
+      val powers: Set[KiPower] = KiPowers.getKiPowers(monkLevel)
+      monkPowers.value = powers.map(power => power.name).mkString("\n")
+    }
   }
 
   @JSExportTopLevel("setBackground")
   def setBackground(): Unit = {
-    val languageBonus = BasicFantasy.getLanguageBonus(getIntelligence())
+    val languageBonus = BasicFantasy.getLanguageBonus(getIntelligenceFromDom())
     val background = BackgroundGenerator.getBackground(getRace(), languageBonus)
 
     nationalitySpan.textContent = background.parentsNationality.toString

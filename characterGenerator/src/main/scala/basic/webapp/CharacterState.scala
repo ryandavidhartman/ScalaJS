@@ -7,6 +7,9 @@ import basic.fantasy.characterclass.CharacterClasses.CharacterClass
 import basic.fantasy.characterclass.SavingsThrows
 import basic.fantasy.equipment.Equipment
 
+object CharacterState {
+
+}
 case class CharacterState(
  name: String,
  race: Race,

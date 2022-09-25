@@ -119,12 +119,12 @@ object DOMObjects {
   val magicItemsTextArea: TextArea = document.getElementById("magicItems").asInstanceOf[TextArea]
   val equipmentPackInput: Input = document.getElementById("equipmentPack").asInstanceOf[Input]
 
-  def getStrength(): Int = str_select.value.toInt
-  def getDexterity(): Int = dex_select.value.toInt
-  def getConstitution(): Int = con_select.value.toInt
-  def getIntelligence(): Int = int_select.value.toInt
-  def getWisdom(): Int = wis_select.value.toInt
-  def getCharisma(): Int = chr_select.value.toInt
+  def getStrengthFromDom(): Int = str_select.value.toInt
+  def getDexterityFromDom(): Int = dex_select.value.toInt
+  def getConstitutionFromDom(): Int = con_select.value.toInt
+  def getIntelligenceFromDom(): Int = int_select.value.toInt
+  def getWisdomFromDom(): Int = wis_select.value.toInt
+  def getCharismaFromDom(): Int = chr_select.value.toInt
 
   def getGender() = character_gender_select.value
   def getRace(): Race = Races.stringToRace(character_race_select.value)
@@ -171,12 +171,12 @@ object DOMObjects {
     age = 0, //character_age_input.value.toInt,
     alignment = getCharacterAlignment(),
     personality = character_personality_input.toString,
-    strength = getStrength(),
-    dexterity = getDexterity(),
-    constitution = getConstitution(),
-    intelligence = getIntelligence(),
-    wisdom = getWisdom(),
-    charisma = getCharisma(),
+    strength = getStrengthFromDom(),
+    dexterity = getDexterityFromDom(),
+    constitution = getConstitutionFromDom(),
+    intelligence = getIntelligenceFromDom(),
+    wisdom = getWisdomFromDom(),
+    charisma = getCharismaFromDom(),
     attackBonus = base_attack_bonus.textContent,
     meleeBonus = melee_attack_bonus.textContent,
     rangedBonus = ranged_attack_bonus.textContent,
