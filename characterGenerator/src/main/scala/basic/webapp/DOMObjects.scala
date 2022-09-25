@@ -4,12 +4,13 @@ import basic.fantasy.backgrounds.BackgroundGenerator.Background
 import basic.fantasy.backgrounds.Races.Race
 import basic.fantasy.backgrounds.{AlignmentGenerator, BackgroundGenerator, CharacterAlignment, Races}
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
-import basic.fantasy.characterclass.{CharacterClasses, CharacterState, SavingsThrows}
+import basic.fantasy.characterclass.{CharacterClasses, SavingsThrows}
 import basic.fantasy.equipment.Armors.NoArmor
 import basic.fantasy.equipment.MeleeWeapons.ShortSword
 import basic.fantasy.equipment.RangedWeapons.ThrowingKnife
 import basic.fantasy.equipment.Shields.NoShield
 import basic.fantasy.equipment.{Equipment, EquipmentPacks}
+import basic.webapp
 import org.scalajs.dom.html._
 import org.scalajs.dom.{document, html}
 
@@ -159,7 +160,7 @@ object DOMObjects {
   )
 
 
-  var state: CharacterState = CharacterState(
+  var state: CharacterState = webapp.CharacterState(
     name = character_name_input.value,
     race =  getRace(),
     characterClass = getCharacterClass(),
