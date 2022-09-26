@@ -9,6 +9,15 @@ object CharacterAlignments {
   case object Lawful extends CharacterAlignment
   case object Neutral extends CharacterAlignment
   case object Chaotic extends CharacterAlignment
+
+  def stringToCharacterAlignment(alignment: String): CharacterAlignment = alignment match {
+    case "Lawful" => Lawful
+    case "Neutral" => Neutral
+    case "Chaotic" => Chaotic
+    case _ => throw InvalidAlignmentException(s"Invalid character alignment: $alignment")
+  }
+
+  case class InvalidAlignmentException(msg: String) extends Exception(msg)
 }
 
 object AlignmentGenerator {
@@ -29,14 +38,5 @@ object AlignmentGenerator {
     else
       Chaotic
     }
-
-  def stringToCharacterAlignment(alignment: String): CharacterAlignment = alignment match {
-    case "Lawful" => Lawful
-    case "Neutral" => Neutral
-    case "Chaotic" => Chaotic
-    case _ => throw InvalidAlignmentException(s"Invalid character alignment: $alignment")
-  }
-
-  case class InvalidAlignmentException(msg: String) extends Exception(msg)
 
 }

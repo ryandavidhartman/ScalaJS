@@ -3,7 +3,7 @@ package basic.webapp
 import basic.fantasy.backgrounds.BackgroundGenerator.Background
 import basic.fantasy.backgrounds.CharacterAlignments.CharacterAlignment
 import basic.fantasy.backgrounds.Races.Race
-import basic.fantasy.backgrounds.{AlignmentGenerator, BackgroundGenerator, Races}
+import basic.fantasy.backgrounds.{AlignmentGenerator, BackgroundGenerator, CharacterAlignments, Races}
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
 import basic.fantasy.characterclass.{CharacterClasses, SavingsThrows}
 import basic.fantasy.equipment.Armors.NoArmor
@@ -131,7 +131,7 @@ object DOMObjects {
   def getRace(): Race = Races.stringToRace(character_race_select.value)
   def getCharacterClass(): CharacterClass = CharacterClasses.stringToCharacterClass(character_class_select.value)
   def getCharacterLevel(): Int =  character_level_select.value.toInt
-  def getCharacterAlignment(): CharacterAlignment =  AlignmentGenerator.stringToCharacterAlignment(character_alignment_select.value)
+  def getCharacterAlignment(): CharacterAlignment =  CharacterAlignments.stringToCharacterAlignment(character_alignment_select.value)
   def getSavingThrows(): SavingsThrows = SavingsThrows(
     deathRayOrPoison = deathSavingsThrow.textContent.toInt,
     magicWands = wandsSavingsThrow.textContent.toInt,

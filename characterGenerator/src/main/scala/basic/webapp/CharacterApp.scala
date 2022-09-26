@@ -6,7 +6,7 @@ import basic.fantasy.backgrounds.Races._
 import basic.fantasy.backgrounds._
 import basic.fantasy.characterclass.CharacterClasses._
 import basic.fantasy.characterclass.KiPowers.KiPower
-import basic.fantasy.characterclass.{KiPowers, MonkSkills, SavingsThrows, SpellsPerLevel, ThiefSkills, TurnUndead}
+import basic.fantasy.characterclass.{CharacterClasses, KiPowers, MonkSkills, SavingsThrows, SpellsPerLevel, ThiefSkills, TurnUndead}
 import basic.fantasy.equipment.EquipmentGenerator
 import basic.fantasy.equipment.Shields.NoShield
 import basic.fantasy.rules.BasicFantasy
@@ -53,7 +53,7 @@ object CharacterApp {
     })
 
     character_class_select.addEventListener("change", { (_: dom.MouseEvent) =>
-      checkClass()
+      checkClass()  // this updates state
       updateAllModifiers()
       setSavingsThrows()
       setTurnUndead()
@@ -193,28 +193,30 @@ object CharacterApp {
   @JSExportTopLevel("setACBonusHandler")
   def setACBonusHandler(): Unit = {
 
-    val dexterity: Int = dex_select.value.toInt
-    val wisdom: Int = wis_select.value.toInt
-    ac_bonus.textContent = calcACModifier(dexterity, wisdom, getCharacterClass(), getCharacterLevel())
+    val newACBonus = calcACModifier(state.dexterity, state.wisdom, state.characterClass, state.level)
+    ac_bonus.textContent = newACBonus
+    state = state.copy(acBonus = newACBonus)
   }
 
   @JSExportTopLevel("setHitPointsHandler")
   def setHitPointsHandler(): Unit = {
-
-    val constitution: Int = con_select.value.toInt
-    val level: Int = character_level_select.value.toInt
-
-    hit_points.textContent = calcHitPoints(getCharacterClass(), getRace(), level, constitution).toString
+    val newHitPoints = calcHitPoints(state.characterClass, state.race, state.level, state.constitution)
+    hit_points.textContent = newHitPoints.toString
+    state = state.copy(hitPoints = newHitPoints)
   }
 
   @JSExportTopLevel("setSpecialAbilities")
-  def setSpecialAbilities(): Unit = special_abilities.innerHTML = getAbilities(getRace(), getCharacterClass())
+  def setSpecialAbilities(): Unit = {
+    val newAbilities = getAbilities(state.race, state.characterClass)
+    special_abilities.innerHTML = newAbilities
+    state = state.copy(abilities = newAbilities)
+  }
 
 
   @JSExportTopLevel("checkClass")
   def checkClass(): Unit = {
 
-    val newCharacterClass = getCharacterClass()
+    val newCharacterClass = CharacterClasses.stringToCharacterClass(character_class_select.value)
 
     if(!checkCharacterClass(state.race,newCharacterClass)) {
       character_class_select.selectedIndex = 0
@@ -250,50 +252,57 @@ object CharacterApp {
 
   @JSExportTopLevel("checkMaxStr")
   def checkMaxStr(): Unit = {
-    val race = getRace()
-    val characterClass = getCharacterClass()
 
-    if(race == Halfling && str_select.selectedIndex >= 15)
+    if(state.race == Halfling && str_select.selectedIndex >= 15) {
       str_select.selectedIndex = 14
+      state = state.copy(strength = 17)
+    }
 
-    if(characterClass == Monk && str_select.selectedIndex < 10)
+    if(state.characterClass == Monk && str_select.selectedIndex < 10) {
       str_select.selectedIndex = 10
+      state = state.copy(strength = 13)
+    }
   }
 
   @JSExportTopLevel("checkMaxDex")
   def checkMaxDex(): Unit = {
-    val race = getRace()
-    val characterClass = getCharacterClass()
 
-    if(race == Halfling && dex_select.selectedIndex < 6)
+    if(state.race == Halfling && dex_select.selectedIndex < 6) {
       dex_select.selectedIndex = 6
+      state = state.copy(dexterity = 9)
+    }
 
-    if(characterClass == Monk && dex_select.selectedIndex < 10)
+    if(state.characterClass == Monk && dex_select.selectedIndex < 10) {
       dex_select.selectedIndex = 10
+      state = state.copy(dexterity = 13)
+    }
   }
 
   @JSExportTopLevel("checkMaxWis")
   def checkMaxWis(): Unit = {
-    val characterClass = getCharacterClass()
-    if(characterClass == Monk && wis_select.selectedIndex < 10)
+    if(state.characterClass == Monk && wis_select.selectedIndex < 10) {
       wis_select.selectedIndex = 10
+      state = state.copy(wisdom = 13)
+    }
   }
 
   @JSExportTopLevel("checkMaxCon")
   def checkMaxCon(): Unit = {
-    val race = getRace()
-    val characterClass = getCharacterClass()
 
-    if(race == Elf && con_select.selectedIndex >= 15)
+    if((state.race == Elf || state.race == HalfElf) && con_select.selectedIndex >= 15) {
       con_select.selectedIndex = 14
-    if(race == HalfElf && con_select.selectedIndex >= 15)
-      con_select.selectedIndex = 14
-    if(race == Dwarf && con_select.selectedIndex < 6)
+      state = state.copy(constitution = 17)
+    }
+
+    if((state.race == Dwarf || state.race == HalfOrc) && con_select.selectedIndex < 6) {
       con_select.selectedIndex = 6
-    if(race == HalfOrc && con_select.selectedIndex < 6)
+      state = state.copy(constitution = 9)
+    }
+
+    if(state.characterClass == Monk && con_select.selectedIndex < 6) {
       con_select.selectedIndex = 6
-    if(characterClass == Monk && con_select.selectedIndex < 6)
-      con_select.selectedIndex = 6
+      state = state.copy(constitution = 9)
+    }
   }
 
   @JSExportTopLevel("checkMaxInt")
@@ -318,15 +327,16 @@ object CharacterApp {
 
   @JSExportTopLevel("setSavingsThrows")
   def setSavingsThrows(): Unit = {
-    val level: Int = character_level_select.value.toInt
 
-    val saves = SavingsThrows.getSavingsThrows(getCharacterClass(), getRace(), level)
+    val saves = SavingsThrows.getSavingsThrows(state.characterClass, state.race, state.level)
 
     deathSavingsThrow.textContent = saves.deathRayOrPoison.toString
     wandsSavingsThrow.textContent = saves.magicWands.toString
     paralysisSavingsThrow.textContent = saves.paralysisOrPetrify.toString
     breathSavingsThrow.textContent = saves.breathWeapons.toString
     spellsSavingsThrow.textContent = saves.spells.toString
+
+    state = state.copy(savingsThrows = saves)
   }
 
   @JSExportTopLevel("setSpells")
