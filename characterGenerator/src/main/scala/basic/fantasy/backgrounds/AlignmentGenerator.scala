@@ -1,14 +1,18 @@
 package basic.fantasy.backgrounds
 
 import basic.fantasy.Roller
+import basic.fantasy.backgrounds.CharacterAlignments.CharacterAlignment
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
 
-sealed trait CharacterAlignment
-case object Lawful extends CharacterAlignment
-case object Neutral extends CharacterAlignment
-case object Chaotic extends CharacterAlignment
+object CharacterAlignments {
+  sealed trait CharacterAlignment
+  case object Lawful extends CharacterAlignment
+  case object Neutral extends CharacterAlignment
+  case object Chaotic extends CharacterAlignment
+}
 
 object AlignmentGenerator {
+  import CharacterAlignments._
 
   def getAlignment(characterClass: CharacterClass): CharacterAlignment = {
 

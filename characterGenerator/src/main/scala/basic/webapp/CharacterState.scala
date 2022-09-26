@@ -1,7 +1,7 @@
 package basic.webapp
 
 import basic.fantasy.backgrounds.BackgroundGenerator.Background
-import basic.fantasy.backgrounds.CharacterAlignment
+import basic.fantasy.backgrounds.CharacterAlignments.CharacterAlignment
 import basic.fantasy.backgrounds.Races.Race
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
 import basic.fantasy.characterclass.SavingsThrows

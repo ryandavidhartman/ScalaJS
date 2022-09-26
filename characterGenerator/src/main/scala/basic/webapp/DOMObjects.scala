@@ -1,8 +1,9 @@
 package basic.webapp
 
 import basic.fantasy.backgrounds.BackgroundGenerator.Background
+import basic.fantasy.backgrounds.CharacterAlignments.CharacterAlignment
 import basic.fantasy.backgrounds.Races.Race
-import basic.fantasy.backgrounds.{AlignmentGenerator, BackgroundGenerator, CharacterAlignment, Races}
+import basic.fantasy.backgrounds.{AlignmentGenerator, BackgroundGenerator, Races}
 import basic.fantasy.characterclass.CharacterClasses.CharacterClass
 import basic.fantasy.characterclass.{CharacterClasses, SavingsThrows}
 import basic.fantasy.equipment.Armors.NoArmor

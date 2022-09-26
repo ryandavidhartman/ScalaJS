@@ -71,6 +71,8 @@ object CharacterApp {
     })
 
     character_alignment_select.addEventListener("change", { (_: dom.MouseEvent) =>
+      //val newAlignment = CharacterAlignment.     //character_alignment_select.value
+      //state = state.copy(alignment = )
       setSpells()
     })
 
@@ -212,26 +214,31 @@ object CharacterApp {
   @JSExportTopLevel("checkClass")
   def checkClass(): Unit = {
 
-    if(!checkCharacterClass(getRace(), getCharacterClass()))
-      character_class_select.selectedIndex = 0
+    val newCharacterClass = getCharacterClass()
 
-    val characterClass = getCharacterClass()
-    if(characterClass.isCleric)
+    if(!checkCharacterClass(state.race,newCharacterClass)) {
+      character_class_select.selectedIndex = 0
+      state = state.copy(characterClass = Fighter)
+    } else {
+      state = state.copy(characterClass = newCharacterClass)
+    }
+
+    if(state.characterClass.isCleric)
       turnUndeadDiv.style.display = "inline"
     else
       turnUndeadDiv.style.display = "none"
 
-    if(characterClass.isThief)
+    if(state.characterClass.isThief)
       thiefSkillsDiv.style.display = "inline"
     else
       thiefSkillsDiv.style.display = "none"
 
-    if(characterClass.isSpellCaster)
+    if(state.characterClass.isSpellCaster)
       casterSpellsDiv.style.display = "inline"
     else
       casterSpellsDiv.style.display = "none"
 
-    if(characterClass.isMonk) {
+    if(state.characterClass.isMonk) {
       monkSkillsDiv.style.display = "inline"
       monkPowersDiv.style.display = "inline"
     } else {
