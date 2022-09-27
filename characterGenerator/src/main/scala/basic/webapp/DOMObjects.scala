@@ -1,10 +1,8 @@
 package basic.webapp
 
 import basic.fantasy.backgrounds.BackgroundGenerator.Background
-import basic.fantasy.backgrounds.CharacterAlignments.CharacterAlignment
-import basic.fantasy.backgrounds.Races.Race
-import basic.fantasy.backgrounds.{AlignmentGenerator, BackgroundGenerator, CharacterAlignments, Races}
-import basic.fantasy.characterclass.CharacterClasses.CharacterClass
+import basic.fantasy.backgrounds.{BackgroundGenerator, CharacterAlignments, Races}
+import basic.fantasy.characterclass.KiPowers.KiPower
 import basic.fantasy.characterclass.{CharacterClasses, SavingsThrows}
 import basic.fantasy.equipment.Armors.NoArmor
 import basic.fantasy.equipment.MeleeWeapons.ShortSword
@@ -127,12 +125,7 @@ object DOMObjects {
   def getWisdomFromDom(): Int = wis_select.value.toInt
   def getCharismaFromDom(): Int = chr_select.value.toInt
 
-  def getGender() = character_gender_select.value
-  def getRace(): Race = Races.stringToRace(character_race_select.value)
-  def getCharacterClass(): CharacterClass = CharacterClasses.stringToCharacterClass(character_class_select.value)
-  def getCharacterLevel(): Int =  character_level_select.value.toInt
-  def getCharacterAlignment(): CharacterAlignment =  CharacterAlignments.stringToCharacterAlignment(character_alignment_select.value)
-  def getSavingThrows(): SavingsThrows = SavingsThrows(
+  def getSavingThrowsFromDom(): SavingsThrows = SavingsThrows(
     deathRayOrPoison = deathSavingsThrow.textContent.toInt,
     magicWands = wandsSavingsThrow.textContent.toInt,
     paralysisOrPetrify = paralysisSavingsThrow.textContent.toInt,
@@ -163,14 +156,14 @@ object DOMObjects {
 
   var state: CharacterState = webapp.CharacterState(
     name = character_name_input.value,
-    race =  getRace(),
-    characterClass = getCharacterClass(),
+    race = Races.stringToRace(character_race_select.value),
+    characterClass = CharacterClasses.stringToCharacterClass(character_class_select.value),
     level = character_level_select.value.toInt,
     gender = character_gender_select.value,
     height = character_height_input.value,
     weight = 0, //character_weight_input.value.toInt,
     age = 0, //character_age_input.value.toInt,
-    alignment = getCharacterAlignment(),
+    alignment = CharacterAlignments.stringToCharacterAlignment(character_alignment_select.value),
     personality = character_personality_input.toString,
     strength = getStrengthFromDom(),
     dexterity = getDexterityFromDom(),
@@ -184,10 +177,15 @@ object DOMObjects {
     acBonus = ac_bonus.textContent,
     acBase = base_ac.textContent,
     hitPoints = 0, //hit_points.textContent.toInt,
-    savingsThrows = getSavingThrows(),
+    savingsThrows = getSavingThrowsFromDom(),
     abilities = special_abilities.value,
     background = getBackground(),
-    equipment = getEquipment()
+    equipment = getEquipment(),
+    spells = Seq.empty[String],
+    turnUndead = Seq.empty[String],
+    thiefSkills = Seq.empty[String],
+    monkSkills = Seq.empty[String],
+    monkPowers = Set.empty[KiPower]
   )
 
 }

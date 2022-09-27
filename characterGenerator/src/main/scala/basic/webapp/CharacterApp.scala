@@ -183,11 +183,9 @@ object CharacterApp {
 
   @JSExportTopLevel("setRangeAttackBonusHandler")
   def setRangeAttackBonusHandler(): Unit = {
-
-    val dexterity: Int = dex_select.value.toInt
-    val baseAttackBonus: Int = base_attack_bonus.textContent.toInt
-
-    ranged_attack_bonus.textContent = calcRangeAttackModifier(dexterity, baseAttackBonus, getRace())
+    val newRangedAttackBonus = calcRangeAttackModifier(state.dexterity, state.attackBonus.toInt, state.race)
+    ranged_attack_bonus.textContent = newRangedAttackBonus
+    state = state.copy(rangedBonus = newRangedAttackBonus)
   }
 
   @JSExportTopLevel("setACBonusHandler")
@@ -307,22 +305,23 @@ object CharacterApp {
 
   @JSExportTopLevel("checkMaxInt")
   def checkMaxInt(): Unit = {
-    val race = getRace()
-    if(race == Elf && int_select.selectedIndex < 6)
+    if((state.race == Elf || state.race == HalfElf) && int_select.selectedIndex < 6) {
       int_select.selectedIndex = 6
+      state = state.copy(intelligence = 9)
+    }
 
-    if(race == HalfElf && int_select.selectedIndex < 6)
-      int_select.selectedIndex = 6
-
-    if(race == HalfOrc && int_select.selectedIndex >= 15)
+    if(state.race == HalfOrc && int_select.selectedIndex >= 15) {
       int_select.selectedIndex = 14
+      state = state.copy(intelligence = 17)
+    }
   }
 
-  @JSExportTopLevel("checkChrChr")
+  @JSExportTopLevel("checkMaxChr")
   def checkMaxChr(): Unit = {
-    val race = character_race_select.value
-    if(race == "Dwarf" && chr_select.selectedIndex >= 15)
+    if(state.race == Dwarf && chr_select.selectedIndex >= 15) {
       chr_select.selectedIndex = 14
+      state = state.copy(charisma = 17)
+    }
   }
 
   @JSExportTopLevel("setSavingsThrows")
@@ -342,14 +341,16 @@ object CharacterApp {
   @JSExportTopLevel("setSpells")
   def setSpells(): Unit = {
 
-    val spells: Seq[String] = SpellsPerLevel.getSpells(getCharacterClass(), getCharacterLevel(), getCharacterAlignment())
+    val newSpells: Seq[String] = SpellsPerLevel.getSpells(state.characterClass, state.level, state.alignment)
 
-    firstLvlSpellsSpan.textContent = spells.head
-    secondLvlSpellsSpan.textContent = spells(1)
-    thirdLvlSpellsSpan.textContent = spells(2)
-    fourthLvlSpellsSpan.textContent = spells(3)
-    fifthLvlSpellsSpan.textContent = spells(4)
-    sixthLvlSpellsSpan.textContent = spells(5)
+    firstLvlSpellsSpan.textContent = newSpells.head
+    secondLvlSpellsSpan.textContent = newSpells(1)
+    thirdLvlSpellsSpan.textContent = newSpells(2)
+    fourthLvlSpellsSpan.textContent = newSpells(3)
+    fifthLvlSpellsSpan.textContent = newSpells(4)
+    sixthLvlSpellsSpan.textContent = newSpells(5)
+
+    state = state.copy(spells = newSpells)
   }
 
   @JSExportTopLevel("setHeight")
@@ -363,48 +364,52 @@ object CharacterApp {
 
   @JSExportTopLevel("setAge")
   def setAge(): Unit = {
-    val age = AgeGenerator.getAge(getRace(), getCharacterLevel())
-    character_age_input.value = age.toString
-
+    val newAge = AgeGenerator.getAge(state.race, state.level)
+    character_age_input.value = newAge.toString
+    state = state.copy(age = newAge)
   }
 
   @JSExportTopLevel("setAlignment")
   def setAlignment(): Unit = {
-    val alignment = AlignmentGenerator.getAlignment(getCharacterClass())
-    character_alignment_select.value = alignment.toString
-
+    val newAlignment = AlignmentGenerator.getAlignment(state.characterClass)
+    character_alignment_select.value = newAlignment.toString
+    state = state.copy(alignment = newAlignment)
   }
 
   @JSExportTopLevel("setTurnUndead")
   def setTurnUndead(): Unit = {
 
-    val clericLevel = if(getCharacterClass().isCleric) getCharacterLevel() else 0
-    val turns: Seq[String] = TurnUndead.turns(clericLevel)
+    val clericLevel = if(state.characterClass.isCleric) state.level else 0
+    val newTurnUndead: Seq[String] = TurnUndead.turns(clericLevel)
 
-    turnSkeletonSpan.textContent = turns.head
-    turnZombieSpan.textContent   = turns(1)
-    turnGhoulSpan.textContent    = turns(2)
-    turnWightSpan.textContent    = turns(3)
-    turnWraithSpan.textContent   = turns(4)
-    turnMummySpan.textContent    = turns(5)
-    turnSpectreSpan.textContent  = turns(6)
-    turnVampireSpan.textContent  = turns(7)
-    turnGhostSpan.textContent    = turns(8)
+    turnSkeletonSpan.textContent = newTurnUndead.head
+    turnZombieSpan.textContent   = newTurnUndead(1)
+    turnGhoulSpan.textContent    = newTurnUndead(2)
+    turnWightSpan.textContent    = newTurnUndead(3)
+    turnWraithSpan.textContent   = newTurnUndead(4)
+    turnMummySpan.textContent    = newTurnUndead(5)
+    turnSpectreSpan.textContent  = newTurnUndead(6)
+    turnVampireSpan.textContent  = newTurnUndead(7)
+    turnGhostSpan.textContent    = newTurnUndead(8)
+
+    state = state.copy(turnUndead = newTurnUndead)
   }
 
   @JSExportTopLevel("setThiefSkills")
   def setThiefSkills(): Unit = {
 
-    val thiefLevel = if(getCharacterClass().isThief) getCharacterLevel() else 0
-    val skills:Seq[String] = ThiefSkills.skills(thiefLevel)
+    val thiefLevel = if(state.characterClass.isThief) state.level else 0
+    val newThiefSkills:Seq[String] = ThiefSkills.skills(thiefLevel)
 
-    openLocksSpan.textContent = skills.head
-    removeTrapsSpan.textContent = skills(1)
-    pickPocketsSpan.textContent = skills(2)
-    moveSilentlySpan.textContent = skills(3)
-    climbWallsSpan.textContent = skills(4)
-    hideSpan.textContent = skills(5)
-    listenSpan.textContent = skills(6)
+    openLocksSpan.textContent = newThiefSkills.head
+    removeTrapsSpan.textContent = newThiefSkills(1)
+    pickPocketsSpan.textContent = newThiefSkills(2)
+    moveSilentlySpan.textContent = newThiefSkills(3)
+    climbWallsSpan.textContent = newThiefSkills(4)
+    hideSpan.textContent = newThiefSkills(5)
+    listenSpan.textContent = newThiefSkills(6)
+
+    state = state.copy(thiefSkills = newThiefSkills)
   }
 
   @JSExportTopLevel("setMonkSkills")
@@ -413,52 +418,57 @@ object CharacterApp {
     if(state.characterClass.isMonk) {
 
       val monkLevel = state.level
-      val skills: Seq[String] = MonkSkills.skills(monkLevel)
+      val newMonkSkills: Seq[String] = MonkSkills.skills(monkLevel)
 
-      monkMoveSilentlySpan.textContent = skills.head
-      monkClimbWallsSpan.textContent = skills(1)
-      monkHideSpan.textContent = skills(2)
-      monkListenSpan.textContent = skills(3)
+      monkMoveSilentlySpan.textContent = newMonkSkills.head
+      monkClimbWallsSpan.textContent = newMonkSkills(1)
+      monkHideSpan.textContent = newMonkSkills(2)
+      monkListenSpan.textContent = newMonkSkills(3)
 
-      val powers: Set[KiPower] = KiPowers.getKiPowers(monkLevel)
-      monkPowers.value = powers.map(power => power.name).mkString("\n")
+      val newMonkPowers: Set[KiPower] = KiPowers.getKiPowers(monkLevel)
+      monkPowers.value = newMonkPowers.map(power => power.name).mkString("\n")
     }
   }
 
   @JSExportTopLevel("setBackground")
   def setBackground(): Unit = {
-    val languageBonus = BasicFantasy.getLanguageBonus(getIntelligenceFromDom())
-    val background = BackgroundGenerator.getBackground(getRace(), languageBonus)
+    val languageBonus = BasicFantasy.getLanguageBonus(state.intelligence)
+    val newBackground = BackgroundGenerator.getBackground(state.race, languageBonus)
 
-    nationalitySpan.textContent = background.parentsNationality.toString
-    languageSpan.textContent = background.languages.mkString(",")
-    parentOccupationSpan.textContent = background.parentsOccupation
-    birthOrderSpan.textContent = background.birthOrder
-    childhoodEventsDiv.innerHTML = background.childHoodEvents.map(a => s"<tr><td>$a</td>")
+    nationalitySpan.textContent = newBackground.parentsNationality.toString
+    languageSpan.textContent = newBackground.languages.mkString(",")
+    parentOccupationSpan.textContent = newBackground.parentsOccupation
+    birthOrderSpan.textContent = newBackground.birthOrder
+    childhoodEventsDiv.innerHTML = newBackground.childHoodEvents.map(a => s"<tr><td>$a</td>")
       .mkString("<table class=\"unstriped\">", "", "</table>")
-    adolescentEventsDiv.innerHTML = background.adolescentEvents.map(a => s"<tr><td>$a</td>")
+    adolescentEventsDiv.innerHTML = newBackground.adolescentEvents.map(a => s"<tr><td>$a</td>")
       .mkString("<table class=\"unstriped\">", "", "</table>")
 
+    state = state.copy(background = newBackground)
   }
   @JSExportTopLevel("setPersonality")
   def setPersonality(): Unit = {
-    character_personality_input.value = getPersonality()
+    val newPersonality = getPersonality()
+    character_personality_input.value = newPersonality
+    state = state.copy(personality = newPersonality)
   }
 
   @JSExportTopLevel("setEquipment")
   def setEquipment(): Unit = {
-    val equipment = EquipmentGenerator.getEquipment(getCharacterClass(), getCharacterLevel(), getRace())
+    val newEquipment = EquipmentGenerator.getEquipment(state.characterClass, state.level, state.race)
 
-    armorInput.value = equipment.armor.toString
-    base_ac.textContent = equipment.armor.ac.toString
-    mainHandInput.value = equipment.meleeWeapon.toString
-    if(equipment.shield == NoShield)
-      offHandInput.value = equipment.offhand.toString
+    armorInput.value = newEquipment.armor.toString
+    base_ac.textContent = newEquipment.armor.ac.toString
+    mainHandInput.value = newEquipment.meleeWeapon.toString
+    if(newEquipment.shield == NoShield)
+      offHandInput.value = newEquipment.offhand.toString
     else
-      offHandInput.value = equipment.shield.toString
-    rangedWeaponInput.value = equipment.rangedWeapon.toString
-    magicItemsTextArea.value = equipment.magicalItems.mkString("Magic Items: ", ", ", "")
-    equipmentPackInput.value = equipment.equipmentPack.toString()
+      offHandInput.value = newEquipment.shield.toString
+    rangedWeaponInput.value = newEquipment.rangedWeapon.toString
+    magicItemsTextArea.value = newEquipment.magicalItems.mkString("Magic Items: ", ", ", "")
+    equipmentPackInput.value = newEquipment.equipmentPack.toString()
+
+    state = state.copy(equipment = newEquipment)
   }
 
 }
