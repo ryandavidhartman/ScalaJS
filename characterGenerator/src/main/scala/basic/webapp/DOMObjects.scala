@@ -116,7 +116,7 @@ object DOMObjects {
   val offHandInput: Input = document.getElementById("offHand").asInstanceOf[Input]
   val rangedWeaponInput: Input = document.getElementById("rangedWeapon").asInstanceOf[Input]
   val magicItemsTextArea: TextArea = document.getElementById("magicItems").asInstanceOf[TextArea]
-  val equipmentPackInput: Input = document.getElementById("equipmentPack").asInstanceOf[Input]
+  val equipmentPackTextArea: TextArea = document.getElementById("equipmentPack").asInstanceOf[TextArea]
 
   def getStrengthFromDom(): Int = str_select.value.toInt
   def getDexterityFromDom(): Int = dex_select.value.toInt
@@ -162,7 +162,7 @@ object DOMObjects {
     gender = character_gender_select.value,
     height = character_height_input.value,
     weight = 0, //character_weight_input.value.toInt,
-    age = 0, //character_age_input.value.toInt,
+    age = character_age_input.value.toInt,
     alignment = CharacterAlignments.stringToCharacterAlignment(character_alignment_select.value),
     personality = character_personality_input.toString,
     strength = getStrengthFromDom(),

@@ -37,13 +37,31 @@ object CharacterApp {
       state = state.copy(name = characterName)
     })
 
+    character_name_input.addEventListener("change", { (_: dom.MouseEvent) =>
+      state = state.copy(name = character_name_input.value)
+    })
+
     character_race_select.addEventListener("change", { (_: dom.MouseEvent) =>
       val newRace = Races.stringToRace(character_race_select.value)
       state = state.copy(race = newRace)
       updateAllModifiers()
-      setSpecialAbilities()
-      setHeightWeight()
-      setAge()
+    })
+
+    character_class_select.addEventListener("change", { (_: dom.MouseEvent) =>
+      checkClass() // this updates state
+      updateAllModifiers()
+    })
+
+    character_level_select.addEventListener("change", { (_: dom.MouseEvent) =>
+      try {
+        state = state.copy(level = character_level_select.value.toInt)
+      } catch {
+        case _ : Throwable =>
+          character_level_select.value = "1"
+          state = state.copy(level = 1)
+      } finally {
+        updateAllModifiers()
+      }
     })
 
     character_gender_select.addEventListener("change", { (_: dom.MouseEvent) =>
@@ -52,57 +70,68 @@ object CharacterApp {
       setHeightWeight()
     })
 
-    character_class_select.addEventListener("change", { (_: dom.MouseEvent) =>
-      checkClass()  // this updates state
-      updateAllModifiers()
-      setSavingsThrows()
-      setTurnUndead()
-      setThiefSkills()
+    character_height_input.addEventListener("change", { (_: dom.MouseEvent) =>
+      state = state.copy(height = character_height_input.value)
     })
 
-    character_level_select.addEventListener("change", { (_: dom.MouseEvent) =>
-      val newLevel = character_level_select.value.toInt
-      state = state.copy(level = newLevel)
-      updateAllModifiers()
-      setSavingsThrows()
-      setTurnUndead()
-      setThiefSkills()
-      setAge()
+    character_weight_input.addEventListener("change", { (_: dom.MouseEvent) =>
+      try {
+        state = state.copy(weight = character_weight_input.value.toInt)
+      } catch {
+        case _ : Throwable =>
+          character_weight_input.value = "0"
+          state = state.copy(weight = 0)
+      }
+    })
+
+    character_age_input.addEventListener("change", { (_: dom.MouseEvent) =>
+      try {
+        state = state.copy(age = character_age_input.value.toInt)
+      } catch {
+        case _  : Throwable =>
+          character_age_input.value = "0"
+          state = state.copy(level = 0)
+      }
     })
 
     character_alignment_select.addEventListener("change", { (_: dom.MouseEvent) =>
-      //val newAlignment = CharacterAlignment.     //character_alignment_select.value
-      //state = state.copy(alignment = )
+      val newAlignment = CharacterAlignments.stringToCharacterAlignment(character_alignment_select.value)
+      state = state.copy(alignment = newAlignment)
       setSpells()
     })
 
+    character_personality_input.addEventListener("change", { (_: dom.MouseEvent) =>
+      state = state.copy(personality = character_personality_input.value)
+    })
+
     str_select.addEventListener("change", { (_: dom.MouseEvent) =>
-      checkMaxStr()
+      checkMaxStr() // sets str in state
       setMeleeAttackBonusHandler()
       setHeightWeight()
     })
 
-    int_select.addEventListener("change", { (_: dom.MouseEvent) =>
-      checkMaxInt()
-    })
-
     dex_select.addEventListener("change", { (_: dom.MouseEvent) =>
-      checkMaxDex()
+      checkMaxDex() // sets dex in state
       setRangeAttackBonusHandler()
       setACBonusHandler()
     })
 
     con_select.addEventListener("change", { (_: dom.MouseEvent) =>
-      checkMaxCon()
+      checkMaxCon() // sets con in state
       setHitPointsHandler()
     })
 
+    int_select.addEventListener("change", { (_: dom.MouseEvent) =>
+      checkMaxInt() // sets int in state
+    })
+
     wis_select.addEventListener("change", { (_: dom.MouseEvent) =>
-      checkMaxWis()
+      checkMaxWis() // sets wis in state
+      setACBonusHandler()
     })
 
     chr_select.addEventListener("change", { (_: dom.MouseEvent) =>
-      checkMaxChr()
+      checkMaxChr() // sets chr in state
     })
 
   }
@@ -190,7 +219,6 @@ object CharacterApp {
 
   @JSExportTopLevel("setACBonusHandler")
   def setACBonusHandler(): Unit = {
-
     val newACBonus = calcACModifier(state.dexterity, state.wisdom, state.characterClass, state.level)
     ac_bonus.textContent = newACBonus
     state = state.copy(acBonus = newACBonus)
@@ -250,78 +278,64 @@ object CharacterApp {
 
   @JSExportTopLevel("checkMaxStr")
   def checkMaxStr(): Unit = {
-
-    if(state.race == Halfling && str_select.selectedIndex >= 15) {
+    if(state.race == Halfling && str_select.selectedIndex >= 15)
       str_select.selectedIndex = 14
-      state = state.copy(strength = 17)
-    }
 
-    if(state.characterClass == Monk && str_select.selectedIndex < 10) {
+    if(state.characterClass == Monk && str_select.selectedIndex < 10)
       str_select.selectedIndex = 10
-      state = state.copy(strength = 13)
-    }
+
+    state = state.copy(strength = str_select.value.toInt)
   }
 
   @JSExportTopLevel("checkMaxDex")
   def checkMaxDex(): Unit = {
-
-    if(state.race == Halfling && dex_select.selectedIndex < 6) {
+    if(state.race == Halfling && dex_select.selectedIndex < 6)
       dex_select.selectedIndex = 6
-      state = state.copy(dexterity = 9)
-    }
 
-    if(state.characterClass == Monk && dex_select.selectedIndex < 10) {
+    if(state.characterClass == Monk && dex_select.selectedIndex < 10)
       dex_select.selectedIndex = 10
-      state = state.copy(dexterity = 13)
-    }
-  }
 
-  @JSExportTopLevel("checkMaxWis")
-  def checkMaxWis(): Unit = {
-    if(state.characterClass == Monk && wis_select.selectedIndex < 10) {
-      wis_select.selectedIndex = 10
-      state = state.copy(wisdom = 13)
-    }
+    state = state.copy(dexterity = dex_select.value.toInt)
   }
 
   @JSExportTopLevel("checkMaxCon")
   def checkMaxCon(): Unit = {
-
-    if((state.race == Elf || state.race == HalfElf) && con_select.selectedIndex >= 15) {
+    if ((state.race == Elf || state.race == HalfElf) && con_select.selectedIndex >= 15)
       con_select.selectedIndex = 14
-      state = state.copy(constitution = 17)
-    }
 
-    if((state.race == Dwarf || state.race == HalfOrc) && con_select.selectedIndex < 6) {
+    if ((state.race == Dwarf || state.race == HalfOrc) && con_select.selectedIndex < 6)
       con_select.selectedIndex = 6
-      state = state.copy(constitution = 9)
-    }
 
-    if(state.characterClass == Monk && con_select.selectedIndex < 6) {
+    if (state.characterClass == Monk && con_select.selectedIndex < 6)
       con_select.selectedIndex = 6
-      state = state.copy(constitution = 9)
-    }
+
+    state = state.copy(constitution = con_select.value.toInt)
   }
 
   @JSExportTopLevel("checkMaxInt")
   def checkMaxInt(): Unit = {
-    if((state.race == Elf || state.race == HalfElf) && int_select.selectedIndex < 6) {
+    if ((state.race == Elf || state.race == HalfElf) && int_select.selectedIndex < 6)
       int_select.selectedIndex = 6
-      state = state.copy(intelligence = 9)
-    }
 
-    if(state.race == HalfOrc && int_select.selectedIndex >= 15) {
+    if (state.race == HalfOrc && int_select.selectedIndex >= 15)
       int_select.selectedIndex = 14
-      state = state.copy(intelligence = 17)
-    }
+
+    state = state.copy(intelligence = int_select.value.toInt)
   }
 
+  @JSExportTopLevel("checkMaxWis")
+  def checkMaxWis(): Unit = {
+    if(state.characterClass == Monk && wis_select.selectedIndex < 10)
+      wis_select.selectedIndex = 10
+
+    state = state.copy(wisdom = wis_select.value.toInt)
+  }
   @JSExportTopLevel("checkMaxChr")
   def checkMaxChr(): Unit = {
-    if(state.race == Dwarf && chr_select.selectedIndex >= 15) {
+    if(state.race == Dwarf && chr_select.selectedIndex >= 15)
       chr_select.selectedIndex = 14
-      state = state.copy(charisma = 17)
-    }
+
+    state = state.copy(charisma = chr_select.value.toInt)
   }
 
   @JSExportTopLevel("setSavingsThrows")
@@ -466,7 +480,7 @@ object CharacterApp {
       offHandInput.value = newEquipment.shield.toString
     rangedWeaponInput.value = newEquipment.rangedWeapon.toString
     magicItemsTextArea.value = newEquipment.magicalItems.mkString("Magic Items: ", ", ", "")
-    equipmentPackInput.value = newEquipment.equipmentPack.toString()
+    equipmentPackTextArea.value = newEquipment.equipmentPack.toString()
 
     state = state.copy(equipment = newEquipment)
   }
