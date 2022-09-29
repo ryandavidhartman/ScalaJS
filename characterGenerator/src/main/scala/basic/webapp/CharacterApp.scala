@@ -430,7 +430,6 @@ object CharacterApp {
   def setMonkSkillsAndPowers(): Unit = {
 
     if(state.characterClass.isMonk) {
-
       val monkLevel = state.level
       val newMonkSkills: Seq[String] = MonkSkills.skills(monkLevel)
 
@@ -441,6 +440,7 @@ object CharacterApp {
 
       val newMonkPowers: Set[KiPower] = KiPowers.getKiPowers(monkLevel)
       monkPowers.value = newMonkPowers.map(power => power.name).mkString("\n")
+      state = state.copy(monkPowers = newMonkPowers)
     }
   }
 
