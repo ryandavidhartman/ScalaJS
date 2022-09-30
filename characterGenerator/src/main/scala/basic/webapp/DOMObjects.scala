@@ -111,10 +111,10 @@ object DOMObjects {
 
 
   // Equipment
-  val armorInput: Input = document.getElementById("armor").asInstanceOf[Input]
-  val mainHandInput: Input = document.getElementById("mainHand").asInstanceOf[Input]
-  val offHandInput: Input = document.getElementById("offHand").asInstanceOf[Input]
-  val rangedWeaponInput: Input = document.getElementById("rangedWeapon").asInstanceOf[Input]
+  val armorTextArea: TextArea = document.getElementById("armor").asInstanceOf[TextArea]
+  val mainHandTextArea: TextArea = document.getElementById("mainHand").asInstanceOf[TextArea]
+  val offHandTextArea: TextArea = document.getElementById("offHand").asInstanceOf[TextArea]
+  val rangedWeaponTextArea: TextArea = document.getElementById("rangedWeapon").asInstanceOf[TextArea]
   val magicItemsTextArea: TextArea = document.getElementById("magicItems").asInstanceOf[TextArea]
   val equipmentPackTextArea: TextArea = document.getElementById("equipmentPack").asInstanceOf[TextArea]
 
@@ -161,7 +161,7 @@ object DOMObjects {
     level = character_level_select.value.toInt,
     gender = character_gender_select.value,
     height = character_height_input.value,
-    weight = 0, //character_weight_input.value.toInt,
+    weight = character_weight_input.value.toInt,
     age = character_age_input.value.toInt,
     alignment = CharacterAlignments.stringToCharacterAlignment(character_alignment_select.value),
     personality = character_personality_input.toString,
@@ -176,7 +176,7 @@ object DOMObjects {
     rangedBonus = ranged_attack_bonus.textContent,
     acBonus = ac_bonus.textContent,
     acBase = base_ac.textContent,
-    hitPoints = 0, //hit_points.textContent.toInt,
+    hitPoints = hit_points.textContent.toInt,
     savingsThrows = getSavingThrowsFromDom(),
     abilities = special_abilities.value,
     background = getBackground(),

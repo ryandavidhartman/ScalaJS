@@ -471,14 +471,14 @@ object CharacterApp {
   def setEquipment(): Unit = {
     val newEquipment = EquipmentGenerator.getEquipment(state.characterClass, state.level, state.race)
 
-    armorInput.value = newEquipment.armor.toString
+    armorTextArea.value = newEquipment.armor.toString
     base_ac.textContent = newEquipment.armor.ac.toString
-    mainHandInput.value = newEquipment.meleeWeapon.toString
+    mainHandTextArea.value = newEquipment.meleeWeapon.toString
     if(newEquipment.shield == NoShield)
-      offHandInput.value = newEquipment.offhand.toString
+      offHandTextArea.value = newEquipment.offhand.toString
     else
-      offHandInput.value = newEquipment.shield.toString
-    rangedWeaponInput.value = newEquipment.rangedWeapon.toString
+      offHandTextArea.value = newEquipment.shield.toString
+    rangedWeaponTextArea.value = newEquipment.rangedWeapon.toString
     magicItemsTextArea.value = newEquipment.magicalItems.mkString("Magic Items: ", ", ", "")
     equipmentPackTextArea.value = newEquipment.equipmentPack.toString()
 
