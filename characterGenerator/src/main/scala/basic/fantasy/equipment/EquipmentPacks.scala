@@ -8,33 +8,72 @@ object EquipmentPacks {
   trait EquipmentPack {
     def weight: Int
     def description: String
-    override def toString(): String = "Gear: " + description
+    override def toString(): String = description
   }
 
   case object BurglarsPack  extends EquipmentPack {
     val weight: Int = 46
-    val description: String = "backpack, a bag of 1,000 ball bearings, 10 feet of string, a bell, 5 candles, a crowbar," +
-      "a hammer, 10 pitons, a hooded lantern, 2 flasks of oil, 5 days rations, a tinderbox, 50 feet of hempen rope, " +
-      "and a waterskin."
+    val description: String =
+      """|backpack
+         |bag of 1,000 ball bearings
+         |10' of string
+         |bell
+         |5 candles
+         |crowbar
+         |hammer & 10 pitons
+         |hooded lantern
+         |2 flasks of oil
+         |5 days rations
+         |tinderbox
+         |50' of hempen rope
+         |waterskin
+         |""".stripMargin
   }
 
   case object DungeoneersPack  extends EquipmentPack {
     val weight: Int = 62
-    val description: String = "backpack, a crowbar, a hammer, 10 pitons, 10 torches, a tinderbox, 10 days of rations, " +
-      "50 feet of hempen rope, and a waterskin"
+    val description: String =
+      """|backpack
+         |crowbar
+         |hammer
+         |10 pitons
+         |20 torches
+         |tinderbox
+         |10 days of rations
+         |50' of hempen rope
+         |waterskin
+         |""".stripMargin
   }
 
 
   case object ExplorersPack  extends EquipmentPack {
     val weight: Int = 54
-    val description: String = "backpack, a bedroll, a mess kit, a tinderbox, 10 torches, 10 days of rations, 50' of hempen " +
-      "rope,and a waterskin"
+    val description: String =
+      """|backpack
+         |bedroll
+         |mess kit
+         |tinderbox
+         |10 torches
+         |10 days of rations
+         |50' of hempen rope
+         |waterskin
+         |""".stripMargin
   }
 
   case object PriestsPack  extends EquipmentPack {
     val weight: Int = 25
-    val description: String = "backpack, a blanket, 10 candles, a tinderbox, an alms box, 2 blocks of incense, a censer, " +
-      "vestments, 2 days of rations, and a waterskin."
+    val description: String =
+      """|backpack
+         |blanket
+         |10 candles
+         |tinderbox
+         |alms box
+         |2 blocks of insense
+         |censer
+         |vestments
+         |2 days of rations
+         |waterskin
+         |""".stripMargin
   }
 
   case object ScholarsPack  extends EquipmentPack {
