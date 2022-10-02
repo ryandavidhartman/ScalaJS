@@ -101,10 +101,10 @@ object DOMObjects {
 
 
   // Background
-  val nationalitySpan: Span = document.getElementById("nationality").asInstanceOf[html.Span]
-  val languageSpan: Span = document.getElementById("language").asInstanceOf[html.Span]
-  val parentOccupationSpan: Span = document.getElementById("parentOccupation").asInstanceOf[html.Span]
-  val birthOrderSpan: Span = document.getElementById("birthOrder").asInstanceOf[html.Span]
+  val nationalityTextArea: TextArea = document.getElementById("nationality").asInstanceOf[TextArea]
+  val languageTextArea: TextArea = document.getElementById("language").asInstanceOf[TextArea]
+  val parentOccupationTextArea: TextArea = document.getElementById("parentOccupation").asInstanceOf[TextArea]
+  val birthOrderTextArea: TextArea = document.getElementById("birthOrder").asInstanceOf[html.TextArea]
   val childhoodEventsDiv: Div = document.getElementById("childhoodEvents").asInstanceOf[html.Div]
   val adolescentEventsDiv: Div = document.getElementById("adolescentEvents").asInstanceOf[html.Div]
 
@@ -135,12 +135,12 @@ object DOMObjects {
 
 
   def getBackground(): Background = Background(
-    parentsNationality = BackgroundGenerator.nationalityFromString(nationalitySpan.textContent),
-    parentsOccupation = parentOccupationSpan.textContent,
-    birthOrder = birthOrderSpan.textContent,
+    parentsNationality = BackgroundGenerator.nationalityFromString(nationalityTextArea.textContent),
+    parentsOccupation = parentOccupationTextArea.textContent,
+    birthOrder = birthOrderTextArea.textContent,
     childHoodEvents = childhoodEventsDiv.textContent.split(",").toSet,
     adolescentEvents =  adolescentEventsDiv.textContent.split(",").toSet,
-    languages = languageSpan.textContent.split(",").toSet
+    languages = languageTextArea.textContent.split(",").toSet
   )
 
   def getEquipment(): Equipment = Equipment(

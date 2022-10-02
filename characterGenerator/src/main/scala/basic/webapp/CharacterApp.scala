@@ -449,10 +449,10 @@ object CharacterApp {
     val languageBonus = BasicFantasy.getLanguageBonus(state.intelligence)
     val newBackground = BackgroundGenerator.getBackground(state.race, languageBonus)
 
-    nationalitySpan.textContent = newBackground.parentsNationality.toString
-    languageSpan.textContent = newBackground.languages.mkString(",")
-    parentOccupationSpan.textContent = newBackground.parentsOccupation
-    birthOrderSpan.textContent = newBackground.birthOrder
+    nationalityTextArea.textContent = newBackground.parentsNationality.toString
+    languageTextArea.textContent = newBackground.languages.mkString(",")
+    parentOccupationTextArea.textContent = newBackground.parentsOccupation
+    birthOrderTextArea.textContent = newBackground.birthOrder
     childhoodEventsDiv.innerHTML = newBackground.childHoodEvents.map(a => s"<tr><td>$a</td>")
       .mkString("<table class=\"unstriped\">", "", "</table>")
     adolescentEventsDiv.innerHTML = newBackground.adolescentEvents.map(a => s"<tr><td>$a</td>")
