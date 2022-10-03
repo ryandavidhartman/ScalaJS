@@ -453,10 +453,8 @@ object CharacterApp {
     languageTextArea.textContent = newBackground.languages.mkString(",")
     parentOccupationTextArea.textContent = newBackground.parentsOccupation
     birthOrderTextArea.textContent = newBackground.birthOrder
-    childhoodEventsDiv.innerHTML = newBackground.childHoodEvents.map(a => s"<tr><td>$a</td>")
-      .mkString("<table class=\"unstriped\">", "", "</table>")
-    adolescentEventsDiv.innerHTML = newBackground.adolescentEvents.map(a => s"<tr><td>$a</td>")
-      .mkString("<table class=\"unstriped\">", "", "</table>")
+    childhoodEventsTextArea.textContent = newBackground.childHoodEvents.mkString("\n")
+    adolescentEventTextArea.textContent = newBackground.adolescentEvents.mkString("\n")
 
     state = state.copy(background = newBackground)
   }

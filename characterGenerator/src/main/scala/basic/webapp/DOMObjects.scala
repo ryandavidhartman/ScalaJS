@@ -105,8 +105,8 @@ object DOMObjects {
   val languageTextArea: TextArea = document.getElementById("language").asInstanceOf[TextArea]
   val parentOccupationTextArea: TextArea = document.getElementById("parentOccupation").asInstanceOf[TextArea]
   val birthOrderTextArea: TextArea = document.getElementById("birthOrder").asInstanceOf[html.TextArea]
-  val childhoodEventsDiv: Div = document.getElementById("childhoodEvents").asInstanceOf[html.Div]
-  val adolescentEventsDiv: Div = document.getElementById("adolescentEvents").asInstanceOf[html.Div]
+  val childhoodEventsTextArea: TextArea = document.getElementById("childhoodEvents").asInstanceOf[TextArea]
+  val adolescentEventTextArea: TextArea = document.getElementById("adolescentEvents").asInstanceOf[TextArea]
 
 
 
@@ -138,8 +138,8 @@ object DOMObjects {
     parentsNationality = BackgroundGenerator.nationalityFromString(nationalityTextArea.textContent),
     parentsOccupation = parentOccupationTextArea.textContent,
     birthOrder = birthOrderTextArea.textContent,
-    childHoodEvents = childhoodEventsDiv.textContent.split(",").toSet,
-    adolescentEvents =  adolescentEventsDiv.textContent.split(",").toSet,
+    childHoodEvents = childhoodEventsTextArea.textContent.split(",").toSet,
+    adolescentEvents =  adolescentEventTextArea.textContent.split(",").toSet,
     languages = languageTextArea.textContent.split(",").toSet
   )
 
