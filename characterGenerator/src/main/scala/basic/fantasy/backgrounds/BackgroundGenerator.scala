@@ -807,7 +807,7 @@ object BackgroundGenerator {
   }
 
   case object Ierendi extends Nationality {
-    override val nativeLanguage: String = "Ierendisn"
+    override val nativeLanguage: String = "Ierendian"
   }
 
   case object Alfheim extends Nationality {
