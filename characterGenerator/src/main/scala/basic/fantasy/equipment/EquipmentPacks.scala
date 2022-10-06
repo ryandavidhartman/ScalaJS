@@ -78,23 +78,56 @@ object EquipmentPacks {
 
   case object ScholarsPack  extends EquipmentPack {
     val weight: Int = 11
-    val description: String = "backpack, a book of lore, a bottle of ink, an ink pen, 10 sheets of parchment, a little bag of " +
-      "sand, and a small knife."
+    val description: String =
+      """|backpack
+         |book of lore
+         |bottle of ink
+         |ink pen
+         |10 sheets of parchment
+         |little bag of sand
+         |small knife
+         |""".stripMargin
   }
 
   case object ScholarBurglarsPack  extends EquipmentPack {
     val weight: Int = 50
-    val description: String = "backpack, a bag of 1,000 ball bearings, 10 feet of string, a bell, 5 candles, a crowbar, " +
-      "a book of lore, a bottle of ink, an ink pen, 10 sheets of parchment, " +
-      "a hammer, 10 pitons, a hooded lantern, 2 flasks of oil, 5 days rations, a tinderbox, 50 feet of hempen rope, " +
-      "and a waterskin."
+    val description: String =
+      """|backpack
+         |bag of 1,000 ball bearings
+         |10' of string,
+         |bell
+         |5 candles
+         |crowbar, "
+         |book of lore
+         |bottle of ink
+         |an ink pen
+         |10 sheets of parchment
+         |hammer & 10 pitons
+         |hooded lantern
+         |2 flasks of oil
+         |5 days rations
+         |tinderbox
+         |50' feet of hempen rope
+         |waterskin
+         |""".stripMargin
   }
 
   case object ScholarExplorersPack  extends EquipmentPack {
     val weight: Int = 54
-    val description: String = "backpack, a bedroll, a mess kit, a tinderbox, 10 torches, 10 days of rations, " +
-      "a book of lore, a bottle of ink, an ink pen, 10 sheets of parchment, " +
-      "50' of hempen rope, and a waterskin"
+    val description: String =
+      """|backpack
+         |bedroll
+         |mess kit
+         |tinderbox
+         |10 torches
+         |10 days of rations
+         |book of lore
+         |bottle of ink
+         |ink pen
+         |10 sheets of parchment
+         |50' of hempen rope
+         |waterskin
+      |""".stripMargin
   }
 
   def getEquipmentPack(characterClass: CharacterClass): EquipmentPack = characterClass match {

@@ -28,7 +28,7 @@ object MeleeWeapons {
     override def toString: String = {
       val magicString = if(magicBonus > 0) s" (+$magicBonus)" else ""
       val magicDamage = if(magicBonus > 0) s" +$magicBonus" else ""
-      s"Melee: $name$magicString, dmg: $damage$magicDamage, weight: $weight"
+      s"$name$magicString, dmg: $damage$magicDamage, weight: $weight"
     }
   }
 

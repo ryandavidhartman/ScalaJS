@@ -477,7 +477,7 @@ object CharacterApp {
     else
       offHandTextArea.value = newEquipment.shield.toString
     rangedWeaponTextArea.value = newEquipment.rangedWeapon.toString
-    magicItemsTextArea.value = newEquipment.magicalItems.mkString("Magic Items: ", ", ", "")
+    magicItemsTextArea.value = newEquipment.magicalItems.mkString("\n")
     equipmentPackTextArea.value = newEquipment.equipmentPack.toString()
 
     state = state.copy(equipment = newEquipment)

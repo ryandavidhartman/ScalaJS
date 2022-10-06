@@ -21,13 +21,13 @@ object Shields {
 
     override def toString: String = {
       val magicString = if(magicBonus > 0) s" (+$magicBonus)" else ""
-      s"Shield: $name$magicString, ac mod melee: +$acModMelee, ac mod missile: +$acModMissile, weight: $weight"
+      s"$name$magicString, ac mod melee: +$acModMelee, ac mod missile: +$acModMissile, weight: $weight"
     }
   }
 
   case object NoShield extends Shield(0, 0, 0, 0) {
     override val name = "None"
-    override def toString(): String = "Shield: None"
+    override def toString(): String = "None"
   }
 
   case class Buckler(magic: Int) extends Shield(5, 2, 1, 0, magic) {
@@ -35,11 +35,11 @@ object Shields {
   }
 
   case class MediumShield(magic: Int) extends Shield(7, 5, 1, 1, magic) {
-    override val name = "Medium"
+    override val name = "Medium Shield"
   }
 
   case class TowerShield(magic: Int) extends Shield(15, 12, 1, 3, magic) {
-    override val name = "Tower"
+    override val name = "Tower Shield"
   }
 
   def getShield(characterClass: CharacterClass, level: Int): Shield = {

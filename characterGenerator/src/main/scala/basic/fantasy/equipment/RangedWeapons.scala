@@ -70,7 +70,7 @@ object RangedWeapons {
       val magicString = if(magicBonus > 0) s" (+$magicBonus)" else ""
       val magicDamage = if(magicBonus > 0) s" +$magicBonus" else ""
       val ammoString = ammo.map(_.ammoString).getOrElse("")
-      s"Ranged: $name$magicString, dmg: $damage$magicDamage$ammoString, weight: $weight"
+      s"$name$magicString, dmg: $damage$magicDamage$ammoString, weight: $weight"
     }
   }
 
@@ -148,7 +148,7 @@ object RangedWeapons {
     override def toString: String = {
       val magicString = if(magicBonus > 0) s" (+$magicBonus)" else ""
       val magicDamage = if(magicBonus > 0) s" +$magicBonus" else ""
-      s"Ranged: $name$magicString, dmg: $damage$magicDamage, count: $count, weight: $weight"
+      s"$name$magicString, dmg: $damage$magicDamage, count: $count, weight: $weight"
     }
   }
 
@@ -165,7 +165,7 @@ object RangedWeapons {
     override def toString: String = {
       val magicString = if(magicBonus > 0) s" (+$magicBonus)" else ""
       val magicDamage = if(magicBonus > 0) s" +$magicBonus" else ""
-      s"Ranged: $name$magicString, dmg: $damage$magicDamage, count: $count, weight: $weight"
+      s"$name$magicString, dmg: $damage$magicDamage, count: $count, weight: $weight"
     }
   }
 

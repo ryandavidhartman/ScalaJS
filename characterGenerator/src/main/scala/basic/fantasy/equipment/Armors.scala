@@ -26,13 +26,13 @@ object Armors {
 
     override def toString: String = {
       val magicString = if(magicBonus > 0) s" (+$magicBonus)" else ""
-      s"Armor: $name$magicString, ac: $ac, weight: $weight"
+      s"$name$magicString, ac: $ac, weight: $weight"
     }
   }
 
   case object NoArmor extends Armor(0, 0, 11) {
     override val name = "None"
-    override def toString: String = "Armor: None"
+    override def toString: String = "None"
     override val armorType: ArmorType = NoneOrMagicLeather
   }
 
