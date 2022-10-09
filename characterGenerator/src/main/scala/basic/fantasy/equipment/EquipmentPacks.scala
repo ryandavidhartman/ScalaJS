@@ -5,7 +5,7 @@ import basic.fantasy.characterclass.CharacterClasses.{CharacterClass, Cleric, Fi
 
 object EquipmentPacks {
 
-  trait EquipmentPack {
+  sealed trait EquipmentPack {
     def weight: Int
     def description: String
     override def toString(): String = description

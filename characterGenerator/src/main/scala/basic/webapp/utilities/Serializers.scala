@@ -7,6 +7,9 @@ import basic.fantasy.characterclass.CharacterClasses._
 import basic.fantasy.characterclass.SavingsThrows
 import basic.fantasy.equipment.Armors._
 import basic.fantasy.equipment.Equipment
+import basic.fantasy.equipment.EquipmentPacks._
+import basic.fantasy.equipment.MeleeWeapons._
+import basic.fantasy.equipment.RangedWeapons._
 import basic.fantasy.equipment.Shields._
 import basic.webapp.CharacterState
 
@@ -36,7 +39,6 @@ object Serializers {
   implicit val alignmentRW = upickle.default.macroRW[CharacterAlignment]
 
   implicit val savingsThrowsRW = upickle.default.macroRW[SavingsThrows]
-
 
   implicit val alfheimRW = upickle.default.macroRW[Alfheim.type]
   implicit val alphatiaRW = upickle.default.macroRW[Alphatia.type]
@@ -79,6 +81,77 @@ object Serializers {
   implicit val noShieldRW = upickle.default.macroRW[NoShield.type]
   implicit val towerShieldRW = upickle.default.macroRW[TowerShield]
   implicit val shieldRW = upickle.default.macroRW[Shield]
+
+  implicit val battleAxeRW = upickle.default.macroRW[BattleAxe]
+  implicit val blackjackRW = upickle.default.macroRW[Blackjack]
+  implicit val chainRW = upickle.default.macroRW[Chain]
+  implicit val clubRW = upickle.default.macroRW[Club]
+  implicit val cudgelRW = upickle.default.macroRW[Cudgel]
+  implicit val cutlassRW = upickle.default.macroRW[Cutlass]
+  implicit val daggerRW = upickle.default.macroRW[Dagger]
+  implicit val defendingDaggerRW = upickle.default.macroRW[DefendingDagger]
+  implicit val flailRW = upickle.default.macroRW[Flail]
+  implicit val footmansPickRW = upickle.default.macroRW[FootmansPick]
+  implicit val greatAxeRW = upickle.default.macroRW[GreatAxe]
+  implicit val greatClubRW = upickle.default.macroRW[GreatClub]
+  implicit val greatFlailRW = upickle.default.macroRW[GreatFlail]
+  implicit val greatMaceRW = upickle.default.macroRW[GreatMace]
+  implicit val handAxeRW = upickle.default.macroRW[HandAxe]
+  implicit val hookRW = upickle.default.macroRW[Hook]
+  implicit val lightMaceRW = upickle.default.macroRW[LightMace]
+  implicit val longSwordRW = upickle.default.macroRW[LongSword]
+  implicit val maceRW = upickle.default.macroRW[Mace]
+  implicit val maulRW = upickle.default.macroRW[Maul]
+  implicit val militaryPickRW = upickle.default.macroRW[MilitaryPick]
+  implicit val morningstarRW = upickle.default.macroRW[Morningstar]
+  implicit val poleArmRW = upickle.default.macroRW[PoleArm]
+  implicit val quarterStaffRW = upickle.default.macroRW[QuarterStaff]
+  implicit val sapRW = upickle.default.macroRW[Sap]
+  implicit val scimitarRW = upickle.default.macroRW[Scimitar]
+  implicit val scytheRW = upickle.default.macroRW[Scythe]
+  implicit val shortSwordRW = upickle.default.macroRW[ShortSword]
+  implicit val sickleRW = upickle.default.macroRW[Sickle]
+  implicit val silverDaggerRW = upickle.default.macroRW[SilverDagger]
+  implicit val spearRW = upickle.default.macroRW[Spear]
+  implicit val tridentRW = upickle.default.macroRW[Trident]
+  implicit val twoHandedSwordRW = upickle.default.macroRW[TwoHandedSword]
+  implicit val unarmedRW = upickle.default.macroRW[Unarmed]
+  implicit val walkingStaffRW = upickle.default.macroRW[WalkingStaff]
+  implicit val warHammerRW = upickle.default.macroRW[WarHammer]
+  implicit val whipRW = upickle.default.macroRW[Whip]
+  implicit val meleeWeaponRW = upickle.default.macroRW[MeleeWeapon]
+
+  implicit val arrowRW = upickle.default.macroRW[Arrow]
+  implicit val bulletRW = upickle.default.macroRW[Bullet]
+  implicit val dartAmmoRW = upickle.default.macroRW[DartAmmo]
+  implicit val quarrelRW = upickle.default.macroRW[Quarrel]
+  implicit val silverArrowRW = upickle.default.macroRW[SilverArrow]
+  implicit val silverBulletRW = upickle.default.macroRW[SilverBullet]
+  implicit val silverQuarrelRW = upickle.default.macroRW[SilverQuarrel]
+  implicit val stoneRW = upickle.default.macroRW[Stone]
+  implicit val ammoRW = upickle.default.macroRW[Ammo]
+
+  implicit val blowgunRW = upickle.default.macroRW[Blowgun]
+  implicit val bolaRW = upickle.default.macroRW[Bola]
+  implicit val dartRW = upickle.default.macroRW[Dart]
+  implicit val handCrossbowRW = upickle.default.macroRW[HandCrossbow]
+  implicit val heavyCrossbowRW = upickle.default.macroRW[HeavyCrossbow]
+  implicit val javelinRW = upickle.default.macroRW[Javelin]
+  implicit val lightCrossbowRW = upickle.default.macroRW[LightCrossbow]
+  implicit val longBowRW = upickle.default.macroRW[LongBow]
+  implicit val shortBowRW = upickle.default.macroRW[ShortBow]
+  implicit val slingRW = upickle.default.macroRW[Sling]
+  implicit val throwingKnifeRW = upickle.default.macroRW[ThrowingKnife]
+  implicit val rangedWeaponRW = upickle.default.macroRW[RangedWeapon]
+
+  implicit val burglarsPackRW = upickle.default.macroRW[BurglarsPack.type]
+  implicit val dungeoneersPackRW = upickle.default.macroRW[DungeoneersPack.type]
+  implicit val explorersPackRW = upickle.default.macroRW[ExplorersPack.type]
+  implicit val priestsPackRW = upickle.default.macroRW[PriestsPack.type]
+  implicit val scholarBurglarsPackRW = upickle.default.macroRW[ScholarBurglarsPack.type]
+  implicit val scholarExplorersPackRW = upickle.default.macroRW[ScholarExplorersPack.type]
+  implicit val scholarsPackRW = upickle.default.macroRW[ScholarsPack.type]
+  implicit val equipmentPackRW = upickle.default.macroRW[EquipmentPack]
 
   implicit val equipmentRW = upickle.default.macroRW[Equipment]
 
