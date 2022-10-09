@@ -8,6 +8,7 @@ import basic.fantasy.characterclass.SavingsThrows
 import basic.fantasy.equipment.Armors._
 import basic.fantasy.equipment.Equipment
 import basic.fantasy.equipment.EquipmentPacks._
+import basic.fantasy.equipment.MagicalItems._
 import basic.fantasy.equipment.MeleeWeapons._
 import basic.fantasy.equipment.RangedWeapons._
 import basic.fantasy.equipment.Shields._
@@ -152,6 +153,57 @@ object Serializers {
   implicit val scholarExplorersPackRW = upickle.default.macroRW[ScholarExplorersPack.type]
   implicit val scholarsPackRW = upickle.default.macroRW[ScholarsPack.type]
   implicit val equipmentPackRW = upickle.default.macroRW[EquipmentPack]
+
+  implicit val amuletOfProofAgainstDetectionAndLocationRW = upickle.default.macroRW[AmuletOfProofAgainstDetectionAndLocation.type]
+  implicit val bagOfDevouringRW = upickle.default.macroRW[BagOfDevouring.type]
+  implicit val bagOfHoldingRW = upickle.default.macroRW[BagOfHolding.type]
+  implicit val bootsOfLevitationRW = upickle.default.macroRW[BootsOfLevitation.type]
+  implicit val bootsOfSpeedRW = upickle.default.macroRW[BootsOfSpeed.type]
+  implicit val bootsOfTravelingAndLeapingRW = upickle.default.macroRW[BootsOfTravelingAndLeaping.type]
+  implicit val bowlCommandingWaterElementalsRW = upickle.default.macroRW[BowlCommandingWaterElementals.type]
+  implicit val brazierCommandingFireElementalsRW = upickle.default.macroRW[BrazierCommandingFireElementals.type]
+  implicit val broomOfFlyingRW = upickle.default.macroRW[BroomOfFlying.type]
+  implicit val censerCommandingAirElementalsRW = upickle.default.macroRW[CenserCommandingAirElementals.type]
+  implicit val cloakOfDisplacementRW = upickle.default.macroRW[CloakOfDisplacement.type]
+  implicit val crystalBallRW = upickle.default.macroRW[CrystalBall.type]
+  implicit val crystalBallWithClairaudienceRW = upickle.default.macroRW[CrystalBallWithClairaudience.type]
+  implicit val drumsOfPanicRW = upickle.default.macroRW[DrumsOfPanic.type]
+  implicit val efreetiBottleRW = upickle.default.macroRW[EfreetiBottle.type]
+  implicit val elvenBootsRW = upickle.default.macroRW[ElvenBoots.type]
+  implicit val elvenCloakRW = upickle.default.macroRW[ElvenCloak.type]
+  implicit val flyingCarpetRW = upickle.default.macroRW[FlyingCarpet.type]
+  implicit val gauntletsOfOgrePowerRW = upickle.default.macroRW[GauntletsOfOgrePower.type]
+  implicit val girdleOfGiantStrengthRW = upickle.default.macroRW[GirdleOfGiantStrength.type]
+  implicit val helmOfReadingLanguagesAndMagicRW = upickle.default.macroRW[HelmOfReadingLanguagesAndMagic.type]
+  implicit val helmOfTelepathyRW = upickle.default.macroRW[HelmOfTelepathy.type]
+  implicit val helmOfTeleportationRW = upickle.default.macroRW[HelmOfTeleportation.type]
+  implicit val hornOfBlastingRW = upickle.default.macroRW[HornOfBlasting.type]
+  implicit val hornOfDoomRW = upickle.default.macroRW[HornOfDoom.type]
+  implicit val medallionOfESPRW = upickle.default.macroRW[MedallionOfESP.type]
+  implicit val mirrorOfLifeTrappingRW = upickle.default.macroRW[MirrorOfLifeTrapping.type]
+  implicit val ropeOfClimbingRW = upickle.default.macroRW[RopeOfClimbing.type]
+  implicit val scarabOfProtectionRW = upickle.default.macroRW[ScarabOfProtection.type]
+  implicit val stoneCommandingEarthElementalsRW = upickle.default.macroRW[StoneCommandingEarthElementals.type]
+  implicit val miscellaneousRW = upickle.default.macroRW[Miscellaneous]
+
+
+  implicit val clairaudienceRW = upickle.default.macroRW[Clairaudience.type]
+  implicit val clairvoyanceRW = upickle.default.macroRW[Clairvoyance.type]
+  implicit val coldResistanceRW = upickle.default.macroRW[ColdResistance.type]
+  implicit val controlAnimalRW = upickle.default.macroRW[ControlAnimal.type]
+  implicit val controlDragonRW = upickle.default.macroRW[ControlDragon.type]
+  implicit val controlGiantRW = upickle.default.macroRW[ControlGiant.type]
+  implicit val controlHumanRW = upickle.default.macroRW[ControlHuman.type]
+  implicit val controlPlantRW = upickle.default.macroRW[ControlPlant.type]
+  implicit val controlUndeadRW = upickle.default.macroRW[ControlUndead.type]
+  implicit val delusionPotionRW = upickle.default.macroRW[DelusionPotion.type]
+  implicit val diminutionRW = upickle.default.macroRW[Diminution.type]
+  implicit val espRW = upickle.default.macroRW[ESP.type]
+  implicit val potionRW = upickle.default.macroRW[Potion]
+
+
+
+  implicit val magicItemRW = upickle.default.macroRW[MagicItem]
 
   implicit val equipmentRW = upickle.default.macroRW[Equipment]
 
