@@ -199,9 +199,27 @@ object Serializers {
   implicit val delusionPotionRW = upickle.default.macroRW[DelusionPotion.type]
   implicit val diminutionRW = upickle.default.macroRW[Diminution.type]
   implicit val espRW = upickle.default.macroRW[ESP.type]
+  implicit val fireResistanceRW = upickle.default.macroRW[FireResistance.type]
+  implicit val flyingRW = upickle.default.macroRW[Flying.type]
+  implicit val gaseousFormRW = upickle.default.macroRW[GaseousForm.type]
+  implicit val giantStrengthRW = upickle.default.macroRW[GiantStrength.type]
+  implicit val growthRW = upickle.default.macroRW[Growth.type]
+  implicit val healing = upickle.default.macroRW[Healing.type]
+  implicit val heroismRW = upickle.default.macroRW[Heroism.type]
+  implicit val invisibilityPotionRW = upickle.default.macroRW[InvisibilityPotion.type]
+  implicit val invulnerabilityRW = upickle.default.macroRW[Invulnerability.type]
+  implicit val levitationRW = upickle.default.macroRW[Levitation.type]
+  implicit val longevityRW = upickle.default.macroRW[Longevity.type]
+  implicit val poisonRW = upickle.default.macroRW[Poison.type]
+  implicit val speedRW = upickle.default.macroRW[Speed.type]
+  implicit val treasureFindingRW = upickle.default.macroRW[TreasureFinding.type]
   implicit val potionRW = upickle.default.macroRW[Potion]
 
-
+  implicit val animalControlRW = upickle.default.macroRW[AnimalControl.type]
+  implicit val delusionRW = upickle.default.macroRW[Delusion.type]
+  implicit val djinniSummoningRW = upickle.default.macroRW[DjinniSummoning.type]
+  implicit val earRW = upickle.default.macroRW[Ear.type]
+  implicit val ringRW = upickle.default.macroRW[Ring]
 
   implicit val magicItemRW = upickle.default.macroRW[MagicItem]
 
