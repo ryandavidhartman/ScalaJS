@@ -6,7 +6,7 @@ import basic.fantasy.backgrounds.Races._
 import basic.fantasy.backgrounds._
 import basic.fantasy.characterclass.CharacterClasses._
 import basic.fantasy.characterclass.KiPowers.KiPower
-import basic.fantasy.characterclass.{CharacterClasses, KiPowers, MonkSkills, SavingsThrows, SpellsPerLevel, ThiefSkills, TurnUndead}
+import basic.fantasy.characterclass._
 import basic.fantasy.equipment.EquipmentGenerator
 import basic.fantasy.equipment.Shields.NoShield
 import basic.fantasy.rules.BasicFantasy
@@ -18,6 +18,8 @@ import org.scalajs.dom.{document, html}
 import scala.scalajs.js.annotation.JSExportTopLevel
 
 object CharacterApp {
+
+  import basic.webapp.utilities.Serializers._
   def main(args: Array[String]): Unit = {
     document.addEventListener("DOMContentLoaded", { (_: dom.Event) =>
       setupUI()
@@ -35,6 +37,18 @@ object CharacterApp {
       val characterName = NameGenerator.getName(state.race, state.gender)
       character_name_input.value = characterName
       state = state.copy(name = characterName)
+    })
+
+    saveCharacterButton.addEventListener("click", { (_: dom.MouseEvent) =>
+
+      if(state.name.isEmpty) {
+        dom.window.alert("Please name the character before saving")
+      } else {
+        //os.write(
+        //  os.pwd / "saved_characters" / s"${state.name.trim}.json",
+        dom.window.alert(upickle.default.write[String]("bob"))
+        //)
+      }
     })
 
     character_name_input.addEventListener("change", { (_: dom.MouseEvent) =>

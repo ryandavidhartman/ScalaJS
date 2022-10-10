@@ -36,6 +36,7 @@ object DOMObjects {
   val character_level_select: Select = document.getElementById("character_level_select").asInstanceOf[Select]
   val rollButton: Button = document.getElementById("roll_ability_scores").asInstanceOf[Button]
   val rollNameButton: Button = document.getElementById("roll_character_name").asInstanceOf[Button]
+  val saveCharacterButton: Button = document.getElementById("save_character").asInstanceOf[Button]
 
   val base_attack_bonus: Span = document.getElementById("base_attack_bonus").asInstanceOf[Span]
   val melee_attack_bonus: Span = document.getElementById("melee_attack_bonus").asInstanceOf[Span]
