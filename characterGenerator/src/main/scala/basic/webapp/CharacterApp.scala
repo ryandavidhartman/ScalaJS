@@ -46,7 +46,7 @@ object CharacterApp {
       } else {
         //os.write(
         //  os.pwd / "saved_characters" / s"${state.name.trim}.json",
-        dom.window.alert(upickle.default.write[String]("bob"))
+        dom.window.alert(upickle.default.write[CharacterState](state))
         //)
       }
     })
