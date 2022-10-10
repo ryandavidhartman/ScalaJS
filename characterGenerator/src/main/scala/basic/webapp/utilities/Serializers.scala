@@ -4,6 +4,7 @@ import basic.fantasy.backgrounds.BackgroundGenerator._
 import basic.fantasy.backgrounds.CharacterAlignments._
 import basic.fantasy.backgrounds.Races._
 import basic.fantasy.characterclass.CharacterClasses._
+import basic.fantasy.characterclass.KiPowers._
 import basic.fantasy.characterclass.SavingsThrows
 import basic.fantasy.equipment.Armors._
 import basic.fantasy.equipment.Equipment
@@ -231,9 +232,51 @@ object Serializers {
   implicit val quicknessRW = upickle.default.macroRW[Quickness.type]
   implicit val ringRW = upickle.default.macroRW[Ring]
 
+  implicit val rodOfCancellationRW = upickle.default.macroRW[RodOfCancellation.type]
+  implicit val snakeStaffRW = upickle.default.macroRW[SnakeStaff.type]
+  implicit val staffOfCommandingRW = upickle.default.macroRW[StaffOfCommanding.type]
+  implicit val staffOfHealingRW = upickle.default.macroRW[StaffOfHealing.type]
+  implicit val staffOfPowerRW = upickle.default.macroRW[StaffOfPower.type]
+  implicit val staffOfStrikingRW = upickle.default.macroRW[StaffOfStriking.type]
+  implicit val staffOfWizardryRW = upickle.default.macroRW[StaffOfWizardry.type]
+  implicit val wandOfColdRW = upickle.default.macroRW[WandOfCold.type]
+  implicit val wandOfEnemyDetectionRW = upickle.default.macroRW[WandOfEnemyDetection.type]
+  implicit val wandOfFearRW = upickle.default.macroRW[WandOfFear.type]
+  implicit val wandOfFireballsRW = upickle.default.macroRW[WandOfFireballs.type]
+  implicit val wandOfIllusionRW = upickle.default.macroRW[WandOfIllusion.type]
+  implicit val wandOfLightningBoltsRW = upickle.default.macroRW[WandOfLightningBolts.type]
+  implicit val wandOfMagicDetectionRW = upickle.default.macroRW[WandOfMagicDetection.type]
+  implicit val wandOfParalyzationRW = upickle.default.macroRW[WandOfParalyzation.type]
+  implicit val wandOfPolymorphRW = upickle.default.macroRW[WandOfPolymorph.type]
+  implicit val wandOfSecretDoorDetectionRW = upickle.default.macroRW[WandOfSecretDoorDetection.type]
+  implicit val wandOfTrapDetectionRW = upickle.default.macroRW[WandOfTrapDetection.type]
+  implicit val wandStaffOrRodRW = upickle.default.macroRW[WandStaffOrRod]
+
   implicit val magicItemRW = upickle.default.macroRW[MagicItem]
 
   implicit val equipmentRW = upickle.default.macroRW[Equipment]
+
+  implicit val abundantStepRw = upickle.default.macroRW[AbundantStep.type]
+  implicit val burstingFistRw = upickle.default.macroRW[BurstingFist.type]
+  implicit val deflectArrowsRw = upickle.default.macroRW[DeflectArrows.type]
+  implicit val diamondBodyRw = upickle.default.macroRW[DiamondBody.type]
+  implicit val diamondFistRw = upickle.default.macroRW[DiamondFist.type]
+  implicit val evasionRw = upickle.default.macroRW[Evasion.type]
+  implicit val featherBalanceRw = upickle.default.macroRW[FeatherBalance.type]
+  implicit val featherStepRw = upickle.default.macroRW[FeatherStep.type]
+  implicit val flawlessMindRw = upickle.default.macroRW[FlawlessMind.type]
+  implicit val improvedEvasionRw = upickle.default.macroRW[ImprovedEvasion.type]
+  implicit val kiStrikeRw = upickle.default.macroRW[KiStrike.type]
+  implicit val punishingStrikeRw = upickle.default.macroRW[PunishingStrike.type]
+  implicit val purityOfBodyRw = upickle.default.macroRW[PurityOfBody.type]
+  implicit val quiveringPalmRw = upickle.default.macroRW[QuiveringPalm.type]
+  implicit val silverFistRw = upickle.default.macroRW[SilverFist.type]
+  implicit val slowFallRw = upickle.default.macroRW[SlowFall.type]
+  implicit val stunningFistRw = upickle.default.macroRW[StunningFist.type]
+  implicit val timelessBodyRw = upickle.default.macroRW[TimelessBody.type]
+  implicit val tongueOfTheStarsRw = upickle.default.macroRW[TongueOfTheStars.type]
+  implicit val wholenessOfBodyRw = upickle.default.macroRW[WholenessOfBody.type]
+  implicit val kiPowerRW = upickle.default.macroRW[KiPower]
 
   implicit val stateRW =  upickle.default.macroRW[CharacterState]
 
