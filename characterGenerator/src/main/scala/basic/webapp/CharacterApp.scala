@@ -12,9 +12,13 @@ import basic.fantasy.equipment.Shields.NoShield
 import basic.fantasy.rules.BasicFantasy
 import basic.fantasy.rules.BasicFantasy._
 import basic.webapp.DOMObjects._
+import basic.webapp.utilities.Blobs
 import org.scalajs.dom
-import org.scalajs.dom.{document, html}
+import org.scalajs.dom.html.Anchor
+import org.scalajs.dom.{Blob, URL, document, html}
 
+import java.nio.file.{Files, Paths}
+import java.nio.charset.StandardCharsets
 import scala.scalajs.js.annotation.JSExportTopLevel
 
 object CharacterApp {
@@ -44,10 +48,20 @@ object CharacterApp {
       if(state.name.isEmpty) {
         dom.window.alert("Please name the character before saving")
       } else {
-        //os.write(
-        //  os.pwd / "saved_characters" / s"${state.name.trim}.json",
-        dom.window.alert(upickle.default.write[CharacterState](state))
-        //)
+        val fileName = s"${state.name.replace(" ", "")}.json"
+        val data: Blob = Blobs.fromBytes(
+          data = upickle.default.write[CharacterState](state).getBytes(StandardCharsets.UTF_8))
+        val fileURL = URL.createObjectURL(data)
+
+        val fileAnchor = document.createElement("a").asInstanceOf[Anchor]
+        fileAnchor.href = fileURL
+        fileAnchor.pathname = fileName
+        fileAnchor.mimeType = "application/json"
+
+        document.body.appendChild(fileAnchor)
+        fileAnchor.click()
+        document.body.removeChild(fileAnchor)
+        URL.revokeObjectURL(fileURL)
       }
     })
 
