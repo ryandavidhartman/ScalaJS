@@ -1,34 +1,14 @@
-lazy val root = project
-  .in(file("."))
-  .enablePlugins(ScalaJSPlugin)
-  .settings(
-    inThisBuild(List(
-      organization := "com.example",
-      version      := "0.1-SNAPSHOT",
-      scalaVersion := "2.12.6"
-    )),
-    name := "demo2",
-    libraryDependencies ++= Seq(
-      "org.scala-js"  %%% "scalajs-dom"    % "0.9.5",
-      "org.scalatest" %%% "scalatest"      % "3.0.5"    % "test"
-    ),
-    scalaJSUseMainModuleInitializer := true
-  )
+enablePlugins(ScalaJSPlugin)
 
+name := "Scala.js React"
 
-// Automatically generate index-dev.html which uses *-fastopt.js
-resourceGenerators in Compile += Def.task {
-  val source = (resourceDirectory in Compile).value / "index.html"
-  val target = (resourceManaged in Compile).value / "index-dev.html"
+scalaVersion := "2.13.1" // or any other Scala version >= 2.11.12
 
-  val fullFileName = (artifactPath in (Compile, fullOptJS)).value.getName
-  val fastFileName = (artifactPath in (Compile, fastOptJS)).value.getName
+// This is an application with a main method
+scalaJSUseMainModuleInitializer := true
 
-  IO.writeLines(target,
-    IO.readLines(source).map {
-      line => line.replace(fullFileName, fastFileName)
-    }
-  )
+libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.1.0"
+libraryDependencies += "com.lihaoyi" %%% "utest" % "0.7.4" % "test"
+testFrameworks += new TestFramework("utest.runner.Framework")
 
-  Seq(target)
-}.taskValue
+jsEnv := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv()
