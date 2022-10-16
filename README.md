@@ -1,15 +1,13 @@
-# ScalaJS
-My Scala JS Demos
+# Basic
+Just using Scala JS, and no other frameworks (like Play, Slinky, React etc.)
 
 demo1:
-The classic Scala JS demo from https://www.scala-js.org/doc/tutorial/basic/
-
-demo2:
-Starting to use Scala JS and React
-sbt new tues/scala-js.g8
-
-Follow instructions: https://github.com/japgolly/scalajs-react/blob/master/doc/USAGE.md
-
+The classic [Scala JS demo](https://www.scala-js.org/doc/tutorial/basic/)
 
 characterGenerator:
 Using Scala JS to make a random character generator for the Basic Fantasy Game
+
+# Play
+
+Tutorials for the [Play Framework](https://www.playframework.com/).  These
+demos don't use ScalaJS
