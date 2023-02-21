@@ -1,4 +1,4 @@
-name := """demo1"""
+name := """basic-play-example"""
 organization := "com.example"
 
 version := "1.0-SNAPSHOT"
