@@ -19,18 +19,10 @@ lazy val livechart = project.in(file("."))
       _.withModuleKind(ModuleKind.ESModule)
         .withModuleSplitStyle(
           ModuleSplitStyle.SmallModulesFor(List("livechart")))
-        .withSourceMap(true)
     },
 
     /* Depend on the scalajs-dom library.
      * It provides static types for the browser DOM APIs.
      */
-    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.6.0",
-
-
-     scalacOptions += {
-      val a = baseDirectory.value.toURI.toString
-      val g = "../../../"
-      s"-scalajs-mapSourceURI:$a->$g/"
-    }
+    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.4.0",
   )
