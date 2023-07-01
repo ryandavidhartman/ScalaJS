@@ -25,4 +25,6 @@ lazy val livechart = project.in(file("."))
      * It provides static types for the browser DOM APIs.
      */
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.4.0",
+    libraryDependencies += "com.raquo" %%% "laminar" % "15.0.1",
+    libraryDependencies += "org.scalameta" %%% "munit" % "0.7.29" % Test,
   )
