@@ -20,42 +20,40 @@ def LiveChart(): Unit =
 end LiveChart
 
 object Main:
+    val model = new Model
+    import  model.*
+
     def appElement(): Element =
         div(
-            a(href := "https://vitejs.dev", target := "_blank",
-                img(src := "/vite.svg", className := "logo", alt := "Vite logo"),
-            ),
-            a(href := "https://developer.mozilla.org/en-US/docs/Web/JavaScript", target := "_blank",
-                img(src := javascriptLogo, className := "logo vanilla", alt := "JavaScript logo"),
-            ),
-            h1("Hello Laminar!"),
-            div(className := "card",
-                button(tpe := "button"),
-            ),
-            p(className := "read-the-docs",
-                "Click on the Vite logo to learn more",
-            ),
+            h1("Live Chart"),
+            renderDataTable(),
         )
     end appElement
+
+    def renderDataTable(): Element =
+        table(
+            thead(tr(th("Label"), th("Price"), th("Count"), th("Full price"), th("Action"))),
+            tbody(
+                children <-- dataSignal.map(data => data.map { item =>
+                    renderDataItem(item.id, item)
+                }),
+            ),
+            tfoot(tr(
+                td(button("➕", onClick --> (_ => addDataItem(DataItem())))),
+                td(),
+                td(),
+                td(child.text <-- dataSignal.map(data => "%.2f".format(data.map(_.fullPrice).sum))),
+            )),
+        )
+    end renderDataTable
+
+    def renderDataItem(id: DataItemID, item: DataItem): Element =
+        tr(
+            td(item.label),
+            td(item.price),
+            td(item.count),
+            td("%.2f".format(item.fullPrice)),
+            td(button("🗑️", onClick --> (_ => removeDataItem(id)))),
+        )
+    end renderDataItem
 end Main
-
-def setupCounter(element: dom.Element): Unit =
-    var counter = 0
-
-    def setCounter(count: Int): Unit =
-        counter = count
-        element.innerHTML = s"count is $counter"
-
-    element.addEventListener("click", e => setCounter(counter + 1))
-    setCounter(0)
-end setupCounter
-
-def counterButton(): Element =
-    val counter = Var(0)
-    button(
-        tpe := "button",
-        "count is ",
-        child.text <-- counter,
-        onClick --> { event => counter.update(c => c + 1)},
-    )
-end counterButton
