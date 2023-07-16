@@ -27,6 +27,7 @@ object Main:
         div(
             h1("Live Chart"),
             renderDataTable(),
+            renderDataList(),
         )
     end appElement
 
@@ -34,9 +35,9 @@ object Main:
         table(
             thead(tr(th("Label"), th("Price"), th("Count"), th("Full price"), th("Action"))),
             tbody(
-                children <-- dataSignal.map(data => data.map { item =>
-                    renderDataItem(item.id, item)
-                }),
+                children <-- dataSignal.split(_.id) { (id, initial, itemSignal) =>
+                    renderDataItem(id, itemSignal)
+                },
             ),
             tfoot(tr(
                 td(button("➕", onClick --> (_ => addDataItem(DataItem())))),
@@ -47,13 +48,72 @@ object Main:
         )
     end renderDataTable
 
-    def renderDataItem(id: DataItemID, item: DataItem): Element =
+    def renderDataItem(id: DataItemID, itemSignal: Signal[DataItem]): Element =
         tr(
-            td(item.label),
-            td(item.price),
-            td(item.count),
-            td("%.2f".format(item.fullPrice)),
+            td(
+                inputForString(
+                    itemSignal.map(_.label),
+                    makeDataItemUpdater(id, { (item, newLabel) =>
+                        item.copy(label = newLabel)
+                    }),
+                )
+            ),
+            td(
+                inputForDouble(
+                    itemSignal.map(_.price),
+                    makeDataItemUpdater(id, { (item, newPrice) =>
+                        item.copy(price = newPrice)
+                    }),
+                )
+            ),
+            td(child.text <-- itemSignal.map(_.count)),
+            td(
+              child.text <-- itemSignal.map(item => "%.2f".format(item.fullPrice))
+            ),
             td(button("🗑️", onClick --> (_ => removeDataItem(id)))),
         )
     end renderDataItem
+
+    def renderDataList(): Element =
+        ul(
+            children <-- dataSignal.split(_.id) { (id, initial, itemSignal) =>
+              li(child.text <-- itemSignal.map(item => s"${item.count} ${item.label}"))
+            }
+        )
+    end renderDataList
+
+    def inputForString(valueSignal: Signal[String], valueUpdater: Observer[String]): Input =
+        input(
+            typ :="text",
+            value <-- valueSignal,
+            onInput.mapToValue --> valueUpdater,
+        )
+    end inputForString
+
+    def inputForDouble(valueSignal: Signal[Double], valueUpdater: Observer[Double]): Input =
+        val strValue = Var[String]("")
+        input(
+            typ := "text",
+            value <-- strValue.signal,
+            onInput.mapToValue --> strValue,
+            valueSignal --> strValue.updater[Double] { (prevStr, newValue) =>
+              if prevStr.toDoubleOption.contains(newValue) then prevStr
+              else newValue.toString
+            },
+            strValue.signal --> { valueStr =>
+              valueStr.toDoubleOption.foreach(valueUpdater.onNext)
+            },
+        )
+    end inputForDouble
+
+    def makeDataItemUpdater[A](id: DataItemID,
+                               f: (DataItem, A) => DataItem): Observer[A] =
+        dataVar.updater { (data, newValue) =>
+          data.map { item =>
+            if item.id == id  then f(item, newValue) else item
+          }
+        }
+    end makeDataItemUpdater
+
+
 end Main
