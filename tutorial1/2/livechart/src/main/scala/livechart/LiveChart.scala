@@ -66,7 +66,14 @@ object Main:
                     }),
                 )
             ),
-            td(child.text <-- itemSignal.map(_.count)),
+            td(
+                inputForInt(
+                    itemSignal.map(_.count),
+                    makeDataItemUpdater(id, { (item, newCount) =>
+                      item.copy(count = newCount)
+                    })
+                )
+            ),
             td(
               child.text <-- itemSignal.map(item => "%.2f".format(item.fullPrice))
             ),
@@ -105,6 +112,18 @@ object Main:
             },
         )
     end inputForDouble
+
+    def inputForInt(valueSignal: Signal[Int], valueUpdator: Observer[Int]): Input =
+        input(
+            typ := "text",
+            controlled(
+                value <--valueSignal.map(_.toString),
+                onInput.mapToValue.map(_.toIntOption).collect {
+                    case Some(newCount) => newCount
+                } --> valueUpdator,
+            ),
+        )
+    end inputForInt
 
     def makeDataItemUpdater[A](id: DataItemID,
                                f: (DataItem, A) => DataItem): Observer[A] =
